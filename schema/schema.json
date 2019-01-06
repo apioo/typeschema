@@ -94,9 +94,6 @@
           "type": {
             "type": "string",
             "enum": ["object"]
-          },
-          "required": {
-            "$ref": "#/definitions/stringArray"
           }
         },
         "required": ["title", "type"]
@@ -125,6 +122,9 @@
             "additionalProperties": {
               "$ref": "#"
             }
+          },
+          "required": {
+            "$ref": "#/definitions/stringArray"
           }
         },
         "required": ["properties"]
@@ -263,7 +263,7 @@
     },
     "allOfType": {
       "title": "AllOfType",
-      "description": "Combination keyword to validate all containing schemas",
+      "description": "Combination keyword to extend containing schemas",
       "allOf": [{
         "$ref": "#/definitions/commonType"
       }, {
@@ -279,7 +279,7 @@
     },
     "oneOfType": {
       "title": "OneOfType",
-      "description": "Combination keyword to validate exactly one containing schemas",
+      "description": "Combination keyword to match exactly one containing schemas",
       "allOf": [{
         "$ref": "#/definitions/commonType"
       }, {
