@@ -89,17 +89,17 @@ rules:
 The following keywords are allowed:
 
 * [Definition](#definition)
-  * [Common](#)
-  * [Object](#)
-    * [Struct](#)
-    * [Map](#)
-  * [Array](#)
-  * [Scalar](#)
-    * [Boolean](#)
-    * [Number](#)
-    * [String](#)
-* [Combination](#)
-* [Reference](#)
+  * [Common](#common)
+  * [Object](#object)
+    * [Struct](#struct)
+    * [Map](#map)
+  * [Array](#array)
+  * [Scalar](#scalar)
+    * [Boolean](#boolean)
+    * [Number](#number)
+    * [String](#string)
+* [Combination](#combination)
+* [Reference](#reference)
 
 ### Definition
 
