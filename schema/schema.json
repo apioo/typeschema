@@ -1,6 +1,6 @@
 {
   "title": "TypeSchema",
-  "description": "TypeSchema meta schema to validate a TypeSchema",
+  "description": "TypeSchema meta schema which describes a TypeSchema",
   "type": "object",
   "definitions": {
     "commonProperties": {
@@ -8,11 +8,11 @@
       "type": "object",
       "properties": {
         "title": {
-          "description": "Distinct word which represents this property",
+          "description": "Distinct word which represents this schema",
           "type": "string"
         },
         "description": {
-          "description": "General description of this property",
+          "description": "General description of this schema, should not contain any new lines.",
           "type": "string"
         },
         "type": {
@@ -28,17 +28,17 @@
           ]
         },
         "nullable": {
-          "description": "Whether it is possible to use a null value on this property",
+          "description": "Indicates whether it is possible to use a null value",
           "type": "boolean",
           "default": false
         },
         "deprecated": {
-          "description": "Whether this property is deprecated",
+          "description": "Indicates whether this schema is deprecated",
           "type": "boolean",
           "default": false
         },
         "readonly": {
-          "description": "Whether this property is readonly",
+          "description": "Indicates whether this schema is readonly",
           "type": "boolean",
           "default": false
         }
@@ -49,23 +49,11 @@
       "type": "object",
       "properties": {
         "format": {
-          "type": "string",
-          "description": "Describes the specific format of this type i.e. date-time or int64"
+          "description": "Describes the specific format of this type i.e. date-time or int64",
+          "type": "string"
         },
         "enum": {
-          "type": "array",
-          "description": "A list of possible enumeration values",
-          "items": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "minItems": 1
+          "$ref": "#/definitions/enumValue"
         },
         "default": {
           "$ref": "#/definitions/scalarValue"
@@ -115,6 +103,7 @@
       }
     },
     "containerSpecificProperties": {
+      "description": "Properties specific for a container",
       "type": "object",
       "properties": {
         "type": {
@@ -139,7 +128,8 @@
         }
       ]
     },
-    "objectStructSpecificProperties": {
+    "structSpecificProperties": {
+      "description": "Struct specific properties",
       "type": "object",
       "properties": {
         "properties": {
@@ -153,18 +143,19 @@
         "properties"
       ]
     },
-    "objectStructProperties": {
+    "structProperties": {
       "description": "A struct contains a fix set of defined properties",
       "allOf": [
         {
           "$ref": "#/definitions/containerProperties"
         },
         {
-          "$ref": "#/definitions/objectStructSpecificProperties"
+          "$ref": "#/definitions/structSpecificProperties"
         }
       ]
     },
-    "objectMapSpecificProperties": {
+    "mapSpecificProperties": {
+      "description": "Map specific properties",
       "type": "object",
       "properties": {
         "additionalProperties": {
@@ -181,14 +172,14 @@
         "additionalProperties"
       ]
     },
-    "objectMapProperties": {
-      "description": "A map contains variable key value entries",
+    "mapProperties": {
+      "description": "A map contains variable key value entries of a specific type",
       "allOf": [
         {
           "$ref": "#/definitions/containerProperties"
         },
         {
-          "$ref": "#/definitions/objectMapSpecificProperties"
+          "$ref": "#/definitions/mapSpecificProperties"
         }
       ]
     },
@@ -196,10 +187,10 @@
       "description": "An object represents either a struct or map",
       "oneOf": [
         {
-          "$ref": "#/definitions/objectStructProperties"
+          "$ref": "#/definitions/structProperties"
         },
         {
-          "$ref": "#/definitions/objectMapProperties"
+          "$ref": "#/definitions/mapProperties"
         }
       ]
     },
@@ -225,6 +216,7 @@
       ]
     },
     "arrayProperties": {
+      "description": "Array properties",
       "type": "object",
       "properties": {
         "type": {
@@ -263,7 +255,8 @@
       ]
     },
 
-    "booleanTypeProperties": {
+    "booleanProperties": {
+      "description": "Boolean properties",
       "type": "object",
       "properties": {
         "type": {
@@ -284,12 +277,13 @@
           "$ref": "#/definitions/scalarProperties"
         },
         {
-          "$ref": "#/definitions/booleanTypeProperties"
+          "$ref": "#/definitions/booleanProperties"
         }
       ]
     },
 
-    "numberTypeProperties": {
+    "numberProperties": {
+      "description": "Number properties",
       "type": "object",
       "properties": {
         "type": {
@@ -324,18 +318,19 @@
       ]
     },
     "numberType": {
-      "description": "Represents a number value which contains also integer",
+      "description": "Represents a number value (contains also integer)",
       "allOf": [
         {
           "$ref": "#/definitions/scalarProperties"
         },
         {
-          "$ref": "#/definitions/numberTypeProperties"
+          "$ref": "#/definitions/numberProperties"
         }
       ]
     },
 
     "stringProperties": {
+      "description": "String properties",
       "type": "object",
       "properties": {
         "type": {
@@ -372,7 +367,7 @@
     },
 
     "ofValue": {
-      "description": "Allowed values of an object property",
+      "description": "Allowed values in a combination schema",
       "oneOf": [
         {
           "$ref": "#/definitions/numberType"
@@ -389,8 +384,8 @@
       ]
     },
     "discriminatorMapping": {
-      "type": "object",
       "description": "An object to hold mappings between payload values and schema names or references",
+      "type": "object",
       "additionalProperties": {
         "type": "string"
       }
@@ -400,8 +395,8 @@
       "type": "object",
       "properties": {
         "propertyName": {
-          "type": "string",
-          "description": "The name of the property in the payload that will hold the discriminator value"
+          "description": "The name of the property in the payload that will hold the discriminator value",
+          "type": "string"
         },
         "mapping": {
           "$ref": "#/definitions/discriminatorMapping"
@@ -412,8 +407,8 @@
       ]
     },
     "allOfProperties": {
-      "description": "Combination keyword to represent an intersection type",
       "type": "object",
+      "description": "Combination keyword to represent an intersection type",
       "properties": {
         "description": {
           "type": "string"
@@ -453,7 +448,7 @@
       ]
     },
     "combinationType": {
-      "description": "Represents of a combination type",
+      "description": "A combination type is either a intersection or union type",
       "oneOf": [
         {
           "$ref": "#/definitions/allOfProperties"
@@ -469,6 +464,7 @@
       "type": "object",
       "properties": {
         "$ref": {
+          "description": "To disallow nesting we can reference only at the definitions layer",
           "type": "string",
           "pattern": "^#/definitions/([A-Za-z0-9]+)$"
         }
@@ -509,6 +505,14 @@
       }
     },
 
+    "enumValue": {
+      "description": "A list of possible enumeration values",
+      "oneOf": [{
+        "$ref": "#/definitions/stringArray"
+      }, {
+        "$ref": "#/definitions/numberArray"
+      }]
+    },
     "scalarValue": {
       "description": "Represents a scalar value",
       "oneOf": [
@@ -533,6 +537,14 @@
       "type": "array",
       "items": {
         "type": "string"
+      },
+      "minItems": 1
+    },
+    "numberArray": {
+      "description": "Array number values",
+      "type": "array",
+      "items": {
+        "type": "number"
       },
       "minItems": 1
     }
