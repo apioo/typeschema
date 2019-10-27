@@ -28,4 +28,4 @@ which you write is automatically also a valid JsonSchema bot not vice versa.
 Our specification is directly generated from our TypeSchema meta schema which
 describes the structure:
 
-[TypeSchema Specification (draft)](schema/schema.htm)
+[TypeSchema Specification (draft)](https://chriskapp.github.io/typeschema/schema/schema.htm)
