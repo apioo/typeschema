@@ -25,7 +25,9 @@ which you write is automatically also a valid JsonSchema bot not vice versa.
 
 ## Specification
 
-Our specification is directly generated from our TypeSchema meta schema which
-describes the structure:
+The specification is directly generated from our TypeSchema meta schema:
 
-[TypeSchema Specification (draft)](https://chriskapp.github.io/typeschema/schema/schema.htm)
+* [HTML](https://chriskapp.github.io/typeschema/schema/schema.htm)
+* [TypeScript](https://chriskapp.github.io/typeschema/schema/schema.ts)
+* [TypeSchema](https://chriskapp.github.io/typeschema/schema/schema.json)
+
