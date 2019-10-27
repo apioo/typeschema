@@ -45,7 +45,7 @@
       }
     },
 
-    "scalarSpecificProperties": {
+    "scalarProperties": {
       "type": "object",
       "properties": {
         "format": {
@@ -59,17 +59,6 @@
           "$ref": "#/definitions/scalarValue"
         }
       }
-    },
-    "scalarProperties": {
-      "description": "Properties for scalar types",
-      "allOf": [
-        {
-          "$ref": "#/definitions/commonProperties"
-        },
-        {
-          "$ref": "#/definitions/scalarSpecificProperties"
-        }
-      ]
     },
 
     "propertyValue": {
@@ -102,7 +91,7 @@
         "$ref": "#/definitions/propertyValue"
       }
     },
-    "containerSpecificProperties": {
+    "containerProperties": {
       "description": "Properties specific for a container",
       "type": "object",
       "properties": {
@@ -117,18 +106,7 @@
         "type"
       ]
     },
-    "containerProperties": {
-      "description": "Properties for container types",
-      "allOf": [
-        {
-          "$ref": "#/definitions/commonProperties"
-        },
-        {
-          "$ref": "#/definitions/containerSpecificProperties"
-        }
-      ]
-    },
-    "structSpecificProperties": {
+    "structProperties": {
       "description": "Struct specific properties",
       "type": "object",
       "properties": {
@@ -143,18 +121,21 @@
         "properties"
       ]
     },
-    "structProperties": {
+    "structType": {
       "description": "A struct contains a fix set of defined properties",
       "allOf": [
+        {
+          "$ref": "#/definitions/commonProperties"
+        },
         {
           "$ref": "#/definitions/containerProperties"
         },
         {
-          "$ref": "#/definitions/structSpecificProperties"
+          "$ref": "#/definitions/structProperties"
         }
       ]
     },
-    "mapSpecificProperties": {
+    "mapProperties": {
       "description": "Map specific properties",
       "type": "object",
       "properties": {
@@ -172,25 +153,28 @@
         "additionalProperties"
       ]
     },
-    "mapProperties": {
+    "mapType": {
       "description": "A map contains variable key value entries of a specific type",
       "allOf": [
+        {
+          "$ref": "#/definitions/commonProperties"
+        },
         {
           "$ref": "#/definitions/containerProperties"
         },
         {
-          "$ref": "#/definitions/mapSpecificProperties"
+          "$ref": "#/definitions/mapProperties"
         }
       ]
     },
     "objectType": {
-      "description": "An object represents either a struct or map",
+      "description": "An object represents either a struct or map type",
       "oneOf": [
         {
-          "$ref": "#/definitions/structProperties"
+          "$ref": "#/definitions/structType"
         },
         {
-          "$ref": "#/definitions/mapProperties"
+          "$ref": "#/definitions/mapType"
         }
       ]
     },
@@ -274,6 +258,9 @@
       "description": "Represents a boolean value",
       "allOf": [
         {
+          "$ref": "#/definitions/commonProperties"
+        },
+        {
           "$ref": "#/definitions/scalarProperties"
         },
         {
@@ -321,6 +308,9 @@
       "description": "Represents a number value (contains also integer)",
       "allOf": [
         {
+          "$ref": "#/definitions/commonProperties"
+        },
+        {
           "$ref": "#/definitions/scalarProperties"
         },
         {
@@ -357,6 +347,9 @@
     "stringType": {
       "description": "Represents a string value",
       "allOf": [
+        {
+          "$ref": "#/definitions/commonProperties"
+        },
         {
           "$ref": "#/definitions/scalarProperties"
         },
