@@ -44,7 +44,7 @@ keyword contains a list of schemas which can be reused.
 
 In TypeSchema every schema can be assigned to exactly one specific type based on
 the used keywords. Through this logic a processor can understand the schema
-independent of the actual data. The following list
+independent of the actual data. The following list shows all available types:
 
 #### Object-Type
 * [Struct](https://chriskapp.github.io/typeschema/schema/schema.htm#StructProperties)
