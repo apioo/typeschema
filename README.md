@@ -31,3 +31,38 @@ The specification is directly generated from our TypeSchema meta schema:
 * [TypeScript](https://chriskapp.github.io/typeschema/schema/schema.ts)
 * [TypeSchema](https://chriskapp.github.io/typeschema/schema/schema.json)
 
+You can use any valid JSON Schema validator with our TypeSchema meta schema to
+validate whether your schema is valid.
+
+### Overview
+
+In a TypeSchema you must define a [Root](https://chriskapp.github.io/typeschema/schema/schema.htm#TypeSchema)
+schema which must be of type `object`. This object must contain specific
+[Properties](https://chriskapp.github.io/typeschema/schema/schema.htm#Properties).
+The [Definitions](https://chriskapp.github.io/typeschema/schema/schema.htm#Definitions)
+keyword contains a list of schemas which can be reused.
+
+In TypeSchema every schema can be assigned to exactly one specific type based on
+the used keywords. Through this logic a processor can understand the schema
+independent of the actual data. The following list
+
+#### Object-Type
+* [Struct](https://chriskapp.github.io/typeschema/schema/schema.htm#StructProperties)
+* [Map](https://chriskapp.github.io/typeschema/schema/schema.htm#MapProperties)
+
+#### Array-Type
+* [Array](https://chriskapp.github.io/typeschema/schema/schema.htm#ArrayProperties)
+
+#### Scalar-Type
+* [Boolean](https://chriskapp.github.io/typeschema/schema/schema.htm#BooleanProperties)
+* [Number](https://chriskapp.github.io/typeschema/schema/schema.htm#NumberProperties)
+* [String](https://chriskapp.github.io/typeschema/schema/schema.htm#StringProperties)
+
+#### Intersection-Type
+* [AllOf](https://chriskapp.github.io/typeschema/schema/schema.htm#AllOfProperties)
+
+#### Union-Type
+* [OneOf](https://chriskapp.github.io/typeschema/schema/schema.htm#OneOfProperties)
+
+#### Reference-Type
+* [Reference](https://chriskapp.github.io/typeschema/schema/schema.htm#ReferenceType)
