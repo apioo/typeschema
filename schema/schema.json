@@ -81,6 +81,9 @@
         },
         {
           "$ref": "#/definitions/referenceType"
+        },
+        {
+          "$ref": "#/definitions/genericType"
         }
       ]
     },
@@ -192,10 +195,10 @@
           "$ref": "#/definitions/stringType"
         },
         {
-          "$ref": "#/definitions/combinationType"
+          "$ref": "#/definitions/referenceType"
         },
         {
-          "$ref": "#/definitions/referenceType"
+          "$ref": "#/definitions/genericType"
         }
       ]
     },
@@ -452,18 +455,40 @@
       ]
     },
 
+    "templateProperties": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/referenceType"
+      }
+    },
     "referenceType": {
       "description": "Represents a reference to another schema",
       "type": "object",
       "properties": {
         "$ref": {
-          "description": "To disallow nesting we can reference only at the definitions layer",
+          "description": "Reference to the schema under the definitions key",
           "type": "string",
           "pattern": "^#/definitions/([A-Za-z0-9]+)$"
+        },
+        "$template": {
+          "description": "Optional concrete schema definitions which replace generic template types",
+          "$ref": "#/definitions/templateProperties"
         }
       },
       "required": [
         "$ref"
+      ]
+    },
+    "genericType": {
+      "description": "Represents a generic type",
+      "type": "object",
+      "properties": {
+        "$generic": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "$generic"
       ]
     },
 
