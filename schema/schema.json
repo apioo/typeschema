@@ -231,7 +231,7 @@
       ]
     },
     "arrayType": {
-      "description": "An array contains an ordered list of variable values",
+      "description": "An array contains an ordered list of a specific type",
       "allOf": [
         {
           "$ref": "#/definitions/commonProperties"
@@ -404,7 +404,7 @@
     },
     "allOfProperties": {
       "type": "object",
-      "description": "Combination keyword to represent an intersection type",
+      "description": "An intersection type combines multiple schemas into one",
       "properties": {
         "description": {
           "type": "string"
@@ -422,7 +422,7 @@
       ]
     },
     "oneOfProperties": {
-      "description": "Combination keyword to represent an union type",
+      "description": "An union type can contain one of the provided schemas",
       "type": "object",
       "properties": {
         "description": {
