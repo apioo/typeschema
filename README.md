@@ -5,20 +5,27 @@
 TypeSchema is a JSON format to describe JSON structures. It helps to build
 schemas which can be used for code generation and other use cases where a
 processor needs to understand the schema without the actual data. It is based
-on JSON Schema and every TypeSchema is automatically a valid JSON Schema.
+on JSON Schema and every TypeSchema is automatically a valid JSON Schema but
+not vice versa.
 
 ## Why
 
-Many people are already familiar with JSON Schema. The intent of JSON Schema is
-to validate JSON documents. This works great but it is problematic for code
-generation since you always need to use the schema alongside the actual data. We
-have explained some pitfalls in our [migration document](migration.md).
+You might question: Why not use JSON Schema?
+
+In JSON Schema you dont need to provide any keywords i.e. `{}` is a valid JSON
+Schema which basically allows every value. The defined keywords are applied
+based on the actual data. It is also highly recursive and has many keywords
+which contain validation logic like `dependencies`, `not`, `if/then/else` which
+are basically not needed for code generators and really complicate building
+them. We have also explained some pitfalls in our [migration document](migration.md).
 
 Because of the need for a better schema which can be used for code generation
 we have developed TypeSchema. Basically TypeSchema is a more stricter subset of
 JSON Schema which allows you to write clean schemas which can be easily turned
-into code. So every TypeSchema which you write is automatically also a valid
-JSON Schema bot not vice versa.
+into code. Every TypeSchema which you write is automatically also a valid
+JSON Schema bot not vice versa. Since this specification removes and restricts
+only keywords TypeSchema is compatible down to the JSON Schema `draft-04`.
+You can think of TypeSchema is to JSON Schema what TypeScript is to Javascript.
 
 ## Specification
 
@@ -37,20 +44,19 @@ based on our specification.
 
 ### Overview
 
-In a TypeSchema you must define a [Root](https://chriskapp.github.io/typeschema/schema/schema.htm#TypeSchema)
+In TypeSchema you must define a [Root](https://chriskapp.github.io/typeschema/schema/schema.htm#TypeSchema)
 schema which must be of type `object`. This object must contain specific
 [Properties](https://chriskapp.github.io/typeschema/schema/schema.htm#Properties).
 The [Definitions](https://chriskapp.github.io/typeschema/schema/schema.htm#Definitions)
 keyword contains a list of schemas which can be reused.
 
 In TypeSchema every schema can be assigned to exactly one specific type based on
-the used keywords. Through this logic a processor can understand the schema
-independent of the actual data. The following list shows all available types:
+the used keywords. The following list shows all available types:
 
 #### Object-Type
 ##### [Struct](https://chriskapp.github.io/typeschema/schema/schema.htm#StructProperties)
 
-A struct represents an object with a set of fix properties.
+A struct contains a fix set of defined properties.
 
 ```json
 {
@@ -69,7 +75,7 @@ A struct represents an object with a set of fix properties.
 
 ##### [Map](https://chriskapp.github.io/typeschema/schema/schema.htm#MapProperties)
 
-A map contains a variable count of key/value entries with a specific type.
+A map contains variable key value entries of a specific type.
 
 ```json
 {
@@ -83,7 +89,7 @@ A map contains a variable count of key/value entries with a specific type.
 #### Array-Type
 ##### [Array](https://chriskapp.github.io/typeschema/schema/schema.htm#ArrayProperties)
 
-An array contains a list of specific types
+An array contains an ordered list of a specific type.
 
 ```json
 {
@@ -97,6 +103,8 @@ An array contains a list of specific types
 #### Scalar-Type
 ##### [Boolean](https://chriskapp.github.io/typeschema/schema/schema.htm#BooleanProperties)
 
+Represents a boolean value.
+
 ```json
 {
   "type": "boolean"
@@ -104,6 +112,8 @@ An array contains a list of specific types
 ```
 
 ##### [Number](https://chriskapp.github.io/typeschema/schema/schema.htm#NumberProperties)
+
+Represents a number value (contains also integer).
 
 ```json
 {
@@ -114,6 +124,8 @@ An array contains a list of specific types
 
 ##### [String](https://chriskapp.github.io/typeschema/schema/schema.htm#StringProperties)
 
+Represents a string value.
+
 ```json
 {
   "type": "string",
@@ -123,6 +135,8 @@ An array contains a list of specific types
 
 #### Intersection-Type
 ##### [AllOf](https://chriskapp.github.io/typeschema/schema/schema.htm#AllOfProperties)
+
+An intersection type combines multiple schemas into one.
 
 ```json
 {
@@ -137,6 +151,8 @@ An array contains a list of specific types
 #### Union-Type
 ##### [OneOf](https://chriskapp.github.io/typeschema/schema/schema.htm#OneOfProperties)
 
+An union type can contain one of the provided schemas.
+
 ```json
 {
   "oneOf": [{
@@ -150,6 +166,8 @@ An array contains a list of specific types
 #### Reference-Type
 ##### [Reference](https://chriskapp.github.io/typeschema/schema/schema.htm#ReferenceType)
 
+Represents a reference to another schema.
+
 ```json
 {
   "$ref": "#/definitions/Car"
@@ -158,6 +176,8 @@ An array contains a list of specific types
 
 #### Generic-Type
 ##### [Generic](https://chriskapp.github.io/typeschema/schema/schema.htm#GenericType)
+
+Represents a generic type.
 
 **NOTE: This is a TypeSchema specific feature which is not available in JSON
 Schema so use it only if you use a schema processor which supports TypeSchema**
