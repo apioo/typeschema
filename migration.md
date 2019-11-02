@@ -18,9 +18,9 @@ valid.
 
 ### Reasoning
 
-In TypeSchema every schema must have at least a `type` keyword. This is
-required so that a parser knows at least which type is expected. Depending on
-the type there are maybe also other keywords required.
+In TypeSchema every schema must be assigned to a specific type depending on the
+used keywords so that a parser knows at least which type is expected. Depending
+on the type there are specific keywords possible.
 
 ## Array-Type
 
@@ -33,15 +33,13 @@ the type there are maybe also other keywords required.
 }
 ```
 
-In JsonSchema it is possible to allow multiple types. The validator looks at the
-actual data and execute the `minLength` assertion only in case the input is a
-string if its a number the check is ignored.
+In JsonSchema it is possible to allow multiple types at the `type` keyword.
 
 ### Reasoning
 
-Based on this schema it is impossible to generate a strongly typed class since
-there can be only one type. Therefore In TypeSchema the type must be a
-string and it is not possible to define multiple types.
+In TypeSchema `type` must be a `string` since based on this schema it is
+impossible to generate a strongly typed class. To allow different types you
+need to explicit use an union type (`oneOf` keyword)
 
 ## Array-Array-Item
 
@@ -78,9 +76,9 @@ In JsonSchema it is possible to define the `null` type.
 
 ### Reasoning
 
-We think that null is not a data type but rather an attribute of a type. Because
-of that TypeSchema has the `nullable` keyword which can be `true` or `false`
-for every type.
+We think that `null` is not a data type but rather an attribute of a type.
+Because of that TypeSchema has the `nullable` keyword which can be `true` or
+`false` for every type.
 
 ## Mixed-Assertions
 
@@ -169,11 +167,11 @@ based on the definitions key.
 }
 ```
 
-In JsonSchema it is possible to use the `anyOf` keyword. In TypeSchema this keyword
-does not exist. You can use either `oneOf` or `allOf`.
+In JsonSchema it is possible to use the `anyOf` keyword. In TypeSchema this
+keyword does not exist. You can use either `oneOf` or `allOf`.
 
 ### Reasoning
 
-The `anyOf` keyword is not practical for code generation. The `oneOf` type can be mapped
-to a union type and the `allOf` type can be mapped to an intersection type but the
-`anyOf` keyword has no fitting mapping.
+The `anyOf` keyword is not practical for code generation. The `oneOf` type can
+be mapped to a union type and the `allOf` type can be mapped to an intersection
+type.
