@@ -4,28 +4,31 @@
 
 TypeSchema is a JSON format to describe JSON structures. It helps to build
 schemas which can be used for code generation and other use cases where a
-processor needs to understand the schema without the actual data. It is based
-on JSON Schema and every TypeSchema is automatically a valid JSON Schema but
-not vice versa.
+processor needs to understand the schema without the actual data. It is
+compatible with JSON Schema and every TypeSchema is automatically a valid JSON
+Schema but not vice versa.
 
 ## Why
 
 You might question: Why not use JSON Schema?
 
-In JSON Schema you dont need to provide any keywords i.e. `{}` is a valid JSON
-Schema which basically allows every value. The defined keywords are applied
-based on the actual data. It is also highly recursive and has many keywords
-which contain validation logic like `dependencies`, `not`, `if/then/else` which
-are basically not needed for code generators and really complicate building
-them. We have also explained some pitfalls in our [migration document](migration.md).
+For code generators it is difficult to work with JSON Schema. In JSON Schema you
+dont need to provide any keywords i.e. `{}` is a valid JSON Schema which
+basically allows every value and the defined keywords are applied based on the
+actual data. A code generator on the other hand needs to determine a concrete
+type of a schema without the actual data. JSON Schema contains many keywords
+which contain logic like `dependencies`, `not`, `if/then/else` which are
+basically not needed for code generators and really complicate building them. We
+have also explained some pitfalls in our [migration document](migration.md).
 
-Because of the need for a better schema which can be used for code generation
-we have developed TypeSchema. Basically TypeSchema is a more stricter subset of
-JSON Schema which allows you to write clean schemas which can be easily turned
-into code. Every TypeSchema which you write is automatically also a valid
-JSON Schema bot not vice versa. Since this specification removes and restricts
-only keywords TypeSchema is compatible down to the JSON Schema `draft-04`.
-You can think of TypeSchema is to JSON Schema what TypeScript is to Javascript.
+Because of the need for a better schema specification which is optimized for
+code generation we have developed TypeSchema. Basically TypeSchema is a more
+stricter subset of JSON Schema which allows you to write clean schemas which can
+be easily turned into code. Every TypeSchema which you write is automatically
+also a valid JSON Schema bot not vice versa. Since this specification removes
+and restricts only keywords TypeSchema is compatible down to JSON Schema
+`draft-04`. You can think of TypeSchema is to JSON Schema what TypeScript is to
+Javascript.
 
 ## Specification
 
