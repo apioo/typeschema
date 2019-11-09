@@ -1,0 +1,101 @@
+
+
+textarea {
+  font-family: monospace;
+}
+
+.form-control, .btn {
+  border-radius: 0;
+}
+
+/* psx schema */
+.psx-object {
+  margin:0;
+  margin-bottom:8px;
+  border:1px solid #ccc;
+}
+
+.psx-object > h1 {
+  font-weight:bold;
+  font-size:1em;
+  margin:0;
+  padding: 10px 15px;
+  padding-left: 8px;
+  border-bottom: 1px solid #999;
+  color: #333;
+  background-color: #f5f5f5;
+  background-repeat: repeat-x;
+  background-image: -webkit-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
+  background-image: -o-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#e8e8e8));
+  background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
+}
+
+.psx-object-description {
+  margin:8px 0;
+  padding:0 8px;
+}
+
+.psx-object-json {
+  border-radius:0;
+  border:0;
+  margin:0;
+  padding:8px;
+  background-color:#F0F0F0;
+}
+
+.psx-object-json-key {
+  color:#880000;
+}
+
+.psx-object-json-pun {
+  color:#65b042;
+}
+
+.psx-object-properties {
+}
+
+.psx-property-type {
+  font-family:monospace;
+  font-weight:bold;
+}
+
+.psx-property-name {
+  font-family:monospace;
+  font-weight:bold;
+}
+
+.psx-property-description {
+  margin-top:8px;
+  font-size:0.9em;
+}
+
+.psx-property-constraint {
+  margin-top:8px;
+  font-size:0.9em;
+}
+
+.psx-property-required {
+  border-bottom:1px dotted #999;
+}
+
+.table {
+  width:100%;
+  border-spacing:0;
+}
+
+.table th {
+  background-color:#fff;
+  padding:8px;
+  text-align:left;
+}
+
+.table td {
+  padding:8px;
+  border-bottom:1px solid #ccc;
+}
+
+.psx-out {
+  overflow-x:auto;
+}
+
