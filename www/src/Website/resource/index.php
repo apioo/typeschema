@@ -40,6 +40,16 @@
   all your tools will work with a TypeSchema. You can think of TypeSchema is to
   JSON Schema what TypeScript is to Javascript.</p>
 
+  <h2>Who</h2>
+  
+  <p>We are developers coming from a classical OOP background. We have worked
+  back in the days with WSDL/XSD and experienced the advantages of
+  automatically generating client code. We think OpenAPI is a great replacement
+  for WSDL but the schema definition part is not perfect yet. This project
+  is a voice for all tool developers who like to have a more strict schema
+  specification. If you want to support the project or want to provide feedback
+  feel free to visit us on <a href="https://github.com/chriskapp/typeschema">GitHub</a>.</p>
+
   <h2>Overview</h2>
 
   <p>In TypeSchema you must define a <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#TypeSchema">Root</a>
