@@ -467,8 +467,7 @@
       "properties": {
         "$ref": {
           "description": "Reference to the schema under the definitions key",
-          "type": "string",
-          "pattern": "^#/definitions/([A-Za-z0-9]+)$"
+          "type": "string"
         },
         "$template": {
           "description": "Optional concrete schema definitions which replace generic template types",
