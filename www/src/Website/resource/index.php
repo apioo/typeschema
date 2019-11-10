@@ -42,8 +42,8 @@
 
   <h2>Who</h2>
   
-  <p>We are developers coming from a classical OOP background. We have worked
-  back in the days with WSDL/XSD and experienced the advantages of
+  <p>We are developers coming from a classical OOP background. Back in the days
+  we have worked with WSDL/XSD and experienced the advantages of
   automatically generating client code. We think OpenAPI is a great replacement
   for WSDL but the schema definition part is not perfect yet. This project
   is a voice for all tool developers who like to have a more strict schema
