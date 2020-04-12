@@ -187,67 +187,62 @@
 
   <p><code>function resolveReference(object schema): Type</code></p>
   <ul>
-    <li>Read all available keys under the definitions location (dont resolve the schema behind the key).</li>
-    <li>Go through the properties of the schema
+    <li>If <code>schema.$ref</code> is available
       <ul>
-        <li>If <code>schema.$ref</code> is available
+        <li><code>string refName</code> = <code>schema.$ref</code></li>
+        <li>If <code>refName</code> starts with <code>#/</code>
           <ul>
-            <li><code>string refName</code> = <code>schema.$ref</code></li>
-            <li>If <code>refName</code> starts with <code>#/</code>
+            <li><code>refName</code> = Strip away the definitions location string. I.e. if we have a string <code>#/definitions/Foobar</code> the value is now <code>Foobar</code>.</li>
+            <li>If <code>definitions[refName]</code> is available
               <ul>
-                <li><code>refName</code> = Strip away the definitions location string. I.e. if we have a string <code>#/definitions/Foobar</code> the value is now <code>Foobar</code>.</li>
-                <li>If <code>definitions[refName]</code> is available
+                <li>If <code>availableObjects[refName]</code> is available
                   <ul>
-                    <li>If <code>availableObjects[refName]</code> is available
-                      <ul>
-                        <li><code>return availableObjects[refName]</code></li>
-                      </ul>
-                    </li>
-                    <li><code>object result</code> = Load the schema <code>refName</code> from the definitions location</li>
-                    <li><code>Type type</code> = <code><a href="#parse-schema">parse</a>(result)</code></li>
-                    <li>If <code>type</code> is an instance of <code>StructType</code> or <code>MapType</code>
-                      <ul>
-                        <li>Add the type to the global available objects <code>availableObjects[refName]</code> = <code>type</code></li>
-                      </ul>
-                    </li>
-                    <li><code>return type</code></li>
+                    <li><code>return availableObjects[refName]</code></li>
                   </ul>
                 </li>
-                <li>Else throw an exception that the referenced schema does not exist</li>
-              </ul>
-            </li>
-            <li>Else
-              <ul>
-                <li>Parse <code>refName</code> as <a href="https://tools.ietf.org/html/rfc3986">URI</a></li>
-                <li>If the <code>scheme</code> of the URI is supported resolve the target, this is optional
-                and should be only done in case the library supports it. Typical schemes are: <code>http</code>,
-                <code>https</code>, <code>file</code>
+                <li><code>object result</code> = Load the schema <code>refName</code> from the definitions location</li>
+                <li><code>Type type</code> = <code><a href="#parse-schema">parse</a>(result)</code></li>
+                <li>If <code>type</code> is an instance of <code>StructType</code> or <code>MapType</code>
                   <ul>
-                    <li>If <code>availableObjects[refName]</code> is available
-                      <ul>
-                        <li><code>return availableObjects[refName]</code></li>
-                      </ul>
-                    </li>
-                    <li><code>object result</code> = Contains the resolved schema</li>
-                    <li><code>Type type</code> = <code><a href="#parse-schema">parse</a>(result)</code></li>
-                    <li>If <code>type</code> is an instance of <code>StructType</code> or <code>MapType</code>
-                      <ul>
-                        <li>Add the type to the global available objects <code>availableObjects[refName]</code> = <code>type</code></li>
-                      </ul>
-                    </li>
-                    <li><code>return type</code></li>
+                    <li>Add the type to the global available objects <code>availableObjects[refName]</code> = <code>type</code></li>
                   </ul>
                 </li>
-                <li>Else throw an exception that it is not possible to resolve the referenced schema</li>
+                <li><code>return type</code></li>
               </ul>
             </li>
+            <li>Else throw an exception that the referenced schema does not exist</li>
           </ul>
         </li>
         <li>Else
           <ul>
-            <li>throw an exception that the provided type is not of type reference</li>
+            <li>Parse <code>refName</code> as <a href="https://tools.ietf.org/html/rfc3986">URI</a></li>
+            <li>If the <code>scheme</code> of the URI is supported resolve the target, this is optional
+              and should be only done in case the library supports it. Typical schemes are: <code>http</code>,
+              <code>https</code>, <code>file</code>
+              <ul>
+                <li>If <code>availableObjects[refName]</code> is available
+                  <ul>
+                    <li><code>return availableObjects[refName]</code></li>
+                  </ul>
+                </li>
+                <li><code>object result</code> = Contains the resolved schema</li>
+                <li><code>Type type</code> = <code><a href="#parse-schema">parse</a>(result)</code></li>
+                <li>If <code>type</code> is an instance of <code>StructType</code> or <code>MapType</code>
+                  <ul>
+                    <li>Add the type to the global available objects <code>availableObjects[refName]</code> = <code>type</code></li>
+                  </ul>
+                </li>
+                <li><code>return type</code></li>
+              </ul>
+            </li>
+            <li>Else throw an exception that it is not possible to resolve the referenced schema</li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li>Else
+      <ul>
+        <li>throw an exception that the provided type is not of type reference</li>
       </ul>
     </li>
   </ul>
