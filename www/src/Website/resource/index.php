@@ -133,9 +133,9 @@
     <div class="psx-object-description">An intersection type combines multiple schemas into one.</div>
     <pre><code class="json">{
   "allOf": [{
-    "$ref": "#/definitions/Person"
+    "$ref": "Person"
   }, {
-    "$ref": "#/definitions/Student"
+    "$ref": "Student"
   }]
 }</code></pre>
   </div>
@@ -145,9 +145,9 @@
     <div class="psx-object-description">An union type can contain one of the provided schemas.</div>
     <pre><code class="json">{
   "oneOf": [{
-    "$ref": "#/definitions/Car"
+    "$ref": "Car"
   }, {
-    "$ref": "#/definitions/Train"
+    "$ref": "Train"
   }]
 }</code></pre>
   </div>
@@ -156,10 +156,10 @@
     <h1><a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ReferenceType">Reference</a></h1>
     <div class="psx-object-description">Represents a reference to another schema. In TypeSchema it is
     only possible to resolve local references which are available under the <code>definitions</code> key.
-    Therefore you can also reference a schema directly via i.e. <code>Car</code>
-    without the JSON pointer notation.</div>
+    Therefore you dont need to use the JSON pointer notation <code>#/definitions/Car</code>, for compatibility
+    reasons a TypeSchema processor automatically removes the <code>#/definitions/</code> part from the reference.</div>
     <pre><code class="json">{
-  "$ref": "#/definitions/Car"
+  "$ref": "Car"
 }</code></pre>
   </div>
 
@@ -177,7 +177,7 @@
     <pre><code class="json">{
   "definitions": {
     "Student": {
-      "$extends": "#/definitions/Human",
+      "$extends": "Human",
       "type": "object",
       "properties": {
         "matricleNumber": {
@@ -249,10 +249,10 @@
       concrete schema to the placeholder.</p>
     </div>
     <pre><code class="json">{
-  "$ref": "#/definitions/Map",
+  "$ref": "Map",
   "$template": {
     "T": {
-      "$ref": "#/definitions/News"
+      "$ref": "News"
     }
   }
 }</code></pre>
