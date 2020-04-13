@@ -23,12 +23,14 @@
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Example::class); ?>">Example</a>
     </li>
+    <!--
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Implementation::class); ?>">Implementation</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Generator::class); ?>">Generator</a>
     </li>
+    -->
   </ul>
   <a href="https://github.com/chriskapp/typeschema"><img src="<?php echo $base; ?>/img/github-32.png"></a>
 </nav>
