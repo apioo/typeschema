@@ -21,6 +21,9 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Specification::class); ?>">Specification</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Example::class); ?>">Example</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Implementation::class); ?>">Implementation</a>
     </li>
     <li class="nav-item">
