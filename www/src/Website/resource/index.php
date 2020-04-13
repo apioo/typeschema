@@ -10,7 +10,7 @@
     JSON Schema but not vice versa.</p>
     <p>
       <a class="btn btn-primary" href="<?php echo $router->getAbsolutePath(\App\Website\Specification::class); ?>" role="button">Specification</a>
-      <a class="btn btn-secondary" href="<?php echo $router->getAbsolutePath(\App\Website\Generator::class); ?>" role="button">Generator</a>
+      <!--<a class="btn btn-secondary" href="<?php echo $router->getAbsolutePath(\App\Website\Generator::class); ?>" role="button">Generator</a>-->
     </p>
   </div>
 </div>
