@@ -2,12 +2,20 @@
  * TypeSchema meta schema which describes a TypeSchema
  */
 interface TypeSchema {
+    $import?: Import
     title: string
     description?: string
     type: string
     definitions?: Definitions
     properties: Properties
     required?: Array<string>
+}
+
+/**
+ * Contains external definitions which are imported. The imported schemas can be used via the namespace
+ */
+interface Import {
+    [index: string]: string
 }
 
 /**
@@ -48,7 +56,7 @@ interface StructProperties {
  * Map specific properties
  */
 interface MapProperties {
-    additionalProperties: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ArrayProperties) | (AllOfProperties | OneOfProperties) | ReferenceType
+    additionalProperties: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ArrayProperties) | (AllOfProperties | OneOfProperties) | ReferenceType | GenericType
     maxProperties?: number
     minProperties?: number
 }
@@ -58,7 +66,7 @@ interface MapProperties {
  */
 interface ArrayProperties {
     type: string
-    items: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (AllOfProperties | OneOfProperties) | ReferenceType
+    items: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | ReferenceType | GenericType
     maxItems?: number
     minItems?: number
     uniqueItems?: boolean
@@ -100,7 +108,7 @@ interface StringProperties {
 }
 
 /**
- * Combination keyword to represent an intersection type
+ * An intersection type combines multiple schemas into one
  */
 interface AllOfProperties {
     description?: string
@@ -108,7 +116,7 @@ interface AllOfProperties {
 }
 
 /**
- * Combination keyword to represent an union type
+ * An union type can contain one of the provided schemas
  */
 interface OneOfProperties {
     description?: string
@@ -120,7 +128,7 @@ interface OneOfProperties {
  * Properties of a schema
  */
 interface Properties {
-    [index: string]: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ArrayProperties) | (AllOfProperties | OneOfProperties) | ReferenceType
+    [index: string]: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ArrayProperties) | (AllOfProperties | OneOfProperties) | ReferenceType | GenericType
 }
 
 /**
@@ -128,6 +136,14 @@ interface Properties {
  */
 interface ReferenceType {
     $ref: string
+    $template?: TemplateProperties
+}
+
+/**
+ * Represents a generic type
+ */
+interface GenericType {
+    $generic: string
 }
 
 /**
@@ -136,6 +152,10 @@ interface ReferenceType {
 interface Discriminator {
     propertyName: string
     mapping?: DiscriminatorMapping
+}
+
+interface TemplateProperties {
+    [index: string]: ReferenceType
 }
 
 /**

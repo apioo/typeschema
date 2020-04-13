@@ -4,7 +4,7 @@
 <div class="jumbotron">
   <div class="container">
     <h1 class="display-3">TypeSchema</h1>
-    <p>TypeSchema is a JSON format to describe JSON structures. It helps to
+    <p>TypeSchema is a JSON format to model JSON data structures. It helps to
     build schemas which are optimized for code generation. TypeSchema is
     compatible with JSON Schema and every TypeSchema is automatically a valid
     JSON Schema but not vice versa.</p>
@@ -38,7 +38,9 @@
   vice versa. Since this specification removes and restricts only keywords
   TypeSchema is compatible down to JSON Schema <code>draft-04</code>. Therefor
   all your tools will work with a TypeSchema. You can think of TypeSchema is to
-  JSON Schema what TypeScript is to Javascript.</p>
+  JSON Schema what TypeScript is to Javascript. In addition TypeSchema provides
+  some new keywords which help bring concepts of modern OOP to the schema
+  language i.e. generics, inheritance and namespaces.</p>
 
   <h2>Who</h2>
   
@@ -152,9 +154,71 @@
 
   <div class="psx-object">
     <h1><a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ReferenceType">Reference</a></h1>
-    <div class="psx-object-description">Represents a reference to another schema.</div>
+    <div class="psx-object-description">Represents a reference to another schema. In TypeSchema it is
+    only possible to resolve local references which are available under the <code>definitions</code> key.
+    Therefore you can also reference a schema directly via i.e. <code>Car</code>
+    without the JSON pointer notation.</div>
     <pre><code class="json">{
   "$ref": "#/definitions/Car"
+}</code></pre>
+  </div>
+
+  <p><b>**NOTE: The following keywords are TypeSchema specific features which
+  are not available in JSON Schema so use it only if you use a schema processor
+  which supports TypeSchema**</b></p>
+
+  <div class="psx-object">
+    <h1><a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ExtendsType">Extends</a></h1>
+    <div class="psx-object-description">
+      <p>Through the <code>$extends</code> keyword it is possible to extend an
+      existing struct type. This explicit notation helps code generators to
+      model inheritance.</p>
+    </div>
+    <pre><code class="json">{
+  "definitions": {
+    "Student": {
+      "$extends": "#/definitions/Human",
+      "type": "object",
+      "properties": {
+        "matricleNumber": {
+          "type": "integer"
+        }
+      }
+    },
+    "Human": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}</code></pre>
+  </div>
+
+  <div class="psx-object">
+    <h1><a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Import">Import</a></h1>
+    <div class="psx-object-description">
+      <p>Through the <code>$import</code> keyword it is possible to import
+      external schemas under a specific namespace. The schemas can be referenced
+      using the provided namespace i.e.:</p>
+    </div>
+    <pre><code class="json">{
+  "$import": {
+    "acme": "https://acme.com/my_schema.json"
+  },
+  "definitions": {
+    "Student": {
+      "$extends": "acme:Human",
+      "type": "object",
+      "properties": {
+        "matricleNumber": {
+          "type": "integer"
+        }
+      }
+    }
+  }
 }</code></pre>
   </div>
 
@@ -162,9 +226,6 @@
     <h1><a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#GenericType">Generic</a></h1>
     <div class="psx-object-description">
       <p>Represents a generic type.</p>
-      <p><b>**NOTE: This is a TypeSchema specific feature which is not available in
-      JSON Schema so use it only if you use a schema processor which supports
-      TypeSchema**</b></p>
       <p>Through the <code>$generic</code> keyword it is possible to define a schema
       placeholder. I.e. if you want to reuse a collection schema with different
       entries:</p>
