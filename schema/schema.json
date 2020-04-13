@@ -522,6 +522,14 @@
       }
     },
 
+    "import": {
+      "description": "Contains external definitions which are imported. The imported schemas can be used via the namespace",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+
     "enumValue": {
       "description": "A list of possible enumeration values",
       "oneOf": [{
@@ -567,6 +575,9 @@
     }
   },
   "properties": {
+    "$import": {
+      "$ref": "#/definitions/import"
+    },
     "title": {
       "type": "string"
     },
