@@ -362,23 +362,34 @@
       ]
     },
 
-    "OfValue": {
+    "AllOfValue": {
       "description": "Allowed values in a combination schema",
       "oneOf": [
-        {
-          "$ref": "#/definitions/NumberType"
-        },
-        {
-          "$ref": "#/definitions/StringType"
-        },
-        {
-          "$ref": "#/definitions/BooleanType"
-        },
         {
           "$ref": "#/definitions/ReferenceType"
         }
       ]
     },
+    "AllOfProperties": {
+      "type": "object",
+      "description": "An intersection type combines multiple schemas into one",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "allOf": {
+          "description": "Combination values",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllOfValue"
+          }
+        }
+      },
+      "required": [
+        "allOf"
+      ]
+    },
+
     "DiscriminatorMapping": {
       "description": "An object to hold mappings between payload values and schema names or references",
       "type": "object",
@@ -402,23 +413,21 @@
         "propertyName"
       ]
     },
-    "AllOfProperties": {
-      "type": "object",
-      "description": "An intersection type combines multiple schemas into one",
-      "properties": {
-        "description": {
-          "type": "string"
+    "OneOfValue": {
+      "description": "Allowed values in a combination schema",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/NumberType"
         },
-        "allOf": {
-          "description": "Combination values",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/OfValue"
-          }
+        {
+          "$ref": "#/definitions/StringType"
+        },
+        {
+          "$ref": "#/definitions/BooleanType"
+        },
+        {
+          "$ref": "#/definitions/ReferenceType"
         }
-      },
-      "required": [
-        "allOf"
       ]
     },
     "OneOfProperties": {
@@ -435,7 +444,7 @@
           "description": "Combination values",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/OfValue"
+            "$ref": "#/definitions/OneOfValue"
           }
         }
       },
@@ -458,7 +467,7 @@
     "TemplateProperties": {
       "type": "object",
       "additionalProperties": {
-        "$ref": "#/definitions/ReferenceType"
+        "type": "string"
       }
     },
     "ReferenceType": {
