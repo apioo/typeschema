@@ -29,7 +29,7 @@ class Index extends ViewAbstract
                 }
             }
 
-            $item->expiresAfter(60 * 60 * 24);
+            $item->expiresAfter(null);
             $item->set($examples);
             $this->cache->save($item);
         } else {
