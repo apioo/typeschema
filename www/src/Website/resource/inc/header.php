@@ -30,5 +30,5 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Faq::class); ?>">FAQ</a>
     </li>
   </ul>
-  <a href="https://github.com/chriskapp/typeschema"><img src="<?php echo $base; ?>/img/github-32.png"></a>
+  <a href="https://github.com/apioo/typeschema"><img src="<?php echo $base; ?>/img/github-32.png"></a>
 </nav>
