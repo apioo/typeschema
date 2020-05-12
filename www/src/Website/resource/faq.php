@@ -36,7 +36,7 @@
   contain logic like <code>dependencies</code>, <code>not</code>, <code>if/then/else</code>
   which are basically not needed for code generators and really complicates
   building them. We have also explained some pitfalls in our
-  <a href="https://github.com/chriskapp/typeschema/blob/master/migration.md">migration document</a>.</p>
+  <a href="https://github.com/apioo/typeschema/blob/master/migration.md">migration document</a>.</p>
 
 </div>
 
