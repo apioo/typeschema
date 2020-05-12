@@ -2,9 +2,9 @@
 
 ## About
 
-TypeSchema is a JSON format to describe JSON structures. It helps to build
-schemas which are optimized for code generation. TypeSchema is compatible with
-JSON Schema and every TypeSchema is automatically a valid JSON Schema but not
-vice versa.
+TypeSchema is a JSON format to describe data models in a language neutral format.
+A TypeSchema can be easily transformed into specific code for almost any
+programming language. This helps to reuse core data models in different
+environments.
 
 More information at: [https://typeschema.org](https://typeschema.org)
