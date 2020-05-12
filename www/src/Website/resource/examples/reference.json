@@ -1,0 +1,37 @@
+{
+  "definitions": {
+    "Location": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "title": "Student",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "origin": {
+      "$ref": "Location"
+    },
+    "visited": {
+      "type": "array",
+      "items": {
+        "$ref": "Location"
+      }
+    }
+  }
+}

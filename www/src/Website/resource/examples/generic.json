@@ -1,0 +1,45 @@
+{
+  "definitions": {
+    "Student": {
+      "type": "object",
+      "properties": {
+        "matricleNumber": {
+          "type": "integer"
+        }
+      }
+    },
+    "StudentMap": {
+      "$ref": "Map",
+      "$template": {
+        "T": "Student"
+      }
+    },
+    "Map": {
+      "type": "object",
+      "properties": {
+        "totalResults": {
+          "type": "integer"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$generic": "T"
+          }
+        }
+      }
+    }
+  },
+  "title": "Faculty",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "students": {
+      "type": "array",
+      "items": {
+        "$ref": "StudentMap"
+      }
+    }
+  }
+}

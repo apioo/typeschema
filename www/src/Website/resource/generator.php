@@ -15,31 +15,14 @@
         <div class="form-group">
           <label for="type">Type</label>
           <select id="type" name="type" class="form-control">
-            <option value="csharp">csharp</option>
-            <option value="go">go</option>
-            <option value="html">html</option>
-            <option value="java">java</option>
-            <option value="jsonschema">jsonschema</option>
-            <option value="markdown">markdown</option>
-            <option value="php">php</option>
-            <option value="protobuf">protobuf</option>
-            <option value="typescript">typescript</option>
+            <?php foreach($types as $type): ?>
+            <option value="<?php echo $type; ?>"><?php echo ucfirst($type); ?></option>
+            <?php endforeach; ?>
           </select>
         </div>
         <div class="form-group">
           <label for="schema">Schema</label>
-          <textarea id="schema" name="schema" rows="18" class="form-control">{
-  "title": "Student",
-  "type": "object",
-  "properties": {
-    "firstName": {
-      "type": "string"
-    },
-    "lastName": {
-      "type": "string"
-    }
-  }
-}</textarea>
+          <textarea id="schema" name="schema" rows="18" class="form-control"><?php echo htmlspecialchars($schema); ?></textarea>
         </div>
         <input type="submit" value="Generate" class="btn btn-primary">
       </form>

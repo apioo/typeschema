@@ -1,0 +1,37 @@
+{
+  "definitions": {
+    "Human": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        }
+      }
+    },
+    "Student": {
+      "$extends": "Human",
+      "type": "object",
+      "properties": {
+        "studentId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "title": "ResultSet",
+  "type": "object",
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "Student"
+      }
+    }
+  }
+}

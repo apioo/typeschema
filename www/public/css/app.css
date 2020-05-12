@@ -8,6 +8,15 @@ textarea {
   border-radius: 0;
 }
 
+.example-box {
+  max-height:600px;
+  overflow:auto;
+}
+
+.example-box > pre {
+  margin:0;
+}
+
 /* psx schema */
 .psx-object {
   margin:0;

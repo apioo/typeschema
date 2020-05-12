@@ -6,13 +6,16 @@ use PSX\Framework\Controller\ViewAbstract;
 use PSX\Http\RequestInterface;
 use PSX\Http\ResponseInterface;
 use PSX\Schema\GeneratorFactory;
-use PSX\Schema\Parser\JsonSchema;
+use PSX\Schema\Parser\TypeSchema;
 
 class Generator extends ViewAbstract
 {
     public function onGet(RequestInterface $request, ResponseInterface $response)
     {
-        $this->render($response, __DIR__ . '/resource/generator.php', []);
+        $this->render($response, __DIR__ . '/resource/generator.php', [
+            'schema' => $this->getSchema(),
+            'types' => GeneratorFactory::getPossibleTypes()
+        ]);
     }
 
     public function onPost(RequestInterface $request, ResponseInterface $response)
@@ -24,17 +27,37 @@ class Generator extends ViewAbstract
         $config = null;
 
         try {
-            $schema = (new JsonSchema())->parse($schema);
+            $result = (new TypeSchema())->parse($schema);
             $generator = (new GeneratorFactory())->getGenerator($type, $config);
 
-            $output = $generator->generate($schema);
+            $output = $generator->generate($result);
         } catch (\Throwable $e) {
-            throw $e;
+            $output = $e->getMessage();
         }
 
         $this->render($response, __DIR__ . '/resource/generator.php', [
+            'schema' => $schema,
+            'types' => GeneratorFactory::getPossibleTypes(),
             'type' => $type,
             'output' => $output
         ]);
+    }
+    
+    private function getSchema()
+    {
+        return <<<JSON
+{
+  "title": "Student",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    }
+  }
+}
+JSON;
     }
 }

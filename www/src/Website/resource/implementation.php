@@ -33,13 +33,22 @@
   <h2>Pseudocode</h2>
   <hr>
 
+  <h4 id="type-detection">Parse definitions</h4>
+  <hr>
+  <p>The following algorithm shows how to detect the correct type of a schema.</p>
+
+  <p><code>function parseDefinitions(object schema)</code></p>
+  <ul>
+    <li></li>
+  </ul>
+
   <h4 id="parse-schema">Parse schema</h4>
   <hr>
   <p>The following algorithm shows how to create an object in-memory
   representation of a type schema. The schema can then be easily turned into
   code or other representations.</p>
 
-  <p><code>function parse(object schema): Type</code></p>
+  <p><code>function parseSchema(object schema): Type</code></p>
   <ul>
     <li><code>Type type</code> = <code><a href="#type-detection">newType</a>(schema)</code></li>
     <li>If <code>type</code> is an instance of <code>StructType</code>
@@ -47,7 +56,7 @@
         <li><code>Map&lt;string, Type&gt; properties</code> = Create a new empty map</li>
         <li>For each <code>key</code> : <code>property</code> in <code>schema.properties</code>
           <ul>
-            <li><code>properties[key]</code> = <code><a href="#parse-schema">parse</a>(property)</code></li>
+            <li><code>properties[key]</code> = <code><a href="#parse-schema">parseSchema</a>(property)</code></li>
           </ul>
         </li>
         <li>Set <code>properties</code> to <code>type</code></li>
@@ -56,14 +65,14 @@
     </li>
     <li>Else If <code>type</code> is an instance of <code>MapType</code>
       <ul>
-        <li><code>Type additionalProperties</code> = <code><a href="#parse-schema">parse</a>(schema.additionalProperties)</code></li>
+        <li><code>Type additionalProperties</code> = <code><a href="#parse-schema">parseSchema</a>(schema.additionalProperties)</code></li>
         <li>Set <code>additionalProperties</code> to <code>type</code></li>
         <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#MapProperties">map properties</a> from <code>schema</code> and set them to the type</li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>ArrayType</code>
       <ul>
-        <li><code>Type items</code> = <code><a href="#parse-schema">parse</a>(schema.items)</code></li>
+        <li><code>Type items</code> = <code><a href="#parse-schema">parseSchema</a>(schema.items)</code></li>
         <li>Set <code>items</code> to <code>type</code></li>
         <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ArrayProperties">array properties</a> from <code>schema</code> and set them to <code>type</code></li>
       </ul>
@@ -88,7 +97,7 @@
         <li><code>Array&lt;Type&gt; items</code> = Create an empty array</li>
         <li>For each <code>property</code> in <code>schema.oneOf</code>
           <ul>
-            <li><code>items[]</code> = <code><a href="#parse-schema">parse</a>(property)</code></li>
+            <li><code>items[]</code> = <code><a href="#parse-schema">parseSchema</a>(property)</code></li>
           </ul>
         </li>
         <li>Set <code>items</code> to <code>type</code></li>
@@ -99,7 +108,7 @@
         <li><code>Array&lt;Type&gt; items</code> = Create an empty array</li>
         <li>For each <code>property</code> in <code>schema.oneOf</code>
           <ul>
-            <li><code>items[]</code> = <code><a href="#parse-schema">parse</a>(property)</code></li>
+            <li><code>items[]</code> = <code><a href="#parse-schema">parseSchema</a>(property)</code></li>
           </ul>
         </li>
         <li>Set <code>items</code> to <code>type</code></li>
@@ -201,7 +210,7 @@
                   </ul>
                 </li>
                 <li><code>object result</code> = Load the schema <code>refName</code> from the definitions location</li>
-                <li><code>Type type</code> = <code><a href="#parse-schema">parse</a>(result)</code></li>
+                <li><code>Type type</code> = <code><a href="#parse-schema">parseSchema</a>(result)</code></li>
                 <li>If <code>type</code> is an instance of <code>StructType</code> or <code>MapType</code>
                   <ul>
                     <li>Add the type to the global available objects <code>availableObjects[refName]</code> = <code>type</code></li>
