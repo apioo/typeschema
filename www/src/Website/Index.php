@@ -80,13 +80,11 @@ class Index extends ViewAbstract
             'schema' => file_get_contents(__DIR__ . '/resource/examples/generic.json'),
         ];
 
-        /*
         $examples[] = [
             'title' => 'Import other TypeSchema specification',
             'description' => 'Shows how to import and use another TypeSchema.',
             'schema' => file_get_contents(__DIR__ . '/resource/examples/import.json'),
         ];
-        */
 
         return $examples;
     }
