@@ -16,7 +16,6 @@
 </div>
 
 <div class="container">
-  <h2>Examples</h2>
   <?php foreach($examples as $key => $example): ?>
   <div class="row">
     <div class="col-6">
