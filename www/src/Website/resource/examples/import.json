@@ -1,6 +1,6 @@
 {
   "$import": {
-    "my_ns": "https://raw.githubusercontent.com/chriskapp/typeschema/master/www/src/Website/resource/examples/generic.json"
+    "my_ns": "https://raw.githubusercontent.com/apioo/typeschema/master/www/src/Website/resource/examples/generic.json"
   },
   "title": "Faculty",
   "type": "object",
