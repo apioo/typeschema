@@ -32,11 +32,19 @@
   every value and the defined keywords are applied based on the actual data. This
   means you can interpret a schema only if you have also the actual data. A
   code generator on the other hand needs to determine a concrete type of a
-  schema without the actual data. Also JSON Schema has many keywords which
-  contain logic like <code>dependencies</code>, <code>not</code>, <code>if/then/else</code>
-  which are basically not needed for code generators and really complicates
-  building them. We have also explained some pitfalls in our
+  schema without the actual data.</p>
+    
+  <p>JSON Schema has many keywords which contain logic like
+  <code>dependencies</code>, <code>not</code>, <code>if/then/else</code> which
+  are basically not needed for code generators and really complicates building
+  them. We have also explained some pitfalls in our
   <a href="https://github.com/apioo/typeschema/blob/master/migration.md">migration document</a>.</p>
+
+  <p>TypeSchema does not work with JSON pointer. In TypeSchema you reference
+  every type simply by the name i.e. <code>Student</code>. In JSON Schema you
+  need to provide the path i.e. <code>#/definitions/Student</code> to the schema.
+  In TypeSchema you can also reference only local types. If you want to import a
+  remote schema you need to explicit declare it via <code>$import</code>.</p>
 
 </div>
 
