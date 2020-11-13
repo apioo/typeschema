@@ -113,6 +113,10 @@
       "description": "Struct specific properties",
       "type": "object",
       "properties": {
+        "$final": {
+          "description": "Indicates that a struct is final, this means it is not possible to extend this struct",
+          "type": "boolean"
+        },
         "properties": {
           "$ref": "#/definitions/Properties"
         },
@@ -146,10 +150,14 @@
           "$ref": "#/definitions/PropertyValue"
         },
         "maxProperties": {
-          "$ref": "#/definitions/PositiveInteger"
+          "description": "Positive integer value",
+          "type": "integer",
+          "minimum": 0
         },
         "minProperties": {
-          "$ref": "#/definitions/PositiveInteger"
+          "description": "Positive integer value",
+          "type": "integer",
+          "minimum": 0
         }
       },
       "required": [
@@ -216,10 +224,14 @@
           "$ref": "#/definitions/ArrayValue"
         },
         "maxItems": {
-          "$ref": "#/definitions/PositiveInteger"
+          "description": "Positive integer value",
+          "type": "integer",
+          "minimum": 0
         },
         "minItems": {
-          "$ref": "#/definitions/PositiveInteger"
+          "description": "Positive integer value",
+          "type": "integer",
+          "minimum": 0
         },
         "uniqueItems": {
           "type": "boolean"
@@ -333,10 +345,14 @@
           ]
         },
         "maxLength": {
-          "$ref": "#/definitions/PositiveInteger"
+          "description": "Positive integer value",
+          "type": "integer",
+          "minimum": 0
         },
         "minLength": {
-          "$ref": "#/definitions/PositiveInteger"
+          "description": "Positive integer value",
+          "type": "integer",
+          "minimum": 0
         },
         "pattern": {
           "type": "string",
@@ -475,7 +491,7 @@
       "type": "object",
       "properties": {
         "$ref": {
-          "description": "Reference to the schema under the definitions key",
+          "description": "Reference to a schema under the definitions key",
           "type": "string"
         },
         "$template": {
@@ -508,15 +524,6 @@
         },
         {
           "$ref": "#/definitions/ArrayType"
-        },
-        {
-          "$ref": "#/definitions/BooleanType"
-        },
-        {
-          "$ref": "#/definitions/NumberType"
-        },
-        {
-          "$ref": "#/definitions/StringType"
         },
         {
           "$ref": "#/definitions/CombinationType"
@@ -561,11 +568,6 @@
         }
       ]
     },
-    "PositiveInteger": {
-      "description": "Positive integer value",
-      "type": "integer",
-      "minimum": 0
-    },
     "StringArray": {
       "description": "Array string values",
       "type": "array",
@@ -581,37 +583,28 @@
         "type": "number"
       },
       "minItems": 1
-    }
-  },
-  "properties": {
-    "$import": {
-      "$ref": "#/definitions/Import"
     },
-    "title": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string",
-      "enum": [
-        "object"
+
+    "Root": {
+      "description": "Reference a root schema at the definitions",
+      "type": "object",
+      "properties": {
+        "$import": {
+          "$ref": "#/definitions/Import"
+        },
+        "definitions": {
+          "$ref": "#/definitions/Definitions"
+        },
+        "$ref": {
+          "description": "Reference to a root schema under the definitions key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "definitions",
+        "$ref"
       ]
-    },
-    "definitions": {
-      "$ref": "#/definitions/Definitions"
-    },
-    "properties": {
-      "$ref": "#/definitions/Properties"
-    },
-    "required": {
-      "$ref": "#/definitions/StringArray"
     }
   },
-  "required": [
-    "title",
-    "type",
-    "properties"
-  ]
+  "$ref": "#/definitions/Root"
 }
