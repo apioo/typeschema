@@ -1,34 +1,7 @@
 /**
- * TypeSchema meta schema which describes a TypeSchema
- */
-interface TypeSchema {
-    $import?: Import
-    title: string
-    description?: string
-    type: string
-    definitions?: Definitions
-    properties: Properties
-    required?: Array<string>
-}
-
-/**
- * Contains external definitions which are imported. The imported schemas can be used via the namespace
- */
-interface Import {
-    [index: string]: string
-}
-
-/**
- * Schema definitions which can be reused
- */
-interface Definitions {
-    [index: string]: ((CommonProperties & ContainerProperties & StructProperties) | (CommonProperties & ContainerProperties & MapProperties)) | (CommonProperties & ArrayProperties) | (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (AllOfProperties | OneOfProperties)
-}
-
-/**
  * Common properties which can be used at any schema
  */
-interface CommonProperties {
+export interface CommonProperties {
     title?: string
     description?: string
     type?: string
@@ -37,58 +10,75 @@ interface CommonProperties {
     readonly?: boolean
 }
 
+export interface ScalarProperties {
+    format?: string
+    enum?: EnumValue
+    default?: ScalarValue
+}
+
+type PropertyValue = BooleanType | NumberType | StringType | ArrayType | CombinationType | ReferenceType | GenericType;
+
+type Properties = Record<string, PropertyValue>;
+
 /**
  * Properties specific for a container
  */
-interface ContainerProperties {
+export interface ContainerProperties {
     type: string
 }
 
 /**
  * Struct specific properties
  */
-interface StructProperties {
+export interface StructProperties {
+    final?: boolean
     properties: Properties
-    required?: Array<string>
+    required?: StringArray
 }
+
+type StructType = CommonProperties & ContainerProperties & StructProperties;
 
 /**
  * Map specific properties
  */
-interface MapProperties {
-    additionalProperties: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ArrayProperties) | (AllOfProperties | OneOfProperties) | ReferenceType | GenericType
+export interface MapProperties {
+    additionalProperties: PropertyValue
     maxProperties?: number
     minProperties?: number
 }
 
+type MapType = CommonProperties & ContainerProperties & MapProperties;
+
+type ObjectType = StructType | MapType;
+
+type ArrayValue = BooleanType | NumberType | StringType | ReferenceType | GenericType;
+
 /**
  * Array properties
  */
-interface ArrayProperties {
+export interface ArrayProperties {
     type: string
-    items: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | ReferenceType | GenericType
+    items: ArrayValue
     maxItems?: number
     minItems?: number
     uniqueItems?: boolean
 }
 
-interface ScalarProperties {
-    format?: string
-    enum?: Array<string> | Array<number>
-    default?: string | number | boolean
-}
+type ArrayType = CommonProperties & ArrayProperties;
 
 /**
  * Boolean properties
  */
-interface BooleanProperties {
+export interface BooleanProperties {
     type: string
 }
+
+type BooleanType = CommonProperties & ScalarProperties & BooleanProperties;
 
 /**
  * Number properties
  */
-interface NumberProperties {
+export interface NumberProperties {
     type: string
     multipleOf?: number
     maximum?: number
@@ -97,70 +87,89 @@ interface NumberProperties {
     exclusiveMinimum?: boolean
 }
 
+type NumberType = CommonProperties & ScalarProperties & NumberProperties;
+
 /**
  * String properties
  */
-interface StringProperties {
+export interface StringProperties {
     type: string
     maxLength?: number
     minLength?: number
     pattern?: string
 }
 
+type StringType = CommonProperties & ScalarProperties & StringProperties;
+
+type AllOfValue = ReferenceType;
+
 /**
  * An intersection type combines multiple schemas into one
  */
-interface AllOfProperties {
+export interface AllOfProperties {
     description?: string
-    allOf: Array<(CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ScalarProperties & BooleanProperties) | ReferenceType>
+    allOf: Array<AllOfValue>
 }
+
+type DiscriminatorMapping = Record<string, string>;
+
+/**
+ * Adds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description
+ */
+export interface Discriminator {
+    propertyName: string
+    mapping?: DiscriminatorMapping
+}
+
+type OneOfValue = NumberType | StringType | BooleanType | ReferenceType;
 
 /**
  * An union type can contain one of the provided schemas
  */
-interface OneOfProperties {
+export interface OneOfProperties {
     description?: string
     discriminator?: Discriminator
-    oneOf: Array<(CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ScalarProperties & BooleanProperties) | ReferenceType>
+    oneOf: Array<OneOfValue>
 }
 
-/**
- * Properties of a schema
- */
-interface Properties {
-    [index: string]: (CommonProperties & ScalarProperties & BooleanProperties) | (CommonProperties & ScalarProperties & NumberProperties) | (CommonProperties & ScalarProperties & StringProperties) | (CommonProperties & ArrayProperties) | (AllOfProperties | OneOfProperties) | ReferenceType | GenericType
-}
+type CombinationType = AllOfProperties | OneOfProperties;
+
+type TemplateProperties = Record<string, string>;
 
 /**
  * Represents a reference to another schema
  */
-interface ReferenceType {
-    $ref: string
-    $template?: TemplateProperties
+export interface ReferenceType {
+    ref: string
+    template?: TemplateProperties
 }
 
 /**
  * Represents a generic type
  */
-interface GenericType {
-    $generic: string
+export interface GenericType {
+    generic: string
 }
+
+type DefinitionValue = ObjectType | ArrayType | CombinationType;
+
+type Definitions = Record<string, DefinitionValue>;
+
+type Import = Record<string, string>;
+
+type EnumValue = StringArray | NumberArray;
+
+type ScalarValue = string | number | boolean;
+
+type StringArray = Array<string>;
+
+type NumberArray = Array<number>;
 
 /**
- * Adds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description
+ * Reference a root schema at the definitions
  */
-interface Discriminator {
-    propertyName: string
-    mapping?: DiscriminatorMapping
-}
-
-interface TemplateProperties {
-    [index: string]: ReferenceType
-}
-
-/**
- * An object to hold mappings between payload values and schema names or references
- */
-interface DiscriminatorMapping {
-    [index: string]: string
+export interface Root {
+    import?: Import
+    definitions: Definitions
+    ref: string
 }

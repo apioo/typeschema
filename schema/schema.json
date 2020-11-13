@@ -1,7 +1,4 @@
 {
-  "title": "TypeSchema",
-  "description": "TypeSchema meta schema which describes a TypeSchema",
-  "type": "object",
   "definitions": {
     "CommonProperties": {
       "description": "Common properties which can be used at any schema",
