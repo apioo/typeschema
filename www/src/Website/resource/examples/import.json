@@ -1,18 +1,22 @@
 {
   "$import": {
-    "my_ns": "https://raw.githubusercontent.com/apioo/typeschema/master/www/src/Website/resource/examples/generic.json"
+    "my_ns": "file:///generic.json"
   },
-  "title": "Faculty",
-  "type": "object",
-  "properties": {
-    "description": {
-      "type": "string"
-    },
-    "students": {
-      "type": "array",
-      "items": {
-        "$ref": "my_ns:StudentMap"
+  "definitions": {
+    "Faculty": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "students": {
+          "type": "array",
+          "items": {
+            "$ref": "my_ns:StudentMap"
+          }
+        }
       }
     }
-  }
+  },
+  "$ref": "Faculty"
 }

@@ -24,14 +24,5 @@
       }
     }
   },
-  "title": "ResultSet",
-  "type": "object",
-  "properties": {
-    "entries": {
-      "type": "array",
-      "items": {
-        "$ref": "Student"
-      }
-    }
-  }
+  "$ref": "Student"
 }

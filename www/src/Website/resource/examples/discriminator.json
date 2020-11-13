@@ -1,0 +1,56 @@
+{
+  "definitions": {
+    "Human": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "location": {
+          "oneOf": [{
+            "$ref": "Web"
+          }, {
+            "$ref": "World"
+          }],
+          "discriminator": {
+            "propertyName": "type"
+          }
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["type"]
+    },
+    "Web": {
+      "$extends": "Location",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "World": {
+      "$extends": "Location",
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$ref": "Human"
+}

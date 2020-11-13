@@ -44,7 +44,7 @@ class Index extends ViewAbstract
     private function convert(string $type, string $code)
     {
         $httpClient = new Client();
-        $parser = new TypeSchema(TypeSchema\ImportResolver::createDefault($httpClient));
+        $parser = new TypeSchema(TypeSchema\ImportResolver::createDefault($httpClient), __DIR__ . '/resource/examples');
         $schema = $parser->parse($code);
 
         $factory = new GeneratorFactory();
@@ -63,15 +63,15 @@ class Index extends ViewAbstract
         ];
 
         $examples[] = [
-            'title' => 'Model with references',
-            'description' => 'A model mode which contains different references.',
-            'schema' => file_get_contents(__DIR__ . '/resource/examples/reference.json'),
-        ];
-
-        $examples[] = [
             'title' => 'Model with inheritance',
             'description' => 'A result set containing a model which extends a different model.',
             'schema' => file_get_contents(__DIR__ . '/resource/examples/inheritance.json'),
+        ];
+
+        $examples[] = [
+            'title' => 'Model with discriminator',
+            'description' => 'A model which contains a union type.',
+            'schema' => file_get_contents(__DIR__ . '/resource/examples/discriminator.json'),
         ];
 
         $examples[] = [

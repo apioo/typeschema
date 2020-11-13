@@ -29,17 +29,5 @@
       }
     }
   },
-  "title": "Faculty",
-  "type": "object",
-  "properties": {
-    "description": {
-      "type": "string"
-    },
-    "students": {
-      "type": "array",
-      "items": {
-        "$ref": "StudentMap"
-      }
-    }
-  }
+  "$ref": "StudentMap"
 }

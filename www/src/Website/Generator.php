@@ -45,18 +45,25 @@ class Generator extends ViewAbstract
     
     private function getSchema()
     {
-        return <<<JSON
+        return <<<'JSON'
 {
-  "title": "Student",
-  "type": "object",
-  "properties": {
-    "firstName": {
-      "type": "string"
-    },
-    "lastName": {
-      "type": "string"
+  "definitions": {
+    "Student": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        }
+      }
     }
-  }
+  },
+  "$ref": "Student"
 }
 JSON;
     }
