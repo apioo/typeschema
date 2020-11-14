@@ -11,8 +11,8 @@
 
   <h1>Implementation</h1>
 
-  <p>The following page provides implementation advices how to properly process
-  a TypeSchema.</p>
+  <p>The following page provides implementation advices how to properly build
+  a TypeSchema generator.</p>
 
   <ul>
     <li>TypeSchema is designed so that a processor can create an in-memory object
@@ -28,18 +28,6 @@
     the definitions location. Object types can then reference these schemas. This is
     required since a processor needs a unique name for each object schema, which
     is the definition key of the schema (i.e. which is used as class name).</li>
-  </ul>
-
-  <h2>Pseudocode</h2>
-  <hr>
-
-  <h4 id="type-detection">Parse definitions</h4>
-  <hr>
-  <p>The following algorithm shows how to detect the correct type of a schema.</p>
-
-  <p><code>function parseDefinitions(object schema)</code></p>
-  <ul>
-    <li></li>
   </ul>
 
   <h4 id="parse-schema">Parse schema</h4>
@@ -60,21 +48,21 @@
           </ul>
         </li>
         <li>Set <code>properties</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructProperties">struct properties</a> from <code>schema</code> and set them to <code>type</code></li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructProperties">struct properties</a> from <code>schema</code> and set them to <code>type</code></li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>MapType</code>
       <ul>
         <li><code>Type additionalProperties</code> = <code><a href="#parse-schema">parseSchema</a>(schema.additionalProperties)</code></li>
         <li>Set <code>additionalProperties</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#MapProperties">map properties</a> from <code>schema</code> and set them to the type</li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#MapProperties">map properties</a> from <code>schema</code> and set them to the type</li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>ArrayType</code>
       <ul>
         <li><code>Type items</code> = <code><a href="#parse-schema">parseSchema</a>(schema.items)</code></li>
         <li>Set <code>items</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ArrayProperties">array properties</a> from <code>schema</code> and set them to <code>type</code></li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ArrayProperties">array properties</a> from <code>schema</code> and set them to <code>type</code></li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>BooleanType</code>
@@ -101,6 +89,7 @@
           </ul>
         </li>
         <li>Set <code>items</code> to <code>type</code></li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#OneOfProperties">union properties</a> from <code>schema</code> and set them to <code>type</code></li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>IntersectionType</code>
@@ -112,6 +101,7 @@
           </ul>
         </li>
         <li>Set <code>items</code> to <code>type</code></li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#AllOfProperties">intersection properties</a> from <code>schema</code> and set them to <code>type</code></li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>ReferenceType</code>
@@ -190,71 +180,6 @@
     <li><code>return null</code></li>
   </ul>
 
-  <h4 id="reference-resolution">Reference resolution</h4>
-  <hr>
-  <p></p>
-
-  <p><code>function resolveReference(object schema): Type</code></p>
-  <ul>
-    <li>If <code>schema.$ref</code> is available
-      <ul>
-        <li><code>string refName</code> = <code>schema.$ref</code></li>
-        <li>If <code>refName</code> starts with <code>#/</code>
-          <ul>
-            <li><code>refName</code> = Strip away the definitions location string. I.e. if we have a string <code>#/definitions/Foobar</code> the value is now <code>Foobar</code>.</li>
-            <li>If <code>definitions[refName]</code> is available
-              <ul>
-                <li>If <code>availableObjects[refName]</code> is available
-                  <ul>
-                    <li><code>return availableObjects[refName]</code></li>
-                  </ul>
-                </li>
-                <li><code>object result</code> = Load the schema <code>refName</code> from the definitions location</li>
-                <li><code>Type type</code> = <code><a href="#parse-schema">parseSchema</a>(result)</code></li>
-                <li>If <code>type</code> is an instance of <code>StructType</code> or <code>MapType</code>
-                  <ul>
-                    <li>Add the type to the global available objects <code>availableObjects[refName]</code> = <code>type</code></li>
-                  </ul>
-                </li>
-                <li><code>return type</code></li>
-              </ul>
-            </li>
-            <li>Else throw an exception that the referenced schema does not exist</li>
-          </ul>
-        </li>
-        <li>Else
-          <ul>
-            <li>Parse <code>refName</code> as <a href="https://tools.ietf.org/html/rfc3986">URI</a></li>
-            <li>If the <code>scheme</code> of the URI is supported resolve the target, this is optional
-              and should be only done in case the library supports it. Typical schemes are: <code>http</code>,
-              <code>https</code>, <code>file</code>
-              <ul>
-                <li>If <code>availableObjects[refName]</code> is available
-                  <ul>
-                    <li><code>return availableObjects[refName]</code></li>
-                  </ul>
-                </li>
-                <li><code>object result</code> = Contains the resolved schema</li>
-                <li><code>Type type</code> = <code><a href="#parse-schema">parse</a>(result)</code></li>
-                <li>If <code>type</code> is an instance of <code>StructType</code> or <code>MapType</code>
-                  <ul>
-                    <li>Add the type to the global available objects <code>availableObjects[refName]</code> = <code>type</code></li>
-                  </ul>
-                </li>
-                <li><code>return type</code></li>
-              </ul>
-            </li>
-            <li>Else throw an exception that it is not possible to resolve the referenced schema</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li>Else
-      <ul>
-        <li>throw an exception that the provided type is not of type reference</li>
-      </ul>
-    </li>
-  </ul>
 </div>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

@@ -10,6 +10,10 @@ class Specification extends ViewAbstract
 {
     public function onGet(RequestInterface $request, ResponseInterface $response)
     {
-        $this->render($response, __DIR__ . '/resource/specification.php', []);
+        $spec = file_get_contents(__DIR__ . '/../../../schema/schema.htm');
+
+        $this->render($response, __DIR__ . '/resource/specification.php', [
+            'spec' => $spec
+        ]);
     }
 }

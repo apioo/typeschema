@@ -64,7 +64,7 @@ class Index extends ViewAbstract
 
         $examples[] = [
             'title' => 'Model with inheritance',
-            'description' => 'A result set containing a model which extends a different model.',
+            'description' => 'A student class which extends from the human class.',
             'schema' => file_get_contents(__DIR__ . '/resource/examples/inheritance.json'),
         ];
 

@@ -32,6 +32,7 @@ export interface ContainerProperties {
  */
 export interface StructProperties {
     final?: boolean
+    extends?: string
     properties: Properties
     required?: StringArray
 }
