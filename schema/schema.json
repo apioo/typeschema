@@ -114,6 +114,10 @@
           "description": "Indicates that a struct is final, this means it is not possible to extend this struct",
           "type": "boolean"
         },
+        "$extends": {
+          "description": "Extends an existing type",
+          "type": "string"
+        },
         "properties": {
           "$ref": "#/definitions/Properties"
         },
