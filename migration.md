@@ -130,7 +130,7 @@ must follow the same schema. Code generators can not usefully understand those
 properties and we think also that the `patternProperties` keyword promotes
 bad data design. 
 
-## Object-Title
+## Root-Object
 
 ### Invalid
 
@@ -145,13 +145,30 @@ bad data design.
 }
 ```
 
-In JsonSchema an object must not have a title.
-
 ### Reasoning
 
-In TypeSchema the root `object` must have a `title` keyword. This is required
-since processors need an identifier, inside the `definitions` the identifier is
-based on the definitions key.
+In JsonSchema you can define a root schema at the top level. In TypeSchema we
+can only use a `$ref` at the root level to reference a root schema. This is
+because we always need a name for every schema and this is the key at the
+`definitions` location. The following example shows a valid version:
+
+### Valid
+
+```json
+{
+  "definitions": {
+    "MyType": {
+      "type": "object",
+      "properties": {
+        "foo": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$ref": "MyType"
+}
+```
 
 ## Anyof-Type
 
