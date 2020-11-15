@@ -30,6 +30,64 @@
     is the definition key of the schema (i.e. which is used as class name).</li>
   </ul>
 
+  <h4 id="overview">Overview</h4>
+
+  <p>The following TypeSchema shows most keywords with a concrete reference to
+  the specification, which should give you a first overview of the available
+  keywords.</p>
+  
+  <pre><code class="json">{
+  "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Import">$import</a>": {
+    "my_ns": "file:///generic.json"
+  },
+  "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Definitions">definitions</a>": {
+    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructProperties">Human</a>": {
+      "type": "object",
+      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Properties">properties</a>": {
+        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StringProperties">firstName</a>": {
+          "type": "string"
+        },
+        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StringProperties">lastName</a>": {
+          "type": "string"
+        },
+        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#NumberProperties">age</a>": {
+          "type": "integer"
+        }
+      }
+    },
+    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructProperties">Student</a>": {
+      "$extends": "Human",
+      "type": "object",
+      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Properties">properties</a>": {
+        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#NumberProperties">matricleNumber</a>": {
+          "type": "integer"
+        }
+      }
+    },
+    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ReferenceType">StudentMap</a>": {
+      "$ref": "Map",
+      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#TemplateProperties">$template</a>": {
+        "T": "Student"
+      }
+    },
+    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructProperties">Map</a>": {
+      "type": "object",
+      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Properties">properties</a>": {
+        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#NumberProperties">totalResults</a>": {
+          "type": "integer"
+        },
+        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ArrayProperties">entries</a>": {
+          "type": "array",
+          "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ArrayValue">items</a>": {
+            "$generic": "T"
+          }
+        }
+      }
+    }
+  },
+  "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Root">$ref</a>": "StudentMap"
+}</code></pre>
+  
   <h4 id="parse-schema">Parse schema</h4>
   <hr>
   <p>The following algorithm shows how to create an object in-memory
@@ -181,5 +239,7 @@
   </ul>
 
 </div>
+
+<script>hljs.initHighlightingOnLoad();</script>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>
