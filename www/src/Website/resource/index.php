@@ -16,6 +16,19 @@
 </div>
 
 <div class="container">
+  <div class="row">
+    <div class="col-12" style="text-align: center">
+      <img src="<?php echo $base; ?>/img/typeschema_flow.png">
+      <hr>
+      <p class="lead">TypeSchema uses a JSON format to describe your model. Based
+      on this JSON format it can generate models in multiple languages. The
+      following list shows some examples:</p>
+      <br><br>
+    </div>
+  </div>
+</div>
+
+<div class="container">
   <?php foreach($examples as $key => $example): ?>
   <div class="row">
     <div class="col-6">
