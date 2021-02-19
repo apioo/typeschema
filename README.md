@@ -5,10 +5,11 @@
 TypeSchema is a JSON format to describe data models in a language neutral
 format. A TypeSchema can be easily transformed into specific code for almost any
 programming language. This helps to reuse core data models in different
-environments.
+environments. More information at: [https://typeschema.org](https://typeschema.org)
 
-<p align="center">
-    <a href="https://typeschema.org" target="_blank"><img src="https://raw.githubusercontent.com/apioo/typeschema/master/www/public/img/typeschema_flow.png"></a>
-</p>
+## Schemas
 
-More information at: [https://typeschema.org](https://typeschema.org)
+Please take a look at our [Model](https://github.com/apioo/psx-model) repository
+where we have TypeSchema specifications of popular schema specifications like
+i.e. OpenAPI etc. You can also use those specifications to generate data models
+in your preferred language.
