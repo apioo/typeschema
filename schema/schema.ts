@@ -1,8 +1,7 @@
 /**
- * Common properties which can be used at any schema
+ * Common properties which can be used at any type
  */
-export interface CommonProperties {
-    title?: string
+export interface CommonType {
     description?: string
     type?: string
     nullable?: boolean
@@ -10,76 +9,62 @@ export interface CommonProperties {
     readonly?: boolean
 }
 
-export interface ScalarProperties {
+/**
+ * Properties for a scalar type
+ */
+export interface ScalarType extends CommonType {
     format?: string
-    enum?: EnumValue
-    default?: ScalarValue
-}
-
-type PropertyValue = BooleanType | NumberType | StringType | ArrayType | CombinationType | ReferenceType | GenericType;
-
-type Properties = Record<string, PropertyValue>;
-
-/**
- * Properties specific for a container
- */
-export interface ContainerProperties {
-    type: string
+    enum?: Array<string | number>
+    default?: string | number | boolean
 }
 
 /**
- * Struct specific properties
+ * Properties of a struct
  */
-export interface StructProperties {
+export type Properties = Record<string, BooleanType | NumberType | StringType | ArrayType | UnionType | IntersectionType | ReferenceType | GenericType>;
+
+/**
+ * A struct contains a fix set of defined properties
+ */
+export interface StructType extends CommonType {
     final?: boolean
     extends?: string
+    type: string
     properties: Properties
-    required?: StringArray
+    required?: Array<string>
 }
 
-type StructType = CommonProperties & ContainerProperties & StructProperties;
-
 /**
- * Map specific properties
+ * A map contains variable key value entries of a specific type
  */
-export interface MapProperties {
-    additionalProperties: PropertyValue
+export interface MapType extends CommonType {
+    type: string
+    additionalProperties: BooleanType | NumberType | StringType | ArrayType | UnionType | IntersectionType | ReferenceType | GenericType
     maxProperties?: number
     minProperties?: number
 }
 
-type MapType = CommonProperties & ContainerProperties & MapProperties;
-
-type ObjectType = StructType | MapType;
-
-type ArrayValue = BooleanType | NumberType | StringType | ReferenceType | GenericType;
-
 /**
- * Array properties
+ * An array contains an ordered list of a specific type
  */
-export interface ArrayProperties {
+export interface ArrayType extends CommonType {
     type: string
-    items: ArrayValue
+    items: BooleanType | NumberType | StringType | ReferenceType | GenericType
     maxItems?: number
     minItems?: number
-    uniqueItems?: boolean
 }
 
-type ArrayType = CommonProperties & ArrayProperties;
-
 /**
- * Boolean properties
+ * Represents a boolean value
  */
-export interface BooleanProperties {
+export interface BooleanType extends ScalarType {
     type: string
 }
 
-type BooleanType = CommonProperties & ScalarProperties & BooleanProperties;
-
 /**
- * Number properties
+ * Represents a number value (contains also integer)
  */
-export interface NumberProperties {
+export interface NumberType extends ScalarType {
     type: string
     multipleOf?: number
     maximum?: number
@@ -88,31 +73,28 @@ export interface NumberProperties {
     exclusiveMinimum?: boolean
 }
 
-type NumberType = CommonProperties & ScalarProperties & NumberProperties;
-
 /**
- * String properties
+ * Represents a string value
  */
-export interface StringProperties {
+export interface StringType extends ScalarType {
     type: string
     maxLength?: number
     minLength?: number
     pattern?: string
 }
 
-type StringType = CommonProperties & ScalarProperties & StringProperties;
-
-type AllOfValue = ReferenceType;
-
 /**
- * An intersection type combines multiple schemas into one
+ * An intersection type combines multiple types
  */
-export interface AllOfProperties {
+export interface IntersectionType {
     description?: string
-    allOf: Array<AllOfValue>
+    allOf: Array<ReferenceType>
 }
 
-type DiscriminatorMapping = Record<string, string>;
+/**
+ * An object to hold mappings between payload values and schema names or references
+ */
+export type DiscriminatorMapping = Record<string, string>;
 
 /**
  * Adds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description
@@ -122,23 +104,19 @@ export interface Discriminator {
     mapping?: DiscriminatorMapping
 }
 
-type OneOfValue = NumberType | StringType | BooleanType | ReferenceType;
-
 /**
  * An union type can contain one of the provided schemas
  */
-export interface OneOfProperties {
+export interface UnionType {
     description?: string
     discriminator?: Discriminator
-    oneOf: Array<OneOfValue>
+    oneOf: Array<NumberType | StringType | BooleanType | ReferenceType>
 }
 
-type CombinationType = AllOfProperties | OneOfProperties;
-
-type TemplateProperties = Record<string, string>;
+export type TemplateProperties = Record<string, string>;
 
 /**
- * Represents a reference to another schema
+ * Represents a reference to another type
  */
 export interface ReferenceType {
     ref: string
@@ -152,25 +130,21 @@ export interface GenericType {
     generic: string
 }
 
-type DefinitionValue = ObjectType | ArrayType | CombinationType;
-
-type Definitions = Record<string, DefinitionValue>;
-
-type Import = Record<string, string>;
-
-type EnumValue = StringArray | NumberArray;
-
-type ScalarValue = string | number | boolean;
-
-type StringArray = Array<string>;
-
-type NumberArray = Array<number>;
+/**
+ * Type definitions which can be reused
+ */
+export type Definitions = Record<string, StructType | MapType | ReferenceType>;
 
 /**
- * Reference a root schema at the definitions
+ * Contains external definitions which are imported. The imported schemas can be used via the namespace
+ */
+export type Import = Record<string, string>;
+
+/**
+ * Reference a root type at the definitions
  */
 export interface Root {
     import?: Import
     definitions: Definitions
-    ref: string
+    ref?: string
 }

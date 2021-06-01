@@ -1,19 +1,15 @@
 {
   "definitions": {
-    "CommonProperties": {
-      "description": "Common properties which can be used at any schema",
+    "CommonType": {
+      "description": "Common properties which can be used at any type",
       "type": "object",
       "properties": {
-        "title": {
-          "description": "Distinct word which represents this schema",
-          "type": "string"
-        },
         "description": {
-          "description": "General description of this schema, should not contain any new lines.",
+          "description": "General description of this type, should not contain any new lines.",
           "type": "string"
         },
         "type": {
-          "description": "JSON type of the property",
+          "description": "Type of the property",
           "type": "string",
           "enum": [
             "object",
@@ -30,19 +26,21 @@
           "default": false
         },
         "deprecated": {
-          "description": "Indicates whether this schema is deprecated",
+          "description": "Indicates whether this type is deprecated",
           "type": "boolean",
           "default": false
         },
         "readonly": {
-          "description": "Indicates whether this schema is readonly",
+          "description": "Indicates whether this type is readonly",
           "type": "boolean",
           "default": false
         }
       }
     },
 
-    "ScalarProperties": {
+    "ScalarType": {
+      "$extends": "CommonType",
+      "description": "Properties for a scalar type",
       "type": "object",
       "properties": {
         "format": {
@@ -50,64 +48,69 @@
           "type": "string"
         },
         "enum": {
-          "$ref": "#/definitions/EnumValue"
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
         },
         "default": {
-          "$ref": "#/definitions/ScalarValue"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
         }
       }
     },
 
-    "PropertyValue": {
-      "description": "Allowed values of an object property",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/BooleanType"
-        },
-        {
-          "$ref": "#/definitions/NumberType"
-        },
-        {
-          "$ref": "#/definitions/StringType"
-        },
-        {
-          "$ref": "#/definitions/ArrayType"
-        },
-        {
-          "$ref": "#/definitions/CombinationType"
-        },
-        {
-          "$ref": "#/definitions/ReferenceType"
-        },
-        {
-          "$ref": "#/definitions/GenericType"
-        }
-      ]
-    },
     "Properties": {
-      "description": "Properties of a schema",
+      "description": "Properties of a struct",
       "type": "object",
       "additionalProperties": {
-        "$ref": "#/definitions/PropertyValue"
+        "oneOf": [
+          {
+            "$ref": "BooleanType"
+          },
+          {
+            "$ref": "NumberType"
+          },
+          {
+            "$ref": "StringType"
+          },
+          {
+            "$ref": "ArrayType"
+          },
+          {
+            "$ref": "UnionType"
+          },
+          {
+            "$ref": "IntersectionType"
+          },
+          {
+            "$ref": "ReferenceType"
+          },
+          {
+            "$ref": "GenericType"
+          }
+        ]
       }
     },
-    "ContainerProperties": {
-      "description": "Properties specific for a container",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "object"
-          ]
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "StructProperties": {
-      "description": "Struct specific properties",
+    "StructType": {
+      "$extends": "CommonType",
+      "description": "A struct contains a fix set of defined properties",
       "type": "object",
       "properties": {
         "$final": {
@@ -118,101 +121,84 @@
           "description": "Extends an existing type",
           "type": "string"
         },
+        "type": {
+          "type": "string",
+          "enum": [
+            "object"
+          ]
+        },
         "properties": {
-          "$ref": "#/definitions/Properties"
+          "$ref": "Properties"
         },
         "required": {
-          "$ref": "#/definitions/StringArray"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
+        "type",
         "properties"
       ]
     },
-    "StructType": {
-      "description": "A struct contains a fix set of defined properties",
-      "allOf": [
-        {
-          "$ref": "#/definitions/CommonProperties"
-        },
-        {
-          "$ref": "#/definitions/ContainerProperties"
-        },
-        {
-          "$ref": "#/definitions/StructProperties"
-        }
-      ]
-    },
-    "MapProperties": {
-      "description": "Map specific properties",
+    "MapType": {
+      "$extends": "CommonType",
+      "description": "A map contains variable key value entries of a specific type",
       "type": "object",
       "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "object"
+          ]
+        },
         "additionalProperties": {
-          "$ref": "#/definitions/PropertyValue"
+          "oneOf": [
+            {
+              "$ref": "BooleanType"
+            },
+            {
+              "$ref": "NumberType"
+            },
+            {
+              "$ref": "StringType"
+            },
+            {
+              "$ref": "ArrayType"
+            },
+            {
+              "$ref": "UnionType"
+            },
+            {
+              "$ref": "IntersectionType"
+            },
+            {
+              "$ref": "ReferenceType"
+            },
+            {
+              "$ref": "GenericType"
+            }
+          ]
         },
         "maxProperties": {
           "description": "Positive integer value",
-          "type": "integer",
-          "minimum": 0
+          "type": "integer"
         },
         "minProperties": {
           "description": "Positive integer value",
-          "type": "integer",
-          "minimum": 0
+          "type": "integer"
         }
       },
       "required": [
+        "type",
         "additionalProperties"
       ]
     },
-    "MapType": {
-      "description": "A map contains variable key value entries of a specific type",
-      "allOf": [
-        {
-          "$ref": "#/definitions/CommonProperties"
-        },
-        {
-          "$ref": "#/definitions/ContainerProperties"
-        },
-        {
-          "$ref": "#/definitions/MapProperties"
-        }
-      ]
-    },
-    "ObjectType": {
-      "description": "An object represents either a struct or map type",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/StructType"
-        },
-        {
-          "$ref": "#/definitions/MapType"
-        }
-      ]
-    },
 
-    "ArrayValue": {
-      "description": "Allowed values of an array item",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/BooleanType"
-        },
-        {
-          "$ref": "#/definitions/NumberType"
-        },
-        {
-          "$ref": "#/definitions/StringType"
-        },
-        {
-          "$ref": "#/definitions/ReferenceType"
-        },
-        {
-          "$ref": "#/definitions/GenericType"
-        }
-      ]
-    },
-    "ArrayProperties": {
-      "description": "Array properties",
+    "ArrayType": {
+      "$extends": "CommonType",
+      "description": "An array contains an ordered list of a specific type",
       "type": "object",
       "properties": {
         "type": {
@@ -222,20 +208,31 @@
           ]
         },
         "items": {
-          "$ref": "#/definitions/ArrayValue"
+          "oneOf": [
+            {
+              "$ref": "BooleanType"
+            },
+            {
+              "$ref": "NumberType"
+            },
+            {
+              "$ref": "StringType"
+            },
+            {
+              "$ref": "ReferenceType"
+            },
+            {
+              "$ref": "GenericType"
+            }
+          ]
         },
         "maxItems": {
           "description": "Positive integer value",
-          "type": "integer",
-          "minimum": 0
+          "type": "integer"
         },
         "minItems": {
           "description": "Positive integer value",
-          "type": "integer",
-          "minimum": 0
-        },
-        "uniqueItems": {
-          "type": "boolean"
+          "type": "integer"
         }
       },
       "required": [
@@ -243,20 +240,10 @@
         "items"
       ]
     },
-    "ArrayType": {
-      "description": "An array contains an ordered list of a specific type",
-      "allOf": [
-        {
-          "$ref": "#/definitions/CommonProperties"
-        },
-        {
-          "$ref": "#/definitions/ArrayProperties"
-        }
-      ]
-    },
 
-    "BooleanProperties": {
-      "description": "Boolean properties",
+    "BooleanType": {
+      "$extends": "ScalarType",
+      "description": "Represents a boolean value",
       "type": "object",
       "properties": {
         "type": {
@@ -270,23 +257,10 @@
         "type"
       ]
     },
-    "BooleanType": {
-      "description": "Represents a boolean value",
-      "allOf": [
-        {
-          "$ref": "#/definitions/CommonProperties"
-        },
-        {
-          "$ref": "#/definitions/ScalarProperties"
-        },
-        {
-          "$ref": "#/definitions/BooleanProperties"
-        }
-      ]
-    },
 
-    "NumberProperties": {
-      "description": "Number properties",
+    "NumberType": {
+      "$extends": "ScalarType",
+      "description": "Represents a number value (contains also integer)",
       "type": "object",
       "properties": {
         "type": {
@@ -320,23 +294,10 @@
         "type"
       ]
     },
-    "NumberType": {
-      "description": "Represents a number value (contains also integer)",
-      "allOf": [
-        {
-          "$ref": "#/definitions/CommonProperties"
-        },
-        {
-          "$ref": "#/definitions/ScalarProperties"
-        },
-        {
-          "$ref": "#/definitions/NumberProperties"
-        }
-      ]
-    },
 
-    "StringProperties": {
-      "description": "String properties",
+    "StringType": {
+      "$extends": "ScalarType",
+      "description": "Represents a string value",
       "type": "object",
       "properties": {
         "type": {
@@ -364,32 +325,10 @@
         "type"
       ]
     },
-    "StringType": {
-      "description": "Represents a string value",
-      "allOf": [
-        {
-          "$ref": "#/definitions/CommonProperties"
-        },
-        {
-          "$ref": "#/definitions/ScalarProperties"
-        },
-        {
-          "$ref": "#/definitions/StringProperties"
-        }
-      ]
-    },
 
-    "AllOfValue": {
-      "description": "Allowed values in a combination schema",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/ReferenceType"
-        }
-      ]
-    },
-    "AllOfProperties": {
+    "IntersectionType": {
       "type": "object",
-      "description": "An intersection type combines multiple schemas into one",
+      "description": "An intersection type combines multiple types",
       "properties": {
         "description": {
           "type": "string"
@@ -398,7 +337,7 @@
           "description": "Combination values",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/AllOfValue"
+            "$ref": "ReferenceType"
           }
         }
       },
@@ -423,31 +362,14 @@
           "type": "string"
         },
         "mapping": {
-          "$ref": "#/definitions/DiscriminatorMapping"
+          "$ref": "DiscriminatorMapping"
         }
       },
       "required": [
         "propertyName"
       ]
     },
-    "OneOfValue": {
-      "description": "Allowed values in a combination schema",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/NumberType"
-        },
-        {
-          "$ref": "#/definitions/StringType"
-        },
-        {
-          "$ref": "#/definitions/BooleanType"
-        },
-        {
-          "$ref": "#/definitions/ReferenceType"
-        }
-      ]
-    },
-    "OneOfProperties": {
+    "UnionType": {
       "description": "An union type can contain one of the provided schemas",
       "type": "object",
       "properties": {
@@ -455,29 +377,31 @@
           "type": "string"
         },
         "discriminator": {
-          "$ref": "#/definitions/Discriminator"
+          "$ref": "Discriminator"
         },
         "oneOf": {
           "description": "Combination values",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/OneOfValue"
+            "oneOf": [
+              {
+                "$ref": "NumberType"
+              },
+              {
+                "$ref": "StringType"
+              },
+              {
+                "$ref": "BooleanType"
+              },
+              {
+                "$ref": "ReferenceType"
+              }
+            ]
           }
         }
       },
       "required": [
         "oneOf"
-      ]
-    },
-    "CombinationType": {
-      "description": "A combination type is either a intersection or union type",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/AllOfProperties"
-        },
-        {
-          "$ref": "#/definitions/OneOfProperties"
-        }
       ]
     },
 
@@ -488,16 +412,16 @@
       }
     },
     "ReferenceType": {
-      "description": "Represents a reference to another schema",
+      "description": "Represents a reference to another type",
       "type": "object",
       "properties": {
         "$ref": {
-          "description": "Reference to a schema under the definitions key",
+          "description": "Reference to a type under the definitions key",
           "type": "string"
         },
         "$template": {
-          "description": "Optional concrete schema definitions which replace generic template types",
-          "$ref": "#/definitions/TemplateProperties"
+          "description": "Optional concrete type definitions which replace generic template types",
+          "$ref": "TemplateProperties"
         }
       },
       "required": [
@@ -517,25 +441,21 @@
       ]
     },
 
-    "DefinitionValue": {
-      "description": "Represents a concrete type definition",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/ObjectType"
-        },
-        {
-          "$ref": "#/definitions/ArrayType"
-        },
-        {
-          "$ref": "#/definitions/CombinationType"
-        }
-      ]
-    },
     "Definitions": {
-      "description": "Schema definitions which can be reused",
+      "description": "Type definitions which can be reused",
       "type": "object",
       "additionalProperties": {
-        "$ref": "#/definitions/DefinitionValue"
+        "oneOf": [
+          {
+            "$ref": "StructType"
+          },
+          {
+            "$ref": "MapType"
+          },
+          {
+            "$ref": "ReferenceType"
+          }
+        ]
       }
     },
 
@@ -547,54 +467,15 @@
       }
     },
 
-    "EnumValue": {
-      "description": "A list of possible enumeration values",
-      "oneOf": [{
-        "$ref": "#/definitions/StringArray"
-      }, {
-        "$ref": "#/definitions/NumberArray"
-      }]
-    },
-    "ScalarValue": {
-      "description": "Represents a scalar value",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "number"
-        },
-        {
-          "type": "boolean"
-        }
-      ]
-    },
-    "StringArray": {
-      "description": "Array string values",
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1
-    },
-    "NumberArray": {
-      "description": "Array number values",
-      "type": "array",
-      "items": {
-        "type": "number"
-      },
-      "minItems": 1
-    },
-
     "Root": {
-      "description": "Reference a root schema at the definitions",
+      "description": "Reference a root type at the definitions",
       "type": "object",
       "properties": {
         "$import": {
-          "$ref": "#/definitions/Import"
+          "$ref": "Import"
         },
         "definitions": {
-          "$ref": "#/definitions/Definitions"
+          "$ref": "Definitions"
         },
         "$ref": {
           "description": "Reference to a root schema under the definitions key",
@@ -602,10 +483,9 @@
         }
       },
       "required": [
-        "definitions",
-        "$ref"
+        "definitions"
       ]
     }
   },
-  "$ref": "#/definitions/Root"
+  "$ref": "Root"
 }
