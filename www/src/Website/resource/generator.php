@@ -8,7 +8,7 @@
 </nav>
 
 <div class="container">
-  <h1>Generator</h1>
+  <h1 class="display-4">Generator</h1>
   <div class="row">
     <div class="col-6">
       <form method="post">

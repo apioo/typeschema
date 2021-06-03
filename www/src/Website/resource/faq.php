@@ -8,7 +8,7 @@
 </nav>
 
 <div class="container">
-  <h1>FAQ</h1>
+  <h1 class="display-4">FAQ</h1>
 
   <h3>What is the history?</h3>
 
