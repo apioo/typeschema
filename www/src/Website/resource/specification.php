@@ -185,7 +185,7 @@
   be <code>number</code> or <code>integer</code>.</p>
 
   <pre><code class="json">{
-    "type": "number"
+    "type": "string"
 }</code></pre>
 
   <p>All allowed properties are described at the <a href="#StringType">Appendix</a>.</p>
@@ -235,8 +235,8 @@
   <a id="Generic"></a>
   <h3>Generic</h3>
 
-  <p>Represents a reference type. A reference type points to a specific type at the definitions map. A reference type
-  must have a <code>$ref</code> keyword.</p>
+  <p>Represents a generic type. A generic type represents a type which can be replaced if you reference a specific type.
+  A generic type must have a <code>$generic</code> keyword.</p>
 
   <pre><code class="json">{
     "$generic": "T"
@@ -244,7 +244,8 @@
 
   <p>All allowed properties are described at the <a href="#GenericType">Appendix</a>.</p>
 
-  <p></p>
+  <p>I.e. if we reference a specific type and this type contains a generic type then we can define which type should
+  be inserted at the generic type.</p>
 
   <pre><code class="json">{
     "$ref": "MyType",
