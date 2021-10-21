@@ -34,6 +34,9 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Generator::class); ?>">Generator</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Migration::class); ?>">Migration</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Faq::class); ?>">FAQ</a>
     </li>
   </ul>
