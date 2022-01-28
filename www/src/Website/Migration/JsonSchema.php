@@ -1,42 +1,39 @@
 <?php
 
-namespace App\Website;
+namespace App\Website\Migration;
 
+use PSX\Api\Attribute\Incoming;
 use PSX\Framework\Controller\ViewAbstract;
-use PSX\Http\RequestInterface;
-use PSX\Http\ResponseInterface;
-use PSX\Schema\GeneratorFactory;
-use PSX\Schema\Parser\TypeSchema;
-use PSX\Schema\Transformer\JsonSchema;
+use PSX\Framework\Schema\Passthru;
+use PSX\Http\Environment\HttpContextInterface;
 
-class Migration extends ViewAbstract
+class JsonSchema extends ViewAbstract
 {
-    public function onGet(RequestInterface $request, ResponseInterface $response)
+    protected function doGet(HttpContextInterface $context): mixed
     {
-        $this->render($response, __DIR__ . '/resource/migration.php', [
+        return $this->render(__DIR__ . '/../resource/migration/jsonschema.php', [
             'schema' => $this->getSchema()
         ]);
     }
 
-    public function onPost(RequestInterface $request, ResponseInterface $response)
+    #[Incoming(Passthru::class)]
+    protected function doPost(mixed $record, HttpContextInterface $context): mixed
     {
-        $body = $this->requestReader->getBody($request);
-
-        $schema = $body->schema ?? null;
+        $schema = $record->schema ?? null;
 
         try {
-            $output = (new JsonSchema())->transform($schema);
+            $output = (new \PSX\Schema\Transformer\JsonSchema())->transform(json_decode($schema));
         } catch (\Throwable $e) {
             $output = $e->getMessage();
         }
 
-        $this->render($response, __DIR__ . '/resource/migration.php', [
+        return $this->render(__DIR__ . '/../resource/migration/jsonschema.php', [
             'schema' => $schema,
-            'output' => $output
+            'output' => json_encode($output, JSON_PRETTY_PRINT)
         ]);
     }
-    
-    private function getSchema()
+
+    private function getSchema(): string
     {
         return <<<'JSON'
 {

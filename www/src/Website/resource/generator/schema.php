@@ -1,14 +1,17 @@
 
-<?php include __DIR__ . '/inc/header.php'; ?>
+<?php include __DIR__ . '/../inc/header.php'; ?>
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / Generator</li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / Generator / Schema</li>
   </ol>
 </nav>
 
 <div class="container">
-  <h1 class="display-4">Generator</h1>
+  <h1 class="display-4">Schema</h1>
+  <div class="alert alert-info" role="alert">
+    Through this form you can transform an existing TypeSchema into a specific output.
+  </div>
   <div class="row">
     <div class="col-6">
       <form method="post">
@@ -35,4 +38,4 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
-<?php include __DIR__ . '/inc/footer.php'; ?>
+<?php include __DIR__ . '/../inc/footer.php'; ?>

@@ -3,13 +3,12 @@
 namespace App\Website;
 
 use PSX\Framework\Controller\ViewAbstract;
-use PSX\Http\RequestInterface;
-use PSX\Http\ResponseInterface;
+use PSX\Http\Environment\HttpContextInterface;
 
 class Implementation extends ViewAbstract
 {
-    public function onGet(RequestInterface $request, ResponseInterface $response)
+    public function doGet(HttpContextInterface $context): mixed
     {
-        $this->render($response, __DIR__ . '/resource/implementation.php', []);
+        return $this->render(__DIR__ . '/resource/implementation.php', []);
     }
 }

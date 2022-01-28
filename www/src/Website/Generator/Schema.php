@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Website;
+namespace App\Website\Generator;
 
+use PSX\Api\Attribute\Incoming;
 use PSX\Framework\Controller\ViewAbstract;
-use PSX\Http\RequestInterface;
-use PSX\Http\ResponseInterface;
+use PSX\Framework\Schema\Passthru;
+use PSX\Http\Environment\HttpContextInterface;
 use PSX\Schema\GeneratorFactory;
 use PSX\Schema\Parser\TypeSchema;
 
-class Generator extends ViewAbstract
+class Schema extends ViewAbstract
 {
-    public function onGet(RequestInterface $request, ResponseInterface $response)
+    protected function doGet(HttpContextInterface $context): mixed
     {
-        $this->render($response, __DIR__ . '/resource/generator.php', [
+        return $this->render(__DIR__ . '/../resource/generator/schema.php', [
             'schema' => $this->getSchema(),
             'types' => GeneratorFactory::getPossibleTypes()
         ]);
     }
 
-    public function onPost(RequestInterface $request, ResponseInterface $response)
+    #[Incoming(Passthru::class)]
+    protected function doPost(mixed $record, HttpContextInterface $context): mixed
     {
-        $body = $this->requestReader->getBody($request);
-
-        $type   = $body->type ?? null;
-        $schema = $body->schema ?? null;
+        $type   = $record->type ?? null;
+        $schema = $record->schema ?? null;
         $config = null;
 
         try {
@@ -35,15 +35,15 @@ class Generator extends ViewAbstract
             $output = $e->getMessage();
         }
 
-        $this->render($response, __DIR__ . '/resource/generator.php', [
+        return $this->render(__DIR__ . '/../resource/generator/schema.php', [
             'schema' => $schema,
             'types' => GeneratorFactory::getPossibleTypes(),
             'type' => $type,
             'output' => $output
         ]);
     }
-    
-    private function getSchema()
+
+    private function getSchema(): string
     {
         return <<<'JSON'
 {

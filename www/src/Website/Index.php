@@ -2,22 +2,20 @@
 
 namespace App\Website;
 
+use Psr\Cache\CacheItemPoolInterface;
+use PSX\Dependency\Attribute\Inject;
 use PSX\Framework\Controller\ViewAbstract;
 use PSX\Http\Client\Client;
-use PSX\Http\RequestInterface;
-use PSX\Http\ResponseInterface;
+use PSX\Http\Environment\HttpContextInterface;
 use PSX\Schema\GeneratorFactory;
 use PSX\Schema\Parser\TypeSchema;
 
 class Index extends ViewAbstract
 {
-    /**
-     * @Inject
-     * @var \Psr\Cache\CacheItemPoolInterface
-     */
-    protected $cache;
+    #[Inject]
+    private CacheItemPoolInterface $cache;
 
-    public function onGet(RequestInterface $request, ResponseInterface $response)
+    public function doGet(HttpContextInterface $context): mixed
     {
         $item = $this->cache->getItem('example-cache');
         if (!$item->isHit()) {
@@ -36,7 +34,7 @@ class Index extends ViewAbstract
             $examples = $item->get();
         }
 
-        $this->render($response, __DIR__ . '/resource/index.php', [
+        return $this->render(__DIR__ . '/resource/index.php', [
             'examples' => $examples
         ]);
     }
