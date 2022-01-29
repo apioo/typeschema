@@ -9,7 +9,19 @@ ENV APACHE_DOCUMENT_ROOT "/var/www/html/public"
 
 # install default packages
 RUN apt-get update && apt-get -y install \
-    wget
+    wget \
+    cron \
+    certbot \
+    python3-certbot-apache \
+    libcurl3-dev \
+    libzip-dev
+
+# install php extensions
+RUN docker-php-ext-install \
+    bcmath \
+    curl \
+    zip \
+    mbstring
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
