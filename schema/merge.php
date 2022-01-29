@@ -1,6 +1,7 @@
 <?php
 
-$files = scandir(__DIR__);
+$baseDir = __DIR__ . '/output';
+$files = scandir($baseDir);
 $types = [];
 
 foreach ($files as $file) {
@@ -8,7 +9,7 @@ foreach ($files as $file) {
         continue;
     }
 
-    $types[] = file_get_contents(__DIR__ . '/' . $file);
+    $types[] = file_get_contents($baseDir . '/' . $file);
 }
 
 file_put_contents(__DIR__ . '/schema.htm', implode("\n\n", $types));
