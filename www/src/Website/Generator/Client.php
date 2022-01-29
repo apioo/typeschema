@@ -18,7 +18,7 @@ class Client extends ViewAbstract
     {
         return $this->render(__DIR__ . '/../resource/generator/client.php', [
             'schema' => $this->getSchema(),
-            'types' => GeneratorFactory::getPossibleTypes()
+            'types' => GeneratorFactory::getPossibleTypes(),
         ]);
     }
 
@@ -31,7 +31,7 @@ class Client extends ViewAbstract
 
         try {
             $result = (new OpenAPI())->parse($schema);
-            $generator = (new GeneratorFactory('TypeSchema', 'https://foobar.com', ''))->getGenerator($type, $config);
+            $generator = (new GeneratorFactory('TypeSchema', 'https://acme.com', ''))->getGenerator($type, $config);
 
             $output = $generator->generate($result);
 
@@ -57,23 +57,187 @@ class Client extends ViewAbstract
     {
         return <<<'JSON'
 {
-  "definitions": {
-    "Student": {
-      "type": "object",
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "age": {
-          "type": "integer"
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http:\/\/petstore.swagger.io\/v1"
+    }
+  ],
+  "paths": {
+    "\/pets": {
+      "get": {
+        "summary": "List all pets",
+        "operationId": "listPets",
+        "tags": [
+          "pets"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many items to return at one time (max 100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paged array of pets",
+            "headers": {
+              "x-next": {
+                "description": "A link to the next page of responses",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "$ref": "Pets"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "$ref": "Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a pet",
+        "operationId": "createPets",
+        "tags": [
+          "pets"
+        ],
+        "responses": {
+          "201": {
+            "description": "Null response"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "$ref": "Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "\/pets\/{petId}": {
+      "parameters": [
+        {
+          "name": "petId",
+          "in": "path",
+          "required": true,
+          "description": "The id of the pet to retrieve",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Info for a specific pet",
+        "operationId": "showPetById",
+        "tags": [
+          "pets"
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "$ref": "Pet"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "$ref": "Error"
+                }
+              }
+            }
+          }
         }
       }
     }
   },
-  "$ref": "Student"
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Pets": {
+        "type": "object",
+        "properties": {
+          "totalItems": {
+            "type": "integer"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "Pet"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+    }
+  }
 }
 JSON;
     }
