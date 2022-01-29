@@ -1,8 +1,10 @@
 
 # Migration
 
-The following list covers all major restrictions to JsonSchema. This should help
-to migrate your JsonSchema to TypeSchema:
+The following list covers all major restrictions to JSON Schema. This should help
+to migrate your JSON Schema to TypeSchema. Also please take a look at our [migration
+tool](https://typeschema.org/migration/jsonschema) which allows you to automatically
+convert a JSON Schema into a TypeSchema.
 
 ## No-Type
 
