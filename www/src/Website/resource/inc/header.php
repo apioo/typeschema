@@ -48,6 +48,9 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Developer::class); ?>">Developer</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Changelog::class); ?>">Changelog</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Faq::class); ?>">FAQ</a>
     </li>
   </ul>
