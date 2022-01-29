@@ -24,6 +24,11 @@
   he is able to use this document to generate high quality code for either client or server implementations.</p>
 
   <hr>
+  <h3>How does the website work?</h3>
+  <p>The complete website is also opensource, you can checkout our <a href="https://github.com/apioo/typeschema">repository</a>
+  and take a look at the www folder, there is all code related to the website placed.</p>
+
+  <hr>
   <h3>I have a question regarding the project?</h3>
   <p>You can <a href="https://www.apioo.de/en/contact">contact us</a> directly in case you have a question regarding
   the project, or you can also take a look at our <a href="https://github.com/apioo/typeschema">repository</a>.</p>
