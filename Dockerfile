@@ -35,10 +35,6 @@ RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-av
 RUN sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 RUN a2enmod rewrite
 
-# ssl script
-COPY ./www/generate-ssl.php /home/generate-ssl.php
-RUN chmod +x /home/generate-ssl.php
-
 # install app
 COPY www /var/www/html
 RUN cd /var/www/html && /usr/bin/composer install
