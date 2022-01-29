@@ -101,6 +101,9 @@
           },
           {
             "$ref": "GenericType"
+          },
+          {
+            "$ref": "AnyType"
           }
         ]
       }
@@ -142,6 +145,9 @@
             },
             {
               "$ref": "GenericType"
+            },
+            {
+              "$ref": "AnyType"
             }
           ]
         },
@@ -187,6 +193,9 @@
             },
             {
               "$ref": "GenericType"
+            },
+            {
+              "$ref": "AnyType"
             }
           ]
         },
@@ -321,6 +330,23 @@
         "pattern": {
           "type": "string",
           "format": "regex"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+
+    "AnyType": {
+      "$extends": "CommonType",
+      "description": "Represents an any type",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "any"
+          ]
         }
       },
       "required": [
