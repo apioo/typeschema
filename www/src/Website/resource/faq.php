@@ -25,8 +25,9 @@
 
   <hr>
   <h3>How does the website work?</h3>
-  <p>The complete website is also opensource, you can checkout our <a href="https://github.com/apioo/typeschema">repository</a>
-  and take a look at the www folder, there is all code related to the website placed.</p>
+  <p>The complete website is also opensource, you can check out our <a href="https://github.com/apioo/typeschema">repository</a>
+  and take a look at the www folder, there is all code related to the website placed. If you want to take a look at the
+  code generator you can check out the <a href="https://github.com/apioo/psx-schema">schema repository</a>.</p>
 
   <hr>
   <h3>I have a question regarding the project?</h3>
