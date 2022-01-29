@@ -265,27 +265,6 @@
 
   <hr>
 
-  <a id="Generator"></a>
-  <h2>Generator</h2>
-
-  <p>This chapter provides some guidelines for generators how to process a TypeSchema.</p>
-
-  <ul>
-    <li>TypeSchema is designed so that a processor can create an in-memory object representation of a schema. Every
-    schema can be exactly assigned to a specific type. A processor should create a fitting class for each type and a
-    factory which creates the fitting type depending on the used keywords.</li>
-    <li>There is one key where all reusable schemas are located. For plain TypeSchema documents this is
-    <code>/definitions</code> for <a href="https://github.com/OAI/OpenAPI-Specification">OpenAPI</a>, <a href="https://github.com/asyncapi/asyncapi">AsyncAPI</a>
-    and <a href="https://github.com/open-rpc/spec">OpenRPC</a> documents it is <code>/components/schemas</code>. A processor
-    should have an option to set the location of the definitions location. There is also no need for a JSON Pointer
-    since we only resolve local schemas.</li>
-    <li>There are no nested objects instead every object must be defined under the definitions location. Object types
-    can then reference these schemas. This is required since a processor needs a unique name for each object schema,
-    which is the definition key of the schema (i.e. which is used as class name).</li>
-  </ul>
-
-  <hr>
-
   <a id="Appendix"></a>
   <h2>Appendix</h2>
 

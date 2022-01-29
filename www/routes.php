@@ -2,12 +2,13 @@
 
 return [
 
-    [['GET'], '/', App\Website\Index::class],
-    [['GET'], '/specification', App\Website\Specification::class],
-    [['GET'], '/faq', App\Website\Faq::class],
-    [['GET', 'POST'], '/generator/client', App\Website\Generator\Client::class],
-    [['GET', 'POST'], '/generator/schema', App\Website\Generator\Schema::class],
-    [['GET', 'POST'], '/migration/jsonschema', App\Website\Migration\JsonSchema::class],
-    [['GET', 'POST'], '/migration/openapi', App\Website\Migration\OpenAPI::class],
+    [['ANY'], '/', App\Website\Index::class],
+    [['ANY'], '/specification', App\Website\Specification::class],
+    [['ANY'], '/developer', App\Website\Developer::class],
+    [['ANY'], '/faq', App\Website\Faq::class],
+    [['ANY'], '/generator/client', App\Website\Generator\Client::class],
+    [['ANY'], '/generator/schema', App\Website\Generator\Schema::class],
+    [['ANY'], '/migration/jsonschema', App\Website\Migration\JsonSchema::class],
+    [['ANY'], '/migration/openapi', App\Website\Migration\OpenAPI::class],
 
 ];
