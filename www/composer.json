@@ -13,6 +13,7 @@
   "require": {
     "php": ">=8.0",
     "psx/framework": "^6.0",
+    "symfony/dotenv": "^6.0",
     "erusev/parsedown": "^1.7"
   },
   "autoload": {

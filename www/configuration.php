@@ -7,21 +7,27 @@ on the DI container parameter "config.file". See the container.php if you want
 load an different configuration depending on the environment.
 */
 
+if (!getenv('APP_ENV')) {
+    $dotenv = new \Symfony\Component\Dotenv\Dotenv();
+    $dotenv->usePutenv(true);
+    $dotenv->load(__DIR__ . '/.env');
+}
+
 return array(
 
     // The url to the psx public folder (i.e. http://127.0.0.1/psx/public, 
     // http://localhost.com or //localhost.com)
-    'psx_url'                 => 'http://127.0.0.1/projects/typeschema/www/public',
+    'psx_url'                 => getenv('APP_URL'),
 
     // The input path 'index.php/' or '' if you use mod_rewrite
-    'psx_dispatch'            => 'index.php/',
+    'psx_dispatch'            => '',
 
     // The default timezone
     'psx_timezone'            => 'UTC',
 
     // Whether PSX runs in debug mode or not. If not error reporting is set to 0
     // Also several caches are used if the debug mode is false
-    'psx_debug'               => true,
+    'psx_debug'               => getenv('APP_ENV') === 'debug',
 
     // Database parameters which are used for the doctrine DBAL connection
     // http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
