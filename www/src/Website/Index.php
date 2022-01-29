@@ -67,6 +67,24 @@ class Index extends ViewAbstract
         ];
 
         $examples[] = [
+            'title' => 'Model with reference',
+            'description' => 'A student class which reference a faculty class.',
+            'schema' => file_get_contents(__DIR__ . '/resource/examples/reference.json'),
+        ];
+
+        $examples[] = [
+            'title' => 'Map with string values',
+            'description' => 'A student class which contains a map with arbitrary string properties.',
+            'schema' => file_get_contents(__DIR__ . '/resource/examples/map.json'),
+        ];
+
+        $examples[] = [
+            'title' => 'Inline map with string values',
+            'description' => 'A student class which contains an inline map with arbitrary string properties.',
+            'schema' => file_get_contents(__DIR__ . '/resource/examples/map_inline.json'),
+        ];
+
+        $examples[] = [
             'title' => 'Model with discriminator',
             'description' => 'A model which contains a union type.',
             'schema' => file_get_contents(__DIR__ . '/resource/examples/discriminator.json'),

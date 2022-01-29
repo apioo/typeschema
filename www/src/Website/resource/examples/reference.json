@@ -1,0 +1,30 @@
+{
+  "definitions": {
+    "Student": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "faculty": {
+          "$ref": "Faculty"
+        }
+      }
+    },
+    "Faculty": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$ref": "Student"
+}
