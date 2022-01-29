@@ -10,11 +10,13 @@ ENV APACHE_DOCUMENT_ROOT "/var/www/html/public"
 # install default packages
 RUN apt-get update && apt-get -y install \
     wget \
+    git \
     cron \
     certbot \
     python3-certbot-apache \
     libcurl3-dev \
-    libzip-dev
+    libzip-dev \
+    libonig-dev
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -32,6 +34,10 @@ RUN chmod +x /usr/bin/composer
 RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf
 RUN sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 RUN a2enmod rewrite
+
+# ssl script
+COPY ./www/generate-ssl.php /home/generate-ssl.php
+RUN chmod +x /home/generate-ssl.php
 
 # install app
 COPY www /var/www/html
