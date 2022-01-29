@@ -10,16 +10,37 @@
 <div class="container">
   <h1 class="display-4">FAQ</h1>
 
+  <hr>
   <h3>What is the history?</h3>
+  <p>We are the developers behind <a href="https://github.com/apioo/fusio">Fusio</a> which is an open source API
+  management system. We wanted to build an SDK generator for different languages, which builds an SDK based on the
+  available schema. During this we have experienced the limitations of JSON Schema for code generators. Because of this
+  we have started to develop TypeSchema. A JSON format which can be easily transformed into code and also other
+  specification formats. This means we can also reuse any TypeSchema at an OpenAPI specification.</p>
 
-  <p>We are the developers behind <a href="https://github.com/apioo/fusio">Fusio</a>
-  which is an open source API management system. We wanted to build an SDK generator
-  for different languages, which builds an SDK based on the available schema.
-  During this we have experienced the limitations of JSON Schema for code generators.
-  Because of this we have started to develop TypeSchema. A JSON format which can
-  be easily transformed into code and also other specification formats. This means
-  we can also reuse any TypeSchema at an OpenAPI specification.</p>
+  <hr>
+  <h3>What is your vision?</h3>
+  <p>We envision a future where the code generation ecosystem just works. That means a user gets an OpenAPI document and
+  he is able to use this document to generate high quality code for either client or server implementations.</p>
 
+  <hr>
+  <h3>I have a question regarding the project?</h3>
+  <p>You can <a href="https://www.apioo.de/en/contact">contact us</a> directly in case you have a question regarding
+  the project, or you can also take a look at our <a href="https://github.com/apioo/typeschema">repository</a>.</p>
+
+  <hr>
+  <h3>Where can I get more information?</h3>
+  <p>In our mission to improve code generation we write articles explaining our thoughts and background regarding
+  TypeSchema and the hole API and code generation ecosystem. If you are interested you can take a look at the following
+  articles:</p>
+  <ul>
+    <li><a href="https://chriskapp.medium.com/typeschema-code-generation-explained-82ac90e5bd4e">TypeSchema code generation explained</a></li>
+    <li><a href="https://chriskapp.medium.com/the-benefits-of-code-generation-and-the-problems-of-the-openapi-spec-ec8d75669e04">The benefits of code generation and the problems of the OpenAPI spec</a></li>
+    <li><a href="https://chriskapp.medium.com/discussion-about-json-payloads-and-code-generation-8d60bc8fd94e">Discussion about JSON payloads and code generation</a></li>
+    <li><a href="https://chriskapp.medium.com/typeschema-an-alternative-to-jsonschema-bdc99f3e3f43">TypeSchema an alternative to JsonSchema</a></li>
+  </ul>
+
+  <hr>
   <h3>What is the difference to JSON Schema?</h3>
 
   <p>TypeSchema is not designed to validate JSON data. This means our goal is not
