@@ -12,8 +12,6 @@ RUN apt-get update && apt-get -y install \
     wget \
     git \
     cron \
-    certbot \
-    python3-certbot-apache \
     libcurl3-dev \
     libzip-dev \
     libonig-dev
