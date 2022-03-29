@@ -36,6 +36,8 @@ RUN sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 
 # install app
+COPY schema /var/www/schema
 COPY www /var/www/html
 RUN cd /var/www/html && /usr/bin/composer install
+RUN chown -R www-data: /var/www/schema
 RUN chown -R www-data: /var/www/html
