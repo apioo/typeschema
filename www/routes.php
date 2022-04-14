@@ -11,5 +11,6 @@ return [
     [['ANY'], '/generator/schema', App\Website\Generator\Schema::class],
     [['ANY'], '/migration/jsonschema', App\Website\Migration\JsonSchema::class],
     [['ANY'], '/migration/openapi', App\Website\Migration\OpenAPI::class],
+    [['ANY'], '/migration/json', App\Website\Migration\Json::class],
 
 ];

@@ -42,6 +42,7 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Migration\JsonSchema::class); ?>">JSON Schema</a>
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Migration\OpenAPI::class); ?>">OpenAPI</a>
+        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Migration\Json::class); ?>">JSON</a>
       </div>
     </li>
     <li class="nav-item">
