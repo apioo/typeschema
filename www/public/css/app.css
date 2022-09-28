@@ -17,6 +17,12 @@ textarea {
   margin:0;
 }
 
+.typeschema-edit {
+  margin-top:32px;
+  margin-bottom:32px;
+  text-align:right;
+}
+
 /* psx schema */
 .psx-object {
   margin:0;

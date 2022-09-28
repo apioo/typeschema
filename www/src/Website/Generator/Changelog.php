@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Website;
+namespace App\Website\Generator;
 
 use PSX\Api\Attribute\Incoming;
 use PSX\Framework\Controller\ViewAbstract;
@@ -14,7 +14,7 @@ class Changelog extends ViewAbstract
 {
     protected function doGet(HttpContextInterface $context): mixed
     {
-        return $this->render(__DIR__ . '/resource/changelog.php', [
+        return $this->render(__DIR__ . '/../resource/generator/changelog.php', [
             'left' => $this->getLeft(),
             'right' => $this->getRight(),
             'messages' => []
@@ -38,7 +38,7 @@ class Changelog extends ViewAbstract
             $messages[] = [SemVer::MAJOR, $e->getMessage()];
         }
 
-        return $this->render(__DIR__ . '/resource/changelog.php', [
+        return $this->render(__DIR__ . '/../resource/generator/changelog.php', [
             'left' => $left,
             'right' => $right,
             'messages' => $messages
