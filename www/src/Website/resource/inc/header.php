@@ -34,7 +34,7 @@
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Generator</a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Generator\Schema::class); ?>">Schema</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Generator\Client::class); ?>">Client SDK</a>
+        <a class="dropdown-item" href="https://sdkgen.app/">Client SDK</a>
       </div>
     </li>
     <li class="nav-item dropdown">
