@@ -9,8 +9,8 @@
 
 <div class="container">
   <h1 class="display-4">Ecosystem</h1>
-  <p>The following page should list services and libraries which are working with TypeSchema.</p>
-  <h3>Services</h3>
+  <p>The following page lists projects and libraries which are working with TypeSchema.</p>
+  <h3>Projects</h3>
   <ul>
     <li><a href="https://typehub.cloud/">TypeHub</a> - a service to manage and share TypeSchema specifications</li>
     <li><a href="https://sdkgen.app/">SDKgen</a> - a service to generate client SDKs</li>
