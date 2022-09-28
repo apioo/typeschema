@@ -35,6 +35,7 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Generator\Schema::class); ?>">Schema</a>
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Generator\Changelog::class); ?>">Changelog</a>
+        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath(\App\Website\Generator\Hash::class); ?>">Hash</a>
       </div>
     </li>
     <li class="nav-item dropdown">

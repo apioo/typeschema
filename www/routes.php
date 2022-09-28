@@ -10,6 +10,7 @@ return [
     [['ANY'], '/generator/client', App\Website\Generator\Client::class],
     [['ANY'], '/generator/schema', App\Website\Generator\Schema::class],
     [['ANY'], '/generator/changelog', \App\Website\Generator\Changelog::class],
+    [['ANY'], '/generator/hash', \App\Website\Generator\Hash::class],
     [['ANY'], '/migration/jsonschema', App\Website\Migration\JsonSchema::class],
     [['ANY'], '/migration/openapi', App\Website\Migration\OpenAPI::class],
     [['ANY'], '/migration/json', App\Website\Migration\Json::class],
