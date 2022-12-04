@@ -35,11 +35,12 @@ class Index extends ViewAbstract
         }
 
         return $this->render(__DIR__ . '/resource/index.php', [
+            'controller' => __CLASS__,
             'examples' => $examples
         ]);
     }
 
-    private function convert(string $type, string $code)
+    private function convert(string $type, string $code): string
     {
         $httpClient = new Client();
         $parser = new TypeSchema(TypeSchema\ImportResolver::createDefault($httpClient), __DIR__ . '/resource/examples');

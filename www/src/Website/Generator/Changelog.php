@@ -15,6 +15,7 @@ class Changelog extends ViewAbstract
     protected function doGet(HttpContextInterface $context): mixed
     {
         return $this->render(__DIR__ . '/../resource/generator/changelog.php', [
+            'controller' => __CLASS__,
             'left' => $this->getLeft(),
             'right' => $this->getRight(),
             'messages' => []
@@ -39,6 +40,7 @@ class Changelog extends ViewAbstract
         }
 
         return $this->render(__DIR__ . '/../resource/generator/changelog.php', [
+            'controller' => __CLASS__,
             'left' => $left,
             'right' => $right,
             'messages' => $messages

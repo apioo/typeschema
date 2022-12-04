@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="<?php echo $base; ?>/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo $base; ?>/css/highlight.min.css">
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.css">
+  <link rel="canonical" href="<?php echo $router->getUrl($controller); ?>">
   <script src="<?php echo $base; ?>/js/highlight.min.js"></script>
   <script src="<?php echo $base; ?>/js/jquery.min.js"></script>
   <script src="<?php echo $base; ?>/js/popper.min.js"></script>

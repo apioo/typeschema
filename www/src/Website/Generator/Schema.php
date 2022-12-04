@@ -14,6 +14,7 @@ class Schema extends ViewAbstract
     protected function doGet(HttpContextInterface $context): mixed
     {
         return $this->render(__DIR__ . '/../resource/generator/schema.php', [
+            'controller' => __CLASS__,
             'schema' => $this->getSchema(),
             'types' => GeneratorFactory::getPossibleTypes()
         ]);
@@ -36,6 +37,7 @@ class Schema extends ViewAbstract
         }
 
         return $this->render(__DIR__ . '/../resource/generator/schema.php', [
+            'controller' => __CLASS__,
             'schema' => $schema,
             'types' => GeneratorFactory::getPossibleTypes(),
             'type' => $type,

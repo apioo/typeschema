@@ -15,6 +15,7 @@ class Hash extends ViewAbstract
     protected function doGet(HttpContextInterface $context): mixed
     {
         return $this->render(__DIR__ . '/../resource/generator/hash.php', [
+            'controller' => __CLASS__,
             'schema' => $this->getSchema()
         ]);
     }
@@ -32,6 +33,7 @@ class Hash extends ViewAbstract
         }
 
         return $this->render(__DIR__ . '/../resource/generator/hash.php', [
+            'controller' => __CLASS__,
             'schema' => $schema,
             'output' => $output
         ]);

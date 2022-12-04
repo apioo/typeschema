@@ -9,6 +9,8 @@ class Developer extends ViewAbstract
 {
     public function doGet(HttpContextInterface $context): mixed
     {
-        return $this->render(__DIR__ . '/resource/developer.php', []);
+        return $this->render(__DIR__ . '/resource/developer.php', [
+            'controller' => __CLASS__,
+        ]);
     }
 }

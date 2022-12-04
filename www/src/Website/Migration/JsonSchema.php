@@ -12,6 +12,7 @@ class JsonSchema extends ViewAbstract
     protected function doGet(HttpContextInterface $context): mixed
     {
         return $this->render(__DIR__ . '/../resource/migration/jsonschema.php', [
+            'controller' => __CLASS__,
             'schema' => $this->getSchema()
         ]);
     }
@@ -28,6 +29,7 @@ class JsonSchema extends ViewAbstract
         }
 
         return $this->render(__DIR__ . '/../resource/migration/jsonschema.php', [
+            'controller' => __CLASS__,
             'schema' => $schema,
             'output' => json_encode($output, JSON_PRETTY_PRINT)
         ]);

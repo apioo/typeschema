@@ -12,6 +12,7 @@ class Specification extends ViewAbstract
         $spec = file_get_contents(__DIR__ . '/../../../schema/schema.htm');
 
         return $this->render(__DIR__ . '/resource/specification.php', [
+            'controller' => __CLASS__,
             'spec' => $spec
         ]);
     }
