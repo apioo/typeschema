@@ -1,6 +1,6 @@
 version: '3'
 services:
-  typeapi:
+  typeschema:
     image: ghcr.io/apioo/typeschema:master
     environment:
       APP_URL: "https://typeschema.org"
