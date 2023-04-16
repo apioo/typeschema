@@ -9,7 +9,7 @@ return [
     'psx_url'                 => env('APP_URL')->string(),
 
     // The input path 'index.php/' or '' if every request is served to the index.php file
-    'psx_dispatch'            => 'index.php/',
+    'psx_dispatch'            => '',
 
     // Defines the current environment i.e. prod or dev
     'psx_env'                 => env('APP_ENV')->string()->default('prod'),
