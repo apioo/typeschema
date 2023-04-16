@@ -1,0 +1,11 @@
+version: '3'
+services:
+  typeapi:
+    image: ghcr.io/apioo/typeschema:master
+    environment:
+      APP_URL: "https://typeschema.org"
+      APP_ENV: "prod"
+      APP_DEBUG: "off"
+    restart: always
+    ports:
+      - "9090:80"

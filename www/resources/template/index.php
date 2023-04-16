@@ -9,8 +9,8 @@
     any programming language. This helps to reuse core data models in different
     environments.</p>
     <p>
-      <a class="btn btn-primary" href="<?php echo $router->getAbsolutePath(\App\Website\Specification::class); ?>" role="button">Specification</a>
-      <a class="btn btn-secondary" href="<?php echo $router->getAbsolutePath(\App\Website\Generator\Schema::class); ?>" role="button">Generator</a>
+      <a class="btn btn-primary" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>" role="button">Specification</a>
+      <a class="btn btn-secondary" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Schema::class, 'show']); ?>" role="button">Generator</a>
     </p>
   </div>
 </div>
@@ -29,13 +29,13 @@
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <?php foreach ($example->types as $type => $code): ?>
-          <a class="nav-item nav-link <?php echo key($example->types) === $type ? 'active' : ''; ?>" id="<?php echo $type . '-' . $key; ?>-tab" data-toggle="tab" href="#<?php echo $type . '-' . $key; ?>" role="tab"><?php echo ucfirst($type); ?></a>
+          <a class="nav-item nav-link <?php echo key(get_object_vars($example->types)) === $type ? 'active' : ''; ?>" id="<?php echo $type . '-' . $key; ?>-tab" data-toggle="tab" href="#<?php echo $type . '-' . $key; ?>" role="tab"><?php echo ucfirst($type); ?></a>
           <?php endforeach; ?>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
         <?php foreach ($example->types as $type => $code): ?>
-        <div class="tab-pane fade <?php echo key($example->types) === $type ? 'show active' : ''; ?>" id="<?php echo $type . '-' . $key; ?>" role="tabpanel">
+        <div class="tab-pane fade <?php echo key(get_object_vars($example->types)) === $type ? 'show active' : ''; ?>" id="<?php echo $type . '-' . $key; ?>" role="tabpanel">
             <div class="example-box"><pre><code class="<?php echo $type; ?>"><?php echo htmlspecialchars($code); ?></code></pre></div>
         </div>
         <?php endforeach; ?>

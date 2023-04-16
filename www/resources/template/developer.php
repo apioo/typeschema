@@ -36,55 +36,55 @@
   a first overview of the available keywords.</p>
 
   <pre><code class="json">{
-  "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Import">$import</a>": {
+  "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Import">$import</a>": {
     "my_ns": "file:///generic.json"
   },
-  "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Definitions">definitions</a>": {
-    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructType">Human</a>": {
+  "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Definitions">definitions</a>": {
+    "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StructType">Human</a>": {
       "type": "object",
-      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Properties">properties</a>": {
-        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StringType">firstName</a>": {
+      "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Properties">properties</a>": {
+        "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StringType">firstName</a>": {
           "type": "string"
         },
-        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StringType">lastName</a>": {
+        "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StringType">lastName</a>": {
           "type": "string"
         },
-        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#NumberType">age</a>": {
+        "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#NumberType">age</a>": {
           "type": "integer"
         }
       }
     },
-    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructType">Student</a>": {
+    "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StructType">Student</a>": {
       "$extends": "Human",
       "type": "object",
-      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Properties">properties</a>": {
-        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#NumberType">matricleNumber</a>": {
+      "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Properties">properties</a>": {
+        "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#NumberType">matricleNumber</a>": {
           "type": "integer"
         }
       }
     },
-    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ReferenceType">StudentMap</a>": {
+    "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#ReferenceType">StudentMap</a>": {
       "$ref": "Map",
-      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#TemplateProperties">$template</a>": {
+      "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#TemplateProperties">$template</a>": {
         "T": "Student"
       }
     },
-    "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructType">Map</a>": {
+    "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StructType">Map</a>": {
       "type": "object",
-      "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Properties">properties</a>": {
-        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#NumberType">totalResults</a>": {
+      "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Properties">properties</a>": {
+        "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#NumberType">totalResults</a>": {
           "type": "integer"
         },
-        "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ArrayType">entries</a>": {
+        "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#ArrayType">entries</a>": {
           "type": "array",
           "items": {
-            "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#GenericType">$generic</a>": "T"
+            "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#GenericType">$generic</a>": "T"
           }
         }
       }
     }
   },
-  "<a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#Root">$ref</a>": "StudentMap"
+  "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Root">$ref</a>": "StudentMap"
 }</code></pre>
 
   <hr>
@@ -104,7 +104,7 @@
           </ul>
         </li>
         <li>Set <code>properties</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StructType">struct</a> type properties from <code>json</code> and set them to <code>type</code></li>
+        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StructType">struct</a> type properties from <code>json</code> and set them to <code>type</code></li>
         <li><code>return type</code></li>
       </ul>
     </li>
@@ -112,7 +112,7 @@
       <ul>
         <li><code>Type additionalProperties</code> = <code><a href="#parse-type">parseType</a>(json.additionalProperties)</code></li>
         <li>Set <code>additionalProperties</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#MapType">map</a> type properties from <code>json</code> and set them to the type</li>
+        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#MapType">map</a> type properties from <code>json</code> and set them to the type</li>
         <li><code>return type</code></li>
       </ul>
     </li>
@@ -120,7 +120,7 @@
       <ul>
         <li><code>Type items</code> = <code><a href="#parse-type">parseType</a>(json.items)</code></li>
         <li>Set <code>items</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ArrayType">array</a> type properties from <code>json</code> and set them to <code>type</code></li>
+        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#ArrayType">array</a> type properties from <code>json</code> and set them to <code>type</code></li>
         <li><code>return type</code></li>
       </ul>
     </li>
@@ -131,13 +131,13 @@
     </li>
     <li>Else If <code>type</code> is an instance of <code>NumberType</code>
       <ul>
-        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#NumberType">number</a> type properties from <code>json</code> and set them to <code>type</code></li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#NumberType">number</a> type properties from <code>json</code> and set them to <code>type</code></li>
         <li><code>return type</code></li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>StringType</code>
       <ul>
-        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#StringType">string</a> type properties from <code>json</code> and set them to <code>type</code></li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StringType">string</a> type properties from <code>json</code> and set them to <code>type</code></li>
         <li><code>return type</code></li>
       </ul>
     </li>
@@ -160,7 +160,7 @@
           </ul>
         </li>
         <li>Set <code>items</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#UnionType">union</a> type properties from <code>json</code> and set them to <code>type</code></li>
+        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#UnionType">union</a> type properties from <code>json</code> and set them to <code>type</code></li>
         <li><code>return type</code></li>
       </ul>
     </li>
@@ -173,13 +173,13 @@
           </ul>
         </li>
         <li>Set <code>items</code> to <code>type</code></li>
-        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#IntersectionType">intersection</a> type properties from <code>json</code> and set them to <code>type</code></li>
+        <li>Parse the remaining <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#IntersectionType">intersection</a> type properties from <code>json</code> and set them to <code>type</code></li>
         <li><code>return type</code></li>
       </ul>
     </li>
     <li>Else If <code>type</code> is an instance of <code>ReferenceType</code>
       <ul>
-        <li>Parse the <a href="<?php echo $router->getAbsolutePath(App\Website\Specification::class); ?>#ReferenceType">reference</a> type properties from <code>json</code> and set them to <code>type</code></li>
+        <li>Parse the <a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#ReferenceType">reference</a> type properties from <code>json</code> and set them to <code>type</code></li>
         <li><code>return type</code></li>
       </ul>
     </li>

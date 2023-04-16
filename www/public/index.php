@@ -3,7 +3,7 @@
  * PSX is a open source PHP framework to develop RESTful APIs.
  * For the current version and informations visit <http://phpsx.org>
  *
- * Copyright 2010-2020 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright 2010-2023 Christoph Kappestein <christoph.kappestein@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,8 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 $container = require_once(__DIR__ . '/../container.php');
 
-$engine      = null;
-$environment = \PSX\Framework\Environment\Environment::fromContainer($container, $engine);
+$engine      = new \PSX\Engine\WebServer\Engine($container->getParameter('psx_url'));
+$dispatcher  = $container->get(\PSX\Engine\DispatchInterface::class);
+$environment = new \PSX\Framework\Environment\Environment($dispatcher, $engine);
 
 return $environment->serve();

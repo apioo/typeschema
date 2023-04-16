@@ -1,26 +1,44 @@
 <?php
 
-namespace App\Website\Migration;
+namespace App\Controller\Migration;
 
+use App\Model\Generate;
+use PSX\Api\Attribute\Get;
 use PSX\Api\Attribute\Incoming;
-use PSX\Framework\Controller\ViewAbstract;
-use PSX\Framework\Schema\Passthru;
-use PSX\Http\Environment\HttpContextInterface;
+use PSX\Api\Attribute\Path;
+use PSX\Api\Attribute\Post;
+use PSX\Api\Model\Passthru;
+use PSX\Framework\Controller\ControllerAbstract;
+use PSX\Framework\Http\Writer\Template;
+use PSX\Framework\Loader\ReverseRouter;
 
-class JsonSchema extends ViewAbstract
+class JsonSchema extends ControllerAbstract
 {
-    protected function doGet(HttpContextInterface $context): mixed
+    private ReverseRouter $reverseRouter;
+
+    public function __construct(ReverseRouter $reverseRouter)
     {
-        return $this->render(__DIR__ . '/../resource/migration/jsonschema.php', [
-            'controller' => __CLASS__,
-            'schema' => $this->getSchema()
-        ]);
+        $this->reverseRouter = $reverseRouter;
     }
 
-    #[Incoming(Passthru::class)]
-    protected function doPost(mixed $record, HttpContextInterface $context): mixed
+    #[Get]
+    #[Path('/migration/jsonschema')]
+    public function show(): mixed
     {
-        $schema = $record->schema ?? null;
+        $data = [
+            'method' => explode('::', __METHOD__),
+            'schema' => $this->getSchema()
+        ];
+
+        $templateFile = __DIR__ . '/../../../resources/template/migration/jsonschema.php';
+        return new Template($data, $templateFile, $this->reverseRouter);
+    }
+
+    #[Post]
+    #[Path('/migration/jsonschema')]
+    public function migrate(Generate $generate): mixed
+    {
+        $schema = $generate->getSchema();
 
         try {
             $output = (new \PSX\Schema\Transformer\JsonSchema())->transform(json_decode($schema));
@@ -28,11 +46,14 @@ class JsonSchema extends ViewAbstract
             $output = $e->getMessage();
         }
 
-        return $this->render(__DIR__ . '/../resource/migration/jsonschema.php', [
-            'controller' => __CLASS__,
-            'schema' => $schema,
+        $data = [
+            'method' => explode('::', __METHOD__),
+            'schema' => $this->getSchema(),
             'output' => json_encode($output, JSON_PRETTY_PRINT)
-        ]);
+        ];
+
+        $templateFile = __DIR__ . '/../../../resources/template/migration/jsonschema.php';
+        return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     private function getSchema(): string

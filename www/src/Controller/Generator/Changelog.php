@@ -1,36 +1,54 @@
 <?php
 
-namespace App\Website\Generator;
+namespace App\Controller\Generator;
 
+use App\Model\Diff;
+use PSX\Api\Attribute\Get;
 use PSX\Api\Attribute\Incoming;
-use PSX\Framework\Controller\ViewAbstract;
-use PSX\Framework\Schema\Passthru;
-use PSX\Http\Environment\HttpContextInterface;
+use PSX\Api\Attribute\Path;
+use PSX\Api\Attribute\Post;
+use PSX\Api\Model\Passthru;
+use PSX\Framework\Controller\ControllerAbstract;
+use PSX\Framework\Http\Writer\Template;
+use PSX\Framework\Loader\ReverseRouter;
 use PSX\Schema\Inspector\ChangelogGenerator;
 use PSX\Schema\Inspector\SemVer;
 use PSX\Schema\Parser\TypeSchema;
 
-class Changelog extends ViewAbstract
+class Changelog extends ControllerAbstract
 {
-    protected function doGet(HttpContextInterface $context): mixed
+    private ReverseRouter $reverseRouter;
+
+    public function __construct(ReverseRouter $reverseRouter)
     {
-        return $this->render(__DIR__ . '/../resource/generator/changelog.php', [
-            'controller' => __CLASS__,
+        $this->reverseRouter = $reverseRouter;
+    }
+
+    #[Get]
+    #[Path('/generator/changelog')]
+    public function show(): mixed
+    {
+        $data = [
+            'method' => explode('::', __METHOD__),
             'left' => $this->getLeft(),
             'right' => $this->getRight(),
             'messages' => []
-        ]);
+        ];
+
+        $templateFile = __DIR__ . '/../../../resources/template/generator/changelog.php';
+        return new Template($data, $templateFile, $this->reverseRouter);
     }
 
-    #[Incoming(Passthru::class)]
-    protected function doPost(mixed $record, HttpContextInterface $context): mixed
+    #[Post]
+    #[Path('/generator/changelog')]
+    public function generate(Diff $diff): mixed
     {
-        $left = $record->left ?? '';
-        $right = $record->right ?? '';
+        $left = $diff->getLeft();
+        $right = $diff->getRight();
         $messages = [];
         try {
-            $defLeft = (new TypeSchema())->parse($record->left ?? '')->getDefinitions();
-            $defRight = (new TypeSchema())->parse($record->right ?? '')->getDefinitions();
+            $defLeft = (new TypeSchema())->parse($left ?? '')->getDefinitions();
+            $defRight = (new TypeSchema())->parse($right ?? '')->getDefinitions();
 
             foreach ((new ChangelogGenerator())->generate($defLeft, $defRight) as $type => $message) {
                 $messages[] = [$type, $message];
@@ -39,12 +57,15 @@ class Changelog extends ViewAbstract
             $messages[] = [SemVer::MAJOR, $e->getMessage()];
         }
 
-        return $this->render(__DIR__ . '/../resource/generator/changelog.php', [
-            'controller' => __CLASS__,
+        $data = [
+            'method' => explode('::', __METHOD__),
             'left' => $left,
             'right' => $right,
             'messages' => $messages
-        ]);
+        ];
+
+        $templateFile = __DIR__ . '/../../../resources/template/generator/changelog.php';
+        return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     private function getLeft(): string
