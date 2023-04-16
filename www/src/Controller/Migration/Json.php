@@ -38,7 +38,7 @@ class Json extends ControllerAbstract
     #[Path('/migration/json')]
     public function migrate(Generate $generate): mixed
     {
-        $schema = $generate->getSchema();
+        $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
 
         try {
             $definitions = [];
@@ -63,11 +63,11 @@ class Json extends ControllerAbstract
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
-    private function transform(mixed $schema, array &$definitions): \stdClass
+    private function transform(mixed $schema, array &$definitions): object
     {
         if ($schema instanceof \stdClass) {
             $properties = [];
-            foreach ($schema as $key => $value) {
+            foreach (get_object_vars($schema) as $key => $value) {
                 $properties[$key] = $this->transform($value, $definitions);
             }
 

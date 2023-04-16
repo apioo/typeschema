@@ -41,8 +41,8 @@ class Schema extends ControllerAbstract
     #[Path('/generator/schema')]
     public function generate(Generate $generate): mixed
     {
-        $type   = $generate->getType();
-        $schema = $generate->getSchema();
+        $type   = $generate->getType() ?? throw new \RuntimeException('Provided no type');
+        $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
         $config = null;
 
         try {

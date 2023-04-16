@@ -38,7 +38,7 @@ class OpenAPI extends ControllerAbstract
     #[Path('/migration/openapi')]
     public function migrate(Generate $generate): mixed
     {
-        $schema = $generate->getSchema();
+        $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
 
         try {
             $output = (new \PSX\Api\Transformer\OpenAPI())->transform(json_decode($schema));

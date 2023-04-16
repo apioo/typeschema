@@ -40,7 +40,7 @@ class Hash extends ControllerAbstract
     #[Path('/generator/hash')]
     public function generate(Generate $generate): mixed
     {
-        $schema = $generate->getSchema();
+        $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
 
         try {
             $result = (new TypeSchema())->parse($schema);

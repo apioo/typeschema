@@ -3,6 +3,9 @@
     "php": ">=8.1",
     "psx/framework": "^7.0"
   },
+  "require-dev": {
+    "vimeo/psalm": "^5.9"
+  },
   "autoload": {
     "psr-4": {
       "App\\": "src/"

@@ -38,7 +38,7 @@ class JsonSchema extends ControllerAbstract
     #[Path('/migration/jsonschema')]
     public function migrate(Generate $generate): mixed
     {
-        $schema = $generate->getSchema();
+        $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
 
         try {
             $output = (new \PSX\Schema\Transformer\JsonSchema())->transform(json_decode($schema));

@@ -43,12 +43,12 @@ class Changelog extends ControllerAbstract
     #[Path('/generator/changelog')]
     public function generate(Diff $diff): mixed
     {
-        $left = $diff->getLeft();
-        $right = $diff->getRight();
+        $left = $diff->getLeft() ?? throw new \RuntimeException('Provided no left');
+        $right = $diff->getRight() ?? throw new \RuntimeException('Provided no right');
         $messages = [];
         try {
-            $defLeft = (new TypeSchema())->parse($left ?? '')->getDefinitions();
-            $defRight = (new TypeSchema())->parse($right ?? '')->getDefinitions();
+            $defLeft = (new TypeSchema())->parse($left)->getDefinitions();
+            $defRight = (new TypeSchema())->parse($right)->getDefinitions();
 
             foreach ((new ChangelogGenerator())->generate($defLeft, $defRight) as $type => $message) {
                 $messages[] = [$type, $message];
