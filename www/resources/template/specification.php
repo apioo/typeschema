@@ -182,7 +182,7 @@
   <h3>String</h3>
 
   <p>Represents a string type. A string type must have a <code>type</code> keyword and the type must
-  be <code>number</code> or <code>integer</code>.</p>
+  be <code>string</code>.</p>
 
   <pre><code class="json">{
     "type": "string"
