@@ -7,7 +7,7 @@
   <meta name="keywords" content="JSON Schema, TypeSchema, Data, Model, Specification, Code Generation">
   <title>TypeSchema</title>
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
-  <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="style" />
+  <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="script" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
   <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
   <script async src="<?php echo $base; ?>/js/app.min.js"></script>
