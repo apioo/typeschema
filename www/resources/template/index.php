@@ -18,14 +18,14 @@
 <div class="container">
   <?php foreach($examples as $key => $example): ?>
   <div class="row">
-    <div class="col-6">
+    <div class="col-md-6">
       <div class="psx-object">
         <h1><?php echo $example->title; ?></h1>
         <div class="psx-object-description"><?php echo $example->description; ?></div>
         <div class="example-box"><pre><code class="json"><?php echo $example->schema; ?></code></pre></div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <?php foreach ($example->types as $type => $code): ?>
@@ -50,6 +50,6 @@
   </div>
 </div>
 
-<script>hljs.initHighlightingOnLoad();</script>
+<script>window.addEventListener('load', function() { hljs.highlightAll() });</script>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

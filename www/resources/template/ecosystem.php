@@ -12,9 +12,10 @@
   <p>The following page lists projects and libraries which are working with TypeSchema.</p>
   <h3>Projects</h3>
   <ul>
-    <li><a href="https://typehub.cloud/">TypeHub</a> - a service to manage and share TypeSchema specifications</li>
-    <li><a href="https://sdkgen.app/">SDKgen</a> - a service to generate client SDKs</li>
-    <li><a href="https://www.fusio-project.org/">Fusio</a> - an open source API management system</li>
+    <li><a href="https://typeapi.org/">TypeAPI</a> - An OpenAPI alternative to describe REST APIs for type-safe code generation.</li>
+    <li><a href="https://typehub.cloud/">TypeHub</a> - A service to manage and share TypeSchema specifications</li>
+    <li><a href="https://sdkgen.app/">SDKgen</a> - A service to generate client SDKs</li>
+    <li><a href="https://www.fusio-project.org/">Fusio</a> - An open source API management system</li>
   </ul>
   <h3>Libraries</h3>
   <ul>

@@ -3,7 +3,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                <h5>Links</h5>
+                <p class="font-weight-bold">Links</p>
                 <ul class="list-unstyled text-small">
                     <li class="mb-2"><a href="https://typeschema.org/">TypeSchema</a></li>
                     <li class="mb-2"><a href="https://typeapi.org/">TypeAPI</a></li>
@@ -13,7 +13,7 @@
                 </ul>
             </div>
             <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                <h5>GitHub</h5>
+                <p class="font-weight-bold">GitHub</p>
                 <ul class="list-unstyled text-small">
                     <li class="mb-2"><a href="https://github.com/apioo/typeschema">TypeSchema</a></li>
                     <li class="mb-2"><a href="https://github.com/apioo/typeapi">TypeAPI</a></li>
@@ -22,7 +22,7 @@
                 </ul>
             </div>
             <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                <h5>Contact</h5>
+                <p class="font-weight-bold">Contact</p>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="https://discord.gg/eMrMgwsc6e">Discord</a></li>
                     <li class="mb-2"><a href="https://twitter.com/FusioAPI">Twitter</a></li>

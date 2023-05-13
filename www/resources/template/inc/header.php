@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="<?php echo $base; ?>/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo $base; ?>/css/highlight.min.css">
-  <link rel="stylesheet" href="<?php echo $base; ?>/css/app.css">
-  <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
-  <script src="<?php echo $base; ?>/js/highlight.min.js"></script>
-  <script src="<?php echo $base; ?>/js/jquery.min.js"></script>
-  <script src="<?php echo $base; ?>/js/popper.min.js"></script>
-  <script src="<?php echo $base; ?>/js/bootstrap.min.js"></script>
+  <meta name="description" content="TypeSchema is a JSON format to describe data models in a language neutral format. A TypeSchema can be easily transformed into specific code for almost any programming language.">
+  <meta name="keywords" content="JSON Schema, TypeSchema, Data, Model, Specification, Code Generation">
   <title>TypeSchema</title>
+  <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
+  <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="style" />
+  <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
+  <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
+  <script async src="<?php echo $base; ?>/js/app.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB1NL30RKL"></script>
   <script>
       window.dataLayer = window.dataLayer || [];
@@ -57,5 +56,5 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Faq::class, 'show']); ?>">FAQ</a>
     </li>
   </ul>
-  <a href="https://github.com/apioo/typeschema"><img src="<?php echo $base; ?>/img/github-32.png"></a>
+  <a href="https://github.com/apioo/typeschema"><img src="<?php echo $base; ?>/img/github-32.png" width="32" height="32"></a>
 </nav>
