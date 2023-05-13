@@ -281,4 +281,11 @@
 
 <script>window.addEventListener('load', function() { hljs.highlightAll() });</script>
 
+<script>
+  const links = document.querySelectorAll('a.psx-type-link');
+  links.forEach((link) => {
+    link.setAttribute('href', '#' + link.dataset.name);
+  });
+</script>
+
 <?php include __DIR__ . '/inc/footer.php'; ?>
