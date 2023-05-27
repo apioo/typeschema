@@ -3,14 +3,13 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / FAQ</li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / Developer</li>
   </ol>
 </nav>
 
 <div class="container">
   <h1 class="display-4">Developer</h1>
-  <p>This chapter provides some guidelines for developers how to build a TypeSchema code generator. Please
-  <a href="https://www.apioo.de/en/contact">contact us</a> in case you have developed a code generator.</p>
+  <p>This chapter provides some guidelines for developers how to build a TypeSchema code generator.</p>
   <ul>
     <li>TypeSchema is designed so that a processor can create an in-memory object representation of a schema. Every
       schema can be exactly assigned to a specific type. A processor should create a fitting class for each type and a
