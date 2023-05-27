@@ -12,22 +12,22 @@
 
   <hr>
   <h3>What is the history?</h3>
-  <p>We are the developers behind <a href="https://github.com/apioo/fusio">Fusio</a> which is an open source API
-  management system. We wanted to build an SDK generator for different languages, which builds an SDK based on the
+  <p>We are the developers behind <a href="https://github.com/apioo/fusio">Fusio</a> an open source API management
+  system. We wanted to build an SDK generator for different languages, which builds an SDK based on the
   available schema. During this we have experienced the limitations of JSON Schema for code generators. Because of this
   we have started to develop TypeSchema. A JSON format which can be easily transformed into code and also other
-  specification formats. This means we can also reuse any TypeSchema at an OpenAPI specification.</p>
+  specification formats.</p>
 
   <hr>
   <h3>What is your vision?</h3>
-  <p>We envision a future where the code generation ecosystem just works. That means a user gets an OpenAPI document and
+  <p>We envision a future where the code generation ecosystem just works. That means a user gets an TypeAPI document and
   he is able to use this document to generate high quality code for either client or server implementations.</p>
 
   <hr>
   <h3>How does the website work?</h3>
   <p>The complete website is also opensource, you can check out our <a href="https://github.com/apioo/typeschema">repository</a>
   and take a look at the www folder, there is all code related to the website placed. If you want to take a look at the
-  code generator you can check out the <a href="https://github.com/apioo/psx-schema">schema repository</a>.</p>
+  code generator you can check out the <a href="https://github.com/apioo/typeschema-generator">generator repository</a>.</p>
 
   <hr>
   <h3>I have a question regarding the project?</h3>
