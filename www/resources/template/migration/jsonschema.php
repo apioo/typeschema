@@ -30,6 +30,6 @@
   </div>
 </div>
 
-<script>hljs.initHighlightingOnLoad();</script>
+<script>window.addEventListener('load', function() { hljs.highlightAll() });</script>
 
 <?php include __DIR__ . '/../inc/footer.php'; ?>
