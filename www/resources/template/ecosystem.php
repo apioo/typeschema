@@ -12,7 +12,8 @@
   <p>The following page lists integrations, projects and libraries related to TypeSchema.</p>
   <h3>Integration</h3>
   <ul>
-    <li><a href="https://github.com/apioo/typeschema-generator">TypeSchema-Generator</a> - The TypeSchema code generator provided as Docker-Image</li>
+    <li><a href="https://github.com/apioo/typeschema-generator">Docker</a> - The TypeSchema code generator provided as Docker-Image</li>
+    <li><a href="https://github.com/apioo/typeschema-generator-action">GitHub Action</a> - The TypeSchema code generator provided as GitHub action</li>
   </ul>
   <h3>Project</h3>
   <ul>
