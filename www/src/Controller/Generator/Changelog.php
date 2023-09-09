@@ -4,24 +4,25 @@ namespace App\Controller\Generator;
 
 use App\Model\Diff;
 use PSX\Api\Attribute\Get;
-use PSX\Api\Attribute\Incoming;
 use PSX\Api\Attribute\Path;
 use PSX\Api\Attribute\Post;
-use PSX\Api\Model\Passthru;
 use PSX\Framework\Controller\ControllerAbstract;
 use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;
 use PSX\Schema\Inspector\ChangelogGenerator;
 use PSX\Schema\Inspector\SemVer;
 use PSX\Schema\Parser\TypeSchema;
+use PSX\Schema\SchemaManagerInterface;
 
 class Changelog extends ControllerAbstract
 {
     private ReverseRouter $reverseRouter;
+    private SchemaManagerInterface $schemaManager;
 
-    public function __construct(ReverseRouter $reverseRouter)
+    public function __construct(ReverseRouter $reverseRouter, SchemaManagerInterface $schemaManager)
     {
         $this->reverseRouter = $reverseRouter;
+        $this->schemaManager = $schemaManager;
     }
 
     #[Get]
@@ -47,8 +48,8 @@ class Changelog extends ControllerAbstract
         $right = $diff->getRight() ?? throw new \RuntimeException('Provided no right');
         $messages = [];
         try {
-            $defLeft = (new TypeSchema())->parse($left)->getDefinitions();
-            $defRight = (new TypeSchema())->parse($right)->getDefinitions();
+            $defLeft = (new TypeSchema($this->schemaManager))->parse($left)->getDefinitions();
+            $defRight = (new TypeSchema($this->schemaManager))->parse($right)->getDefinitions();
 
             foreach ((new ChangelogGenerator())->generate($defLeft, $defRight) as $type => $message) {
                 $messages[] = [$type, $message];

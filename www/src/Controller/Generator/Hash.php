@@ -13,14 +13,17 @@ use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;
 use PSX\Schema\Inspector;
 use PSX\Schema\Parser\TypeSchema;
+use PSX\Schema\SchemaManagerInterface;
 
 class Hash extends ControllerAbstract
 {
     private ReverseRouter $reverseRouter;
+    private SchemaManagerInterface $schemaManager;
 
-    public function __construct(ReverseRouter $reverseRouter)
+    public function __construct(ReverseRouter $reverseRouter, SchemaManagerInterface $schemaManager)
     {
         $this->reverseRouter = $reverseRouter;
+        $this->schemaManager = $schemaManager;
     }
 
     #[Get]
@@ -43,7 +46,7 @@ class Hash extends ControllerAbstract
         $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
 
         try {
-            $result = (new TypeSchema())->parse($schema);
+            $result = (new TypeSchema($this->schemaManager))->parse($schema);
             $output = (new Inspector\Hash())->generate($result->getDefinitions());
         } catch (\Throwable $e) {
             $output = $e->getMessage();
