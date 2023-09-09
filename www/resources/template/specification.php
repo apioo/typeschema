@@ -36,8 +36,6 @@
       </ul>
     </li>
     <li><a href="#Structure">Structure</a></li>
-    <li><a href="#Generator">Generator</a></li>
-    <li><a href="#Appendix">Appendix</a></li>
   </ul>
 
   <hr>
@@ -45,18 +43,18 @@
   <a id="Introduction"></a>
   <h2>Introduction</h2>
 
-  <p>This document describes the TypeSchema specification. TypeSchema is a JSON format to model data structures. It
-  abstracts OOP concepts into a simple and deterministic JSON format which can be turned into code for many different
-  target languages. The main use case of TypeSchema is to describe a data model, it is not designed to validate JSON
-  structures. A data model described in TypeSchema can be used as single source of truth which can be reused in many
-  different environments.</p>
+  <p>This document describes the <a href="https://app.typehub.cloud/d/typehub/typeschema">TypeSchema specification</a>.
+  TypeSchema is a JSON format to model data structures. It abstracts OOP concepts into a simple and deterministic JSON
+  format which can be turned into code for many different target languages. The main use case of TypeSchema is to
+  describe a data model, it is not designed to validate JSON structures. A data model described in TypeSchema can be
+  used as single source of truth which can be reused in many different environments.</p>
 
   <hr>
 
   <a id="Root"></a>
   <h2>Root</h2>
 
-  <p>Every TypeSchema has a <a href="#TypeSchema">Root</a> definition. The Root must contain at least the
+  <p>Every TypeSchema has a <a href="https://app.typehub.cloud/d/typehub/typeschema#type-TypeSchema">Root</a> definition. The Root must contain at least the
   <code>definitions</code> keyword i.e.:</p>
   <pre class="json hljs">{
     "definitions": {
@@ -65,8 +63,8 @@
     }
 }</pre>
 
-  <p>The <code>definitions</code> keyword contains simply a map containing <a href="#StructType">Struct</a>,
-  <a href="#MapType">Map</a> and <a href="#ReferenceType">Reference</a> types.</p>
+  <p>The <code>definitions</code> keyword contains simply a map containing <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">Struct</a>,
+  <a href="https://app.typehub.cloud/d/typehub/typeschema#MapType">Map</a> and <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a> types.</p>
 
   <p>Optional it is possible to include a <code>$ref</code> keyword which points to the default type.</p>
 
@@ -116,7 +114,7 @@
     }
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#StructType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">TypeHub</a>.</p>
 
   <hr>
 
@@ -131,7 +129,7 @@
     "additionalProperties": { ... }
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#MapType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">TypeHub</a>.</p>
 
   <hr>
 
@@ -146,7 +144,7 @@
     "items": { ... }
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#ArrayType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ArrayType">TypeHub</a>.</p>
 
   <hr>
 
@@ -160,7 +158,7 @@
     "type": "boolean"
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#BooleanType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-BooleanType">TypeHub</a>.</p>
 
   <hr>
 
@@ -174,7 +172,7 @@
     "type": "number"
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#NumberType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-NumberType">TypeHub</a>.</p>
 
   <hr>
 
@@ -188,7 +186,7 @@
     "type": "string"
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#StringType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StringType">TypeHub</a>.</p>
 
   <hr>
 
@@ -201,7 +199,7 @@
     "allOf": [{ ... }, { ... }]
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#IntersectionType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-IntersectionType">TypeHub</a>.</p>
 
   <hr>
 
@@ -214,7 +212,7 @@
     "oneOf": [{ ... }, { ... }]
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#UnionType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-UnionType">TypeHub</a>.</p>
 
   <hr>
 
@@ -228,7 +226,7 @@
     "$ref": "MyType"
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#ReferenceType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">TypeHub</a>.</p>
 
   <hr>
 
@@ -242,7 +240,7 @@
     "$generic": "T"
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#GenericType">Appendix</a>.</p>
+  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-GenericType">TypeHub</a>.</p>
 
   <p>I.e. if we reference a specific type and this type contains a generic type then we can define which type should
   be inserted at the generic type.</p>
@@ -265,27 +263,11 @@
 
   <hr>
 
-  <a id="Appendix"></a>
-  <h2>Appendix</h2>
-
-  <p>The single source of truth of TypeSchema is the TypeSchema meta schema which describes itself. You can find the
-  current TypeSchema at our <a href="https://github.com/apioo/typeschema/blob/master/schema/schema.json">repository</a>.
-  The following section contains a HTML representation which we automatically generate from this meta schema.</p>
-
-  <?php echo $spec; ?>
-
   <div class="typeschema-edit">
-    <a href="https://github.com/apioo/typeschema/blob/master/www/src/Website/resource/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
+    <a href="https://github.com/apioo/typeschema/blob/master/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
   </div>
 </div>
 
 <script>window.addEventListener('load', function() { hljs.highlightAll() });</script>
-
-<script>
-  const links = document.querySelectorAll('a.psx-type-link');
-  links.forEach((link) => {
-    link.setAttribute('href', '#' + link.dataset.name);
-  });
-</script>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>
