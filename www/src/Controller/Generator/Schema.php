@@ -13,14 +13,17 @@ use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;
 use PSX\Schema\GeneratorFactory;
 use PSX\Schema\Parser\TypeSchema;
+use PSX\Schema\SchemaManagerInterface;
 
 class Schema extends ControllerAbstract
 {
     private ReverseRouter $reverseRouter;
+    private SchemaManagerInterface $schemaManager;
 
-    public function __construct(ReverseRouter $reverseRouter)
+    public function __construct(ReverseRouter $reverseRouter, SchemaManagerInterface $schemaManager)
     {
         $this->reverseRouter = $reverseRouter;
+        $this->schemaManager = $schemaManager;
     }
 
     #[Get]
@@ -46,7 +49,7 @@ class Schema extends ControllerAbstract
         $config = null;
 
         try {
-            $result = (new TypeSchema())->parse($schema);
+            $result = (new TypeSchema($this->schemaManager))->parse($schema);
             $generator = (new GeneratorFactory())->getGenerator($type, $config);
 
             $output = $generator->generate($result);
