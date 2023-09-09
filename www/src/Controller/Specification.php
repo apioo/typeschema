@@ -21,11 +21,8 @@ class Specification extends ControllerAbstract
     #[Path('/specification')]
     public function show(): mixed
     {
-        $spec = file_get_contents(__DIR__ . '/../../../schema/schema.htm');
-
         $data = [
             'method' => explode('::', __METHOD__),
-            'spec' => $spec
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/specification.php';
