@@ -314,7 +314,7 @@
   </ul>
 
   <div class="typeschema-edit">
-    <a href="https://github.com/apioo/typeschema/blob/master/www/src/Website/resource/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
+    <a href="https://github.com/apioo/typeschema/blob/master/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
   </div>
 </div>
 
