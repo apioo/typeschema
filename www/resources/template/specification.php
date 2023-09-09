@@ -64,7 +64,7 @@
 }</pre>
 
   <p>The <code>definitions</code> keyword contains simply a map containing <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">Struct</a>,
-  <a href="https://app.typehub.cloud/d/typehub/typeschema#MapType">Map</a> and <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a> types.</p>
+  <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">Map</a> and <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a> types.</p>
 
   <p>Optional it is possible to include a <code>$ref</code> keyword which points to the default type.</p>
 
