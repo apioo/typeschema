@@ -11,16 +11,19 @@ use PSX\Framework\Loader\ReverseRouter;
 use PSX\Http\Client\Client;
 use PSX\Schema\GeneratorFactory;
 use PSX\Schema\Parser\TypeSchema;
+use PSX\Schema\SchemaManagerInterface;
 
 class Index extends ControllerAbstract
 {
     private CacheItemPoolInterface $cache;
     private ReverseRouter $reverseRouter;
+    private SchemaManagerInterface $schemaManager;
 
-    public function __construct(CacheItemPoolInterface $cache, ReverseRouter $reverseRouter)
+    public function __construct(CacheItemPoolInterface $cache, ReverseRouter $reverseRouter, SchemaManagerInterface $schemaManager)
     {
         $this->cache = $cache;
         $this->reverseRouter = $reverseRouter;
+        $this->schemaManager = $schemaManager;
     }
 
     #[Get]
@@ -31,9 +34,10 @@ class Index extends ControllerAbstract
         if (!$item->isHit()) {
             $examples = $this->getExamples();
             foreach ($examples as $key => $example) {
+                $examples[$key]['schema'] = file_get_contents($example['file']);
                 $types = GeneratorFactory::getPossibleTypes();
                 foreach ($types as $type) {
-                    $examples[$key]['types'][$type] = $this->convert($type, $example['schema']);
+                    $examples[$key]['types'][$type] = $this->convert($type, $example['file']);
                 }
             }
 
@@ -53,11 +57,9 @@ class Index extends ControllerAbstract
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
-    private function convert(string $type, string $code): string
+    private function convert(string $type, string $file): string
     {
-        $httpClient = new Client();
-        $parser = new TypeSchema(TypeSchema\ImportResolver::createDefault($httpClient), __DIR__ . '/../../resources/examples');
-        $schema = $parser->parse($code);
+        $schema = $this->schemaManager->getSchema($file);
 
         $factory = new GeneratorFactory();
         $generator = $factory->getGenerator($type);
@@ -71,49 +73,49 @@ class Index extends ControllerAbstract
         $examples[] = [
             'title' => 'Simple model',
             'description' => 'A simple model with some scalar properties.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/simple.json'),
+            'file' => __DIR__ . '/../../resources/examples/simple.json',
         ];
 
         $examples[] = [
             'title' => 'Model with inheritance',
             'description' => 'A student class which extends from the human class.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/inheritance.json'),
+            'file' => __DIR__ . '/../../resources/examples/inheritance.json',
         ];
 
         $examples[] = [
             'title' => 'Model with reference',
             'description' => 'A student class which reference a faculty class.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/reference.json'),
+            'file' => __DIR__ . '/../../resources/examples/reference.json',
         ];
 
         $examples[] = [
             'title' => 'Map with string values',
             'description' => 'A student class which contains a map with arbitrary string properties.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/map.json'),
+            'file' => __DIR__ . '/../../resources/examples/map.json',
         ];
 
         $examples[] = [
             'title' => 'Inline map with string values',
             'description' => 'A student class which contains an inline map with arbitrary string properties.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/map_inline.json'),
+            'file' => __DIR__ . '/../../resources/examples/map_inline.json',
         ];
 
         $examples[] = [
             'title' => 'Model with discriminator',
             'description' => 'A model which contains a union type.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/discriminator.json'),
+            'file' => __DIR__ . '/../../resources/examples/discriminator.json',
         ];
 
         $examples[] = [
             'title' => 'Advanced model which uses generics',
             'description' => 'A generic map which uses a specific model.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/generic.json'),
+            'file' => __DIR__ . '/../../resources/examples/generic.json',
         ];
 
         $examples[] = [
             'title' => 'Import other TypeSchema specification',
             'description' => 'Shows how to import and use another TypeSchema.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/import.json'),
+            'file' => __DIR__ . '/../../resources/examples/import.json',
         ];
 
         return $examples;
