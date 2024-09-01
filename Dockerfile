@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL description="TypeSchema website"
 
