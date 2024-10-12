@@ -22,6 +22,7 @@ class Ecosystem extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
+            'title' => 'Ecosystem | TypeSchema',
             'method' => explode('::', __METHOD__),
         ];
 

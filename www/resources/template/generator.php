@@ -19,11 +19,30 @@
           <textarea id="schema" name="schema" rows="24" class="form-control"><?php echo htmlspecialchars($schema); ?></textarea>
         </div>
         <input type="submit" value="Generate" class="btn btn-primary">
-        <input type="submit" value="Download" class="btn btn-secondary">
       </form>
     </div>
     <div class="col-6">
-      <div><pre><code class="<?php echo $type ?? ''; ?>"><?php echo isset($output) ? htmlspecialchars($output) : ''; ?></code></pre></div>
+      <?php if(isset($output)): ?>
+      <form method="post" action="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'download'], ['type' => $type]); ?>">
+        <input type="hidden" name="namespace" value="<?php echo htmlspecialchars($namespace ?? ''); ?>">
+        <input type="hidden" name="schema" value="<?php echo htmlspecialchars($schema); ?>">
+        <input type="submit" value="Download" class="btn btn-primary">
+      </form>
+      <hr>
+      <?php if ($output instanceof stdClass): ?>
+        <?php foreach ($output as $fileName => $chunk): ?>
+        <div class="psx-object">
+          <h1><?php echo $fileName; ?></h1>
+          <div class="example-box"><pre><code class="<?php echo $type; ?>"><?php echo htmlspecialchars($chunk); ?></code></pre></div>
+        </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+      <div class="psx-object">
+        <h1>Output</h1>
+        <div class="example-box"><pre><code class="<?php echo $type; ?>"><?php echo htmlspecialchars($output); ?></code></pre></div>
+      </div>
+      <?php endif; ?>
+      <?php endif; ?>
     </div>
   </div>
 </div>

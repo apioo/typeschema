@@ -9,8 +9,10 @@
 
 <div class="container">
   <h1 class="display-4">DTO Generator</h1>
-  <p>fsdfsdf</p>
-
+  <p class="lead">This list gives you access to our reference code generator implementation.
+  For more advanced integration options like an REST API, CLI or GitHub action please take a look
+  at the <a href="https://sdkgen.app/">SDKgen project</a>.
+  </p>
   <div class="row">
     <?php foreach ($types as $chunk): ?>
       <div class="col-6">

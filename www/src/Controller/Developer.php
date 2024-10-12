@@ -22,6 +22,7 @@ class Developer extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
+            'title' => 'Developer | TypeSchema',
             'method' => explode('::', __METHOD__),
         ];
 

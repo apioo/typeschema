@@ -30,6 +30,7 @@ class Changelog extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
+            'title' => 'Changelog | TypeSchema',
             'method' => explode('::', __METHOD__),
             'left' => $this->getLeft(),
             'right' => $this->getRight(),

@@ -29,6 +29,7 @@ class Hash extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
+            'title' => 'Hash | TypeSchema',
             'method' => explode('::', __METHOD__),
             'schema' => $this->getSchema(),
         ];

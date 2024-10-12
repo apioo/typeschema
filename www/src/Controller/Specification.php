@@ -22,6 +22,7 @@ class Specification extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
+            'title' => 'Specification | TypeSchema',
             'method' => explode('::', __METHOD__),
         ];
 

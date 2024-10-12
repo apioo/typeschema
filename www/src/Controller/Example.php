@@ -55,6 +55,7 @@ class Example extends ControllerAbstract
         }
 
         $data = [
+            'title' => TypeName::getDisplayName($type) . ' Example | TypeSchema',
             'method' => explode('::', __METHOD__),
             'parameters' => ['type' => $type],
             'type' => TypeName::getDisplayName($type),

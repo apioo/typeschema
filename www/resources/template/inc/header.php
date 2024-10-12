@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="TypeSchema is a JSON format to describe data models in a language neutral format. A TypeSchema can be easily transformed into specific code for almost any programming language.">
-  <meta name="keywords" content="JSON Schema, TypeSchema, Data, Model, Specification, Code Generation">
-  <title>TypeSchema</title>
+  <meta name="description" content="TypeSchema is a JSON specification to describe data models in a programming language neutral format.">
+  <meta name="keywords" content="JSON Schema, TypeSchema, Data, Model, Specification, Code Generation, Code Generator">
+  <title><?php if(isset($title)): ?><?php echo $title; ?><?php else: ?>TypeSchema<?php endif; ?></title>
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
   <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="script" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
@@ -32,9 +32,6 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Developer::class, 'show']); ?>">Developer</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">Ecosystem</a>

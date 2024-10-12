@@ -22,6 +22,7 @@ class Faq extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
+            'title' => 'FAQ | TypeSchema',
             'method' => explode('::', __METHOD__),
         ];
 
