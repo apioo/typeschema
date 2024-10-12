@@ -3,7 +3,7 @@
     "Generate": {
       "type": "object",
       "properties": {
-        "type": {
+        "namespace": {
           "type": "string"
         },
         "schema": {

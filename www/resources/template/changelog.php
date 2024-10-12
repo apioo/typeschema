@@ -1,5 +1,5 @@
 
-<?php include __DIR__ . '/../inc/header.php'; ?>
+<?php include __DIR__ . '/inc/header.php'; ?>
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
@@ -49,4 +49,4 @@
   </div>
 </div>
 
-<?php include __DIR__ . '/../inc/footer.php'; ?>
+<?php include __DIR__ . '/inc/footer.php'; ?>

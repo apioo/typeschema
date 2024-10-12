@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Generator;
+namespace App\Controller;
 
 use App\Model\Diff;
 use PSX\Api\Attribute\Get;
@@ -26,7 +26,7 @@ class Changelog extends ControllerAbstract
     }
 
     #[Get]
-    #[Path('/generator/changelog')]
+    #[Path('/changelog')]
     public function show(): mixed
     {
         $data = [
@@ -36,12 +36,12 @@ class Changelog extends ControllerAbstract
             'messages' => []
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/generator/changelog.php';
+        $templateFile = __DIR__ . '/../../resources/template/changelog.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     #[Post]
-    #[Path('/generator/changelog')]
+    #[Path('/changelog')]
     public function generate(Diff $diff): mixed
     {
         $left = $diff->getLeft() ?? throw new \RuntimeException('Provided no left');
@@ -65,7 +65,7 @@ class Changelog extends ControllerAbstract
             'messages' => $messages
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/generator/changelog.php';
+        $templateFile = __DIR__ . '/../../resources/template/changelog.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 

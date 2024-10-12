@@ -9,7 +9,7 @@
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
   <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="script" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
-  <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
+  <link rel="canonical" href="<?php echo $router->getUrl($method, isset($parameters) ? (array) $parameters : []); ?>">
   <script async src="<?php echo $base; ?>/js/app.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB1NL30RKL"></script>
   <script>
@@ -31,7 +31,7 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>">Specification</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Schema::class, 'show']); ?>">Generator</a>
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Developer::class, 'show']); ?>">Developer</a>
@@ -48,8 +48,8 @@
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\JsonSchema::class, 'show']); ?>">JSON Schema</a>
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\OpenAPI::class, 'show']); ?>">OpenAPI</a>
         <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\Json::class, 'show']); ?>">JSON</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Changelog::class, 'show']); ?>">Changelog</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Hash::class, 'show']); ?>">Hash</a>
+        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Changelog::class, 'show']); ?>">Changelog</a>
+        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Hash::class, 'show']); ?>">Hash</a>
       </div>
     </li>
   </ul>

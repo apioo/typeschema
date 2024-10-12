@@ -7,15 +7,15 @@ namespace App\Model;
 
 class Generate implements \JsonSerializable, \PSX\Record\RecordableInterface
 {
-    protected ?string $type = null;
+    protected ?string $namespace = null;
     protected ?string $schema = null;
-    public function setType(?string $type) : void
+    public function setNamespace(?string $namespace) : void
     {
-        $this->type = $type;
+        $this->namespace = $namespace;
     }
-    public function getType() : ?string
+    public function getNamespace() : ?string
     {
-        return $this->type;
+        return $this->namespace;
     }
     public function setSchema(?string $schema) : void
     {
@@ -29,7 +29,7 @@ class Generate implements \JsonSerializable, \PSX\Record\RecordableInterface
     {
         /** @var \PSX\Record\Record<mixed> $record */
         $record = new \PSX\Record\Record();
-        $record->put('type', $this->type);
+        $record->put('namespace', $this->namespace);
         $record->put('schema', $this->schema);
         return $record;
     }

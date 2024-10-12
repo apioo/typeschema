@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Controller\Generator;
+namespace App\Controller;
 
 use App\Model\Generate;
 use PSX\Api\Attribute\Get;
-use PSX\Api\Attribute\Incoming;
 use PSX\Api\Attribute\Path;
 use PSX\Api\Attribute\Post;
-use PSX\Api\Model\Passthru;
 use PSX\Framework\Controller\ControllerAbstract;
 use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;
@@ -27,7 +25,7 @@ class Hash extends ControllerAbstract
     }
 
     #[Get]
-    #[Path('/generator/hash')]
+    #[Path('/hash')]
     public function show(): mixed
     {
         $data = [
@@ -35,12 +33,12 @@ class Hash extends ControllerAbstract
             'schema' => $this->getSchema(),
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/generator/hash.php';
+        $templateFile = __DIR__ . '/../../resources/template/hash.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     #[Post]
-    #[Path('/generator/hash')]
+    #[Path('/hash')]
     public function generate(Generate $generate): mixed
     {
         $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
@@ -58,7 +56,7 @@ class Hash extends ControllerAbstract
             'output' => $output
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/generator/hash.php';
+        $templateFile = __DIR__ . '/../../resources/template/hash.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
