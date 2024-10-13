@@ -8,6 +8,9 @@
         },
         "schema": {
           "type": "string"
+        },
+        "g-recaptcha-response": {
+          "type": "string"
         }
       }
     },

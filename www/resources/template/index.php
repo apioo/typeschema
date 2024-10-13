@@ -4,7 +4,7 @@
 <div class="jumbotron">
   <div class="container" style="text-align: center">
     <h1 class="display-4">TypeSchema</h1>
-    <p class="lead">TypeSchema is a JSON specification to describe data models in a programming language neutral format.</p>
+    <p class="lead">TypeSchema is a JSON specification to describe data models.</p>
     <p>
       <a class="btn btn-primary" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>" role="button">Specification</a>
       <a class="btn btn-secondary" href="https://sandbox.typeschema.org/" role="button">Editor</a>

@@ -19,15 +19,8 @@ use PSX\Schema\SchemaManagerInterface;
 
 class Example extends ControllerAbstract
 {
-    private CacheItemPoolInterface $cache;
-    private ReverseRouter $reverseRouter;
-    private SchemaManagerInterface $schemaManager;
-
-    public function __construct(CacheItemPoolInterface $cache, ReverseRouter $reverseRouter, SchemaManagerInterface $schemaManager)
+    public function __construct(private CacheItemPoolInterface $cache, private ReverseRouter $reverseRouter, private SchemaManagerInterface $schemaManager)
     {
-        $this->cache = $cache;
-        $this->reverseRouter = $reverseRouter;
-        $this->schemaManager = $schemaManager;
     }
 
     #[Get]

@@ -19,4 +19,5 @@ return static function (ContainerConfigurator $container) {
     $services->load('App\\Controller\\', __DIR__ . '/../src/Controller')
         ->public();
 
+    $services->load('App\\Service\\', __DIR__ . '/../src/Service');
 };

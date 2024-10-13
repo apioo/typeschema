@@ -11,22 +11,22 @@
   <h1 class="display-4"><?php echo $typeName; ?> DTO Generator</h1>
   <div class="row">
     <div class="col-6">
-      <form method="post" action="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'generate'], ['type' => $type]); ?>">
+      <form id="generateForm" method="post" action="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'generate'], ['type' => $type]); ?>">
         <div class="form-group">
           <input id="namespace" name="namespace" placeholder="Optional a namespace" value="<?php echo htmlspecialchars($namespace ?? ''); ?>" class="form-control">
         </div>
         <div class="form-group">
           <textarea id="schema" name="schema" rows="24" class="form-control"><?php echo htmlspecialchars($schema); ?></textarea>
         </div>
-        <input type="submit" value="Generate" class="btn btn-primary">
+        <button class="g-recaptcha btn btn-primary" data-sitekey="<?php echo $recaptcha_key; ?>" data-callback="onGenerate" data-action="submit">Generate</button>
       </form>
     </div>
     <div class="col-6">
       <?php if(isset($output)): ?>
-      <form method="post" action="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'download'], ['type' => $type]); ?>">
+      <form id="downloadForm" method="post" action="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'download'], ['type' => $type]); ?>">
         <input type="hidden" name="namespace" value="<?php echo htmlspecialchars($namespace ?? ''); ?>">
         <input type="hidden" name="schema" value="<?php echo htmlspecialchars($schema); ?>">
-        <input type="submit" value="Download" class="btn btn-primary">
+        <button class="g-recaptcha btn btn-primary" data-sitekey="<?php echo $recaptcha_key; ?>" data-callback="onDownload" data-action="submit">Download</button>
       </form>
       <hr>
       <?php if ($output instanceof stdClass): ?>
@@ -48,5 +48,7 @@
 </div>
 
 <script>window.addEventListener('load', function() { hljs.highlightAll() });</script>
+<script>function onGenerate(token) { document.getElementById("generateForm").submit(); }</script>
+<script>function onDownload(token) { document.getElementById("downloadForm").submit(); }</script>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

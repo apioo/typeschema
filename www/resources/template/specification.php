@@ -47,20 +47,18 @@
 
   <p>This document describes the <a href="https://app.typehub.cloud/d/typehub/typeschema">TypeSchema specification</a>.
   TypeSchema is a JSON format to model data structures. It abstracts common OOP concepts like inheritance, polymorphism and generics
-  into a simple and deterministic JSON format which can be transformed into code for many different target languages.
-  The main use case of TypeSchema is to describe a data model, it is not designed to validate JSON structures. A data model
-  described in TypeSchema can be used as single source of truth which can be reused in many different environments.</p>
+  into a simple and deterministic JSON format which can be transformed into code for many different programming languages.
+  The main use case of TypeSchema is to describe data models, it is not designed to validate JSON structures. A data model
+  described in TypeSchema can be used as single source of truth, which can be used across many different environments.</p>
 
   <hr>
 
   <a id="Design"></a>
   <h2>Design</h2>
 
-  <p>From a high level perspective TypeSchema distinguishes between two types, a <a href="#Definition-Types">Definition-Type</a>
-  and a <a href="#Property-Types">Property-Type</a>. A Definition-Type is an entry under the <code>definitions</code> keyword
-  and a Property-Type can only be used inside such a Definition-Type. Every Definition-Type results at the code generator
-  in a dedicated class. The following example illustrates how the <a href="#Definition-Types">Definition-Types</a>
-  and <a href="#Property-Types">Property-Types</a> are nested.</p>
+  <p>TypeSchema distinguishes between two types, a <a href="#Definition-Types">Definition-Type</a> and a <a href="#Property-Types">Property-Type</a>.
+  A Definition-Type is an entry under the <code>definitions</code> keyword and a Property-Type can only be used inside such a Definition-Type.
+  The following example illustrates how the <a href="#Definition-Types">Definition-Types</a> and <a href="#Property-Types">Property-Types</a> are nested.</p>
 
   <pre class="json hljs">{
     "definitions": {
@@ -200,7 +198,6 @@
 
   <a id="Property-Type-String"></a>
   <h3>string</h3>
-  <p>A string represents .</p>
   <pre class="json hljs">{
     "type": "string",
     "format": "date-time"
@@ -220,7 +217,7 @@
     <tr>
       <td>format</td>
       <td>Optional describes the format of the string. Supported are the following types: <code>date</code>, <code>date-time</code> and <code>time</code>.
-      A code generator may use a fitting date type to represent such a format.</td>
+      A code generator may use a fitting data type to represent such a format, if not supported it should fall back to a string.</td>
     </tr>
     </tbody>
   </table>
@@ -330,7 +327,7 @@
     <tr>
       <td>name</td>
       <td>The name of the generic, it is recommended to use common generic names like <code>T</code> or <code>TValue</code>. These generics
-      can then be replaced on usage with a concrete type through the <code>template</code> property at a <a href="#Definition-Type-Struct">struct</a>.</td>
+      can then be replaced on usage with a concrete type through the <code>template</code> property at a <a href="#Property-Type-Reference">reference</a>.</td>
     </tr>
     </tbody>
   </table>
@@ -364,9 +361,9 @@
     </tr>
     <tr>
       <td>template</td>
-      <td>In case the target points to a type which contains generics it is possible to replace those generics
-      with a concrete type. A map where the key is the name of the generic and the value must point to
-      a key under the <code>definitions</code> keyword.</td>
+      <td>A map where the key is the name of the generic and the value must point to a key under the <code>definitions</code> keyword.
+      This can be used in case the target points to a type which contains generics, then it is possible to replace those generics
+      with a concrete type. </td>
     </tr>
     </tbody>
   </table>
@@ -377,7 +374,7 @@
   <h2>Import</h2>
   <p>Optional it is possible to import other TypeSchema documents through the <code>import</code> keyword. It contains a map
   where the key is the namespace and the value points to a remote document. The value is a URL and a code generator should
-  support the following schemes: <code>file</code>, <code>http</code>, <code>https</code>.</p>
+  support at least the following schemes: <code>file</code>, <code>http</code>, <code>https</code>.</p>
 
   <pre><code class="json">{
     "import": {
@@ -394,7 +391,8 @@
 
   <a id="Root"></a>
   <h2>Root</h2>
-  <p>It is possible to define a root type. This can help a parser to identify the root type of your definitions.</p>
+  <p>In some circumstances a parse needs to know the root type of your specification, through the <code>root</code>
+    keyword it is possible to define such a root type.</p>
 
   <pre><code class="json">{
     "definitions": {

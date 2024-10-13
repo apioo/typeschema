@@ -16,13 +16,8 @@ use PSX\Schema\SchemaManagerInterface;
 
 class Changelog extends ControllerAbstract
 {
-    private ReverseRouter $reverseRouter;
-    private SchemaManagerInterface $schemaManager;
-
-    public function __construct(ReverseRouter $reverseRouter, SchemaManagerInterface $schemaManager)
+    public function __construct(private ReverseRouter $reverseRouter, private SchemaManagerInterface $schemaManager)
     {
-        $this->reverseRouter = $reverseRouter;
-        $this->schemaManager = $schemaManager;
     }
 
     #[Get]

@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
   <link rel="canonical" href="<?php echo $router->getUrl($method, isset($parameters) ? (array) $parameters : []); ?>">
   <script async src="<?php echo $base; ?>/js/app.min.js"></script>
+<?php if (isset($js) && is_array($js)): ?>
+  <?php foreach ($js as $link): ?><script src="<?php echo $link; ?>"></script>
+<?php endforeach; ?>
+<?php endif; ?>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB1NL30RKL"></script>
   <script>
       window.dataLayer = window.dataLayer || [];

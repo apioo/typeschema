@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Model\Generate;
+use App\Service\CaptchaVerifier;
 use App\Service\TypeName;
+use PSX\Api\Attribute\Body;
 use PSX\Api\Attribute\Get;
+use PSX\Api\Attribute\Param;
 use PSX\Api\Attribute\Path;
 use PSX\Api\Attribute\Post;
 use PSX\Framework\Config\ConfigInterface;
@@ -19,11 +22,14 @@ use PSX\Schema\Generator\Config;
 use PSX\Schema\Generator\FileAwareInterface;
 use PSX\Schema\GeneratorFactory;
 use PSX\Schema\Parser\TypeSchema;
+use PSX\Schema\SchemaInterface;
 use PSX\Schema\SchemaManagerInterface;
 
 class Generator extends ControllerAbstract
 {
-    public function __construct(private ReverseRouter $reverseRouter, private SchemaManagerInterface $schemaManager, private ConfigInterface $config)
+    private const MAX_SCHEMA_LENGTH = 2048;
+
+    public function __construct(private ReverseRouter $reverseRouter, private SchemaManagerInterface $schemaManager, private ConfigInterface $config, private CaptchaVerifier $captchaVerifier)
     {
     }
 
@@ -62,6 +68,8 @@ class Generator extends ControllerAbstract
             'schema' => $this->getSchema(),
             'type' => $type,
             'typeName' => TypeName::getDisplayName($type),
+            'js' => ['https://www.google.com/recaptcha/api.js'],
+            'recaptcha_key' => $this->config->get('recaptcha_key'),
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/generator.php';
@@ -72,23 +80,21 @@ class Generator extends ControllerAbstract
     #[Path('/generator/:type')]
     public function generate(string $type, Generate $generate): mixed
     {
-        $namespace = $generate->getNamespace();
-        $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
-
-        $config = new Config();
-        if (!empty($namespace)) {
-            $config->put(Config::NAMESPACE, $namespace);
-        }
-
-        if (!in_array($type, GeneratorFactory::getPossibleTypes())) {
-            throw new BadRequestException('Provided an invalid type');
-        }
+        [$namespace, $schema, $config, $parsedSchema] = $this->parse($type, $generate);
 
         try {
-            $result = (new TypeSchema($this->schemaManager))->parse($schema);
             $generator = (new GeneratorFactory())->getGenerator($type, $config);
+            $result = $generator->generate($parsedSchema);
 
-            $output = $generator->generate($result);
+            if ($result instanceof Chunks && $generator instanceof FileAwareInterface) {
+                $chunks = [];
+                foreach ($result->getChunks() as $fileName => $code) {
+                    $chunks[$generator->getFileName($fileName)] = $generator->getFileContent($code);
+                }
+                $output = $chunks;
+            } else {
+                $output = (string) $result;
+            }
         } catch (\Throwable $e) {
             $output = $e->getMessage();
         }
@@ -102,6 +108,8 @@ class Generator extends ControllerAbstract
             'type' => $type,
             'typeName' => TypeName::getDisplayName($type),
             'output' => $output,
+            'js' => ['https://www.google.com/recaptcha/api.js'],
+            'recaptcha_key' => $this->config->get('recaptcha_key'),
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/generator.php';
@@ -110,10 +118,52 @@ class Generator extends ControllerAbstract
 
     #[Post]
     #[Path('/generator/:type/download')]
-    public function download(string $type, Generate $generate): mixed
+    public function download(#[Param] string $type, #[Body] Generate $generate): mixed
     {
+        [$namespace, $schema, $config, $parsedSchema] = $this->parse($type, $generate);
+
+        try {
+            $zipFile = $this->config->get('psx_path_cache') . '/typeschema_' . $type . '_' . sha1($schema) . '.zip';
+            if (is_file($zipFile)) {
+                return new File($zipFile, 'typeschema_' . $type . '.zip', 'application/zip');
+            }
+
+            $generator = (new GeneratorFactory())->getGenerator($type, $config);
+            $result = $generator->generate($parsedSchema);
+
+            if ($result instanceof Chunks && $generator instanceof FileAwareInterface) {
+                $output = new Chunks();
+                foreach ($result->getChunks() as $identifier => $code) {
+                    $output->append($generator->getFileName($identifier), $generator->getFileContent($code));
+                }
+
+                $output->writeToZip($zipFile);
+
+                return new File($zipFile, 'typeschema_' . $type . '.zip', 'application/zip');
+            } else {
+                return new HttpResponse(200, ['Content-Type' => 'text/plain'], (string) $result);
+            }
+        } catch (\Throwable $e) {
+            return new HttpResponse(500, ['Content-Type' => 'text/plain'], $e->getMessage());
+        }
+    }
+
+    /**
+     * @return array{string, string, SchemaInterface}
+     */
+    private function parse(string $type, Generate $generate): array
+    {
+        $recaptchaSecret = $this->config->get('recaptcha_secret');
+        if (!empty($recaptchaSecret) && !$this->captchaVerifier->verify($generate->getGRecaptchaResponse())) {
+            throw new BadRequestException('Invalid captcha');
+        }
+
         $namespace = $generate->getNamespace();
         $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
+
+        if (strlen($schema) > self::MAX_SCHEMA_LENGTH) {
+            throw new BadRequestException('Provided schema is too large, allowed max ' . self::MAX_SCHEMA_LENGTH . ' characters');
+        }
 
         $config = new Config();
         if (!empty($namespace)) {
@@ -124,29 +174,9 @@ class Generator extends ControllerAbstract
             throw new BadRequestException('Provided an invalid type');
         }
 
-        try {
-            $result = (new TypeSchema($this->schemaManager))->parse($schema);
-            $generator = (new GeneratorFactory())->getGenerator($type, $config);
+        $result = (new TypeSchema($this->schemaManager))->parse($schema);
 
-            $output = $generator->generate($result);
-
-            if ($output instanceof Chunks && $generator instanceof FileAwareInterface) {
-                $zipFile = $this->config->get('psx_path_cache') . '/typeschema_gen_' . sha1($schema) . '.zip';
-
-                $result = new Chunks();
-                foreach ($output as $identifier => $code) {
-                    $result->append($generator->getFileName($identifier), $generator->getFileContent($code));
-                }
-
-                $result->writeToZip($zipFile);
-
-                return new File($zipFile, 'typeschema_' . $type . '.zip', 'application/zip');
-            } else {
-                return new HttpResponse(200, ['Content-Type' => 'text/plain'], (string) $output);
-            }
-        } catch (\Throwable $e) {
-            return new HttpResponse(500, ['Content-Type' => 'text/plain'], $e->getMessage());
-        }
+        return [$namespace, $schema, $config, $result];
     }
 
     private function getSchema(): string

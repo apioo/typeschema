@@ -10,8 +10,9 @@
 <div class="container">
   <h1 class="display-4">DTO Generator</h1>
   <p class="lead">This list gives you access to our reference code generator implementation.
-  For more advanced integration options like an REST API, CLI or GitHub action please take a look
-  at the <a href="https://sdkgen.app/">SDKgen project</a>.
+  To prevent misuse the code generator is protected by recaptcha, if you want to invoke the code generator
+  programmatically please take a look at the <a href="https://sdkgen.app/">SDKgen project</a>
+  which offers various integration options like an CLI, GitHub action or REST API.
   </p>
   <div class="row">
     <?php foreach ($types as $chunk): ?>
