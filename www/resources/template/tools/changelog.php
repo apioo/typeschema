@@ -3,15 +3,14 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / Generator / Changelog</li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / <a href="<?php echo $router->getAbsolutePath([\App\Controller\Tools::class, 'show']); ?>">Tools</a> / Changelog</li>
   </ol>
 </nav>
 
 <div class="container">
   <h1 class="display-4">Changelog</h1>
-  <div class="alert alert-info" role="alert">
-    Through this form you can generate a changelog between two TypeSchema versions
-  </div>
+  <p class="lead">Through this form you can generate a changelog between two TypeSchema versions.</p>
+  <hr>
   <form method="post">
   <div class="row">
     <div class="col-6">

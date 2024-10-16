@@ -9,9 +9,13 @@
       }
     },
     "StudentMap": {
-      "$ref": "Map",
-      "$template": {
-        "T": "Student"
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "Map",
+        "template": {
+          "T": "Student"
+        }
       }
     },
     "Map": {
@@ -22,12 +26,13 @@
         },
         "entries": {
           "type": "array",
-          "items": {
-            "$generic": "T"
+          "schema": {
+            "type": "generic",
+            "name": "T"
           }
         }
       }
     }
   },
-  "$ref": "StudentMap"
+  "root": "StudentMap"
 }

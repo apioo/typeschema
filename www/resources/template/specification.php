@@ -8,34 +8,33 @@
 </nav>
 
 <div class="container">
-
   <h1 class="display-4">Specification</h1>
-
-  <hr>
 
   <h2>Table of Contents</h2>
   <ul>
     <li><a href="#Introduction">Introduction</a></li>
-    <li><a href="#Root">Root</a>
+    <li><a href="#Design">Design</a></li>
+    <li><a href="#Definition-Types">Definition-Types</a>
       <ul>
-        <li><a href="#Import">Import</a></li>
+        <li><a href="#Definition-Type-Struct">Struct</a></li>
+        <li><a href="#Definition-Type-Map">Map</a></li>
+        <li><a href="#Definition-Type-Array">Array</a></li>
       </ul>
     </li>
-    <li><a href="#Types">Types</a>
+    <li><a href="#Property-Types">Property-Types</a>
       <ul>
-        <li><a href="#Struct">Struct</a></li>
-        <li><a href="#Map">Map</a></li>
-        <li><a href="#Array">Array</a></li>
-        <li><a href="#Boolean">Boolean</a></li>
-        <li><a href="#Number">Number</a></li>
-        <li><a href="#String">String</a></li>
-        <li><a href="#Intersection">Intersection</a></li>
-        <li><a href="#Union">Union</a></li>
-        <li><a href="#Reference">Reference</a></li>
-        <li><a href="#Generic">Generic</a></li>
+        <li><a href="#Property-Type-String">String</a></li>
+        <li><a href="#Property-Type-Integer">Integer</a></li>
+        <li><a href="#Property-Type-Number">Number</a></li>
+        <li><a href="#Property-Type-Boolean">Boolean</a></li>
+        <li><a href="#Property-Type-Map">Map</a></li>
+        <li><a href="#Property-Type-Array">Array</a></li>
+        <li><a href="#Property-Type-Generic">Generic</a></li>
+        <li><a href="#Property-Type-Reference">Reference</a></li>
       </ul>
     </li>
-    <li><a href="#Structure">Structure</a></li>
+    <li><a href="#Import">Import</a></li>
+    <li><a href="#Root">Root</a></li>
   </ul>
 
   <hr>
@@ -44,222 +43,360 @@
   <h2>Introduction</h2>
 
   <p>This document describes the <a href="https://app.typehub.cloud/d/typehub/typeschema">TypeSchema specification</a>.
-  TypeSchema is a JSON format to model data structures. It abstracts OOP concepts into a simple and deterministic JSON
-  format which can be turned into code for many different target languages. The main use case of TypeSchema is to
-  describe a data model, it is not designed to validate JSON structures. A data model described in TypeSchema can be
-  used as single source of truth which can be reused in many different environments.</p>
+  TypeSchema is a JSON format to model data structures. It abstracts common OOP concepts like inheritance, polymorphism and generics
+  into a simple and deterministic JSON format which can be transformed into code for many different programming languages.
+  The main use case of TypeSchema is to describe data models, it is not designed to validate JSON structures. A data model
+  described in TypeSchema can be used as single source of truth, which can be used across many different environments.</p>
 
   <hr>
 
-  <a id="Root"></a>
-  <h2>Root</h2>
+  <a id="Design"></a>
+  <h2>Design</h2>
 
-  <p>Every TypeSchema has a <a href="https://app.typehub.cloud/d/typehub/typeschema#type-TypeSchema">Root</a> definition. The Root must contain at least the
-  <code>definitions</code> keyword i.e.:</p>
+  <p>TypeSchema distinguishes between two types, a <a href="#Definition-Types">Definition-Type</a> and a <a href="#Property-Types">Property-Type</a>.
+  A Definition-Type is an entry under the <code>definitions</code> keyword and a Property-Type can only be used inside such a Definition-Type.
+  The following example illustrates how the <a href="#Definition-Types">Definition-Types</a> and <a href="#Property-Types">Property-Types</a> are nested.</p>
+
   <pre class="json hljs">{
     "definitions": {
-        "TypeA": { ... },
-        "TypeB": { ... }
-    }
+        "TypeA": {
+            "type": "struct",
+            "properties": {
+                "PropertyA": { <a href="#Property-Types">Property-Type</a> }
+            }
+        },
+        "TypeB": {
+            "type": "map",
+            "schema": { <a href="#Property-Types">Property-Type</a> }
+        },
+        "TypeC": { <a href="#Definition-Types">Definition-Type</a> }
+    },
+    "root": "TypeA"
 }</pre>
 
-  <p>The <code>definitions</code> keyword contains simply a map containing <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">Struct</a>,
-  <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">Map</a> and <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a> types.</p>
+  <a id="Definition-Types"></a>
+  <h2>Definition Types</h2>
+  <p></p>
 
-  <p>Optional it is possible to include a <code>$ref</code> keyword which points to the default type.</p>
+  <a id="Definition-Type-Struct"></a>
+  <h3>struct</h3>
+  <p>A struct represents a class/structure with a fix set of defined properties.</p>
+  <pre class="json hljs">{
+    "type": "struct",
+    "parent": { <a href="#Property-Type-Reference">Reference-Type</a> },
+    "base": true,
+    "properties": {
+        "PropertyA": { <a href="#Property-Types">Property-Type</a> }
+    },
+    "discriminator": "type",
+    "mapping": {
+        "CatType": "cat",
+        "DogType": "dog",
+    }
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>parent</td>
+      <td>Defines a parent type for this structure. Some programming languages like Go do not support the concept of an <code>extends</code>, in this case the code
+      generator simply copies all properties into this structure.</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>Indicates whether this is a base structure, default is <code>false</code>. If <code>true</code> the structure is used a base type, this means it is not possible
+      to create an instance from this structure.</td>
+    </tr>
+    <tr>
+      <td>properties</td>
+      <td>Contains a map where they key is the property name and the value must be a <a href="#Property-Types">Property-Type</a>.</td>
+    </tr>
+    <tr>
+      <td>discriminator</td>
+      <td>Optional the property name of a discriminator property. This should be only used in case this is also a base structure.</td>
+    </tr>
+    <tr>
+      <td>mapping</td>
+      <td>In case a discriminator is configured it is required to configure a mapping. The mapping is a map where the key is the type name and the value the actual discriminator type value.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <a id="Definition-Type-Map"></a>
+  <h3>map</h3>
+  <p>A map represents a map/dictionary with variable key/value entries of the same type.</p>
+  <pre class="json hljs">{
+    "type": "map",
+    "schema": { <a href="#Property-Types">Property-Type</a> }
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>schema</td>
+      <td>The <a href="#Property-Types">Property-Type</a> which defines the value of the map.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <a id="Definition-Type-Array"></a>
+  <h3>array</h3>
+  <p>An array represents an array/list with variable entries of the same type.</p>
+  <pre class="json hljs">{
+    "type": "array",
+    "schema": { <a href="#Property-Types">Property-Type</a> }
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>schema</td>
+      <td>The <a href="#Property-Types">Property-Type</a> which defines the entry of the array.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <a id="Property-Types"></a>
+  <h2>Property Types</h2>
+  <p></p>
+
+  <a id="Property-Type-String"></a>
+  <h3>string</h3>
+  <pre class="json hljs">{
+    "type": "string",
+    "format": "date-time"
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>format</td>
+      <td>Optional describes the format of the string. Supported are the following types: <code>date</code>, <code>date-time</code> and <code>time</code>.
+      A code generator may use a fitting data type to represent such a format, if not supported it should fall back to a string.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <a id="Property-Type-Integer"></a>
+  <h3>integer</h3>
+  <pre class="json hljs">{
+    "type": "integer"
+}</pre>
+
+  <hr>
+
+  <a id="Property-Type-Number"></a>
+  <h3>number</h3>
+  <pre class="json hljs">{
+    "type": "number"
+}</pre>
+
+  <hr>
+
+  <a id="Property-Type-Boolean"></a>
+  <h3>boolean</h3>
+  <pre class="json hljs">{
+    "type": "boolean"
+}</pre>
+
+  <hr>
+
+  <a id="Property-Type-Map"></a>
+  <h3>map</h3>
+  <p>A map represents a map/dictionary with variable key/value entries of the same type.
+  The code generator uses the native map/dictionary type of the programming language.</p>
+  <pre class="json hljs">{
+    "type": "map",
+    "schema": { <a href="#Property-Types">Property-Type</a> }
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>schema</td>
+      <td>The <a href="#Property-Types">Property-Type</a> which defines the value of the map.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <a id="Property-Type-Array"></a>
+  <h3>array</h3>
+  <p>An array represents an array/list with variable entries of the same type.
+  The code generator uses the native array/list type of the programming language.</p>
+  <pre class="json hljs">{
+    "type": "array",
+    "schema": { <a href="#Property-Types">Property-Type</a> }
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>schema</td>
+      <td>The <a href="#Property-Types">Property-Type</a> which defines the entry of the array.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <a id="Property-Type-Generic"></a>
+  <h3>generic</h3>
+  <pre class="json hljs">{
+    "type": "generic",
+    "name": "T"
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>name</td>
+      <td>The name of the generic, it is recommended to use common generic names like <code>T</code> or <code>TValue</code>. These generics
+      can then be replaced on usage with a concrete type through the <code>template</code> property at a <a href="#Property-Type-Reference">reference</a>.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <a id="Property-Type-Reference"></a>
+  <h3>reference</h3>
+  <pre class="json hljs">{
+    "type": "reference",
+    "target": "TypeB",
+    "template": {
+        "T": "TypeC"
+    }
+}</pre>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-75">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>target</td>
+      <td>The target type, this must be a key which is available under the <code>definitions</code> keyword.</td>
+    </tr>
+    <tr>
+      <td>template</td>
+      <td>A map where the key is the name of the generic and the value must point to a key under the <code>definitions</code> keyword.
+      This can be used in case the target points to a type which contains generics, then it is possible to replace those generics
+      with a concrete type. </td>
+    </tr>
+    </tbody>
+  </table>
 
   <hr>
 
   <a id="Import"></a>
-  <h3>Import</h3>
-
-  <p>Optional it is possible to import other documents through the <code>$import</code> keyword. It contains a map
-  where the key is the namespace and the value points to a remote document. The value is a URN and the supported
-  schemes i.e. <code>file</code>, <code>http</code>, <code>https</code> etc. are out of bound of this specification.</p>
+  <h2>Import</h2>
+  <p>Optional it is possible to import other TypeSchema documents through the <code>import</code> keyword. It contains a map
+  where the key is the namespace and the value points to a remote document. The value is a URL and a code generator should
+  support at least the following schemes: <code>file</code>, <code>http</code>, <code>https</code>.</p>
 
   <pre><code class="json">{
-    "$import": {
+    "import": {
         "MyNamespace": "file:///my_schema.json"
     }
 }</code></pre>
 
-  <p>Inside a reference it is then possible to reuse all types under the namespace which are defined at the remote
-  document i.e.:</p>
+  <p>Inside a reference it is then possible to reuse all types under the namespace which are defined at the remote document i.e.:</p>
 
   <pre><code class="json">{
-    "$ref": "MyNamespace:MyType"
+    "type": "reference",
+    "target": "MyNamespace:MyType"
 }</code></pre>
 
-  <hr>
-
-  <a id="Types"></a>
-  <h2>Types</h2>
-
-  <p>At TypeSchema every type can be determined based on the used keywords. The following list describes every type
-  and how to use them.</p>
-
-  <hr>
-
-  <a id="Struct"></a>
-  <h3>Struct</h3>
-
-  <p>Represents a struct type. A struct type contains a fix set of defined properties. A struct type must have a
-  <code>type</code> and <code>properties</code> keyword. The type must be <code>object</code>.</p>
+  <a id="Root"></a>
+  <h2>Root</h2>
+  <p>In some circumstances a parse needs to know the root type of your specification, through the <code>root</code>
+    keyword it is possible to define such a root type.</p>
 
   <pre><code class="json">{
-    "type": "object",
-    "properties": {
-        "PropertyA": { ... },
-        "PropertyB": { ... }
-    }
+    "definitions": {
+        "TypeA": { ... }
+    },
+    "root": "TypeA"
 }</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Map"></a>
-  <h3>Map</h3>
-
-  <p>Represents a map type. A map type contains variable key value entries of a specific type. A map type must have a
-  <code>type</code> and <code>additionalProperties</code> keyword. The type must be <code>object</code>.</p>
-
-  <pre><code class="json">{
-    "type": "object",
-    "additionalProperties": { ... }
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Array"></a>
-  <h3>Array</h3>
-
-  <p>Represents an array type. An array type contains an ordered list of a specific type. An array type must have a
-  <code>type</code> and <code>items</code> keyword. The type must be <code>array</code>.</p>
-
-  <pre><code class="json">{
-    "type": "array",
-    "items": { ... }
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ArrayType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Boolean"></a>
-  <h3>Boolean</h3>
-
-  <p>Represents a boolean type. A boolean type must have a <code>type</code> keyword and the type must be
-  <code>boolean</code>.</p>
-
-  <pre><code class="json">{
-    "type": "boolean"
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-BooleanType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Number"></a>
-  <h3>Number</h3>
-
-  <p>Represents a number type (contains also integer). A number type must have a <code>type</code> keyword and the type
-  must be <code>number</code> or <code>integer</code>.</p>
-
-  <pre><code class="json">{
-    "type": "number"
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-NumberType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="String"></a>
-  <h3>String</h3>
-
-  <p>Represents a string type. A string type must have a <code>type</code> keyword and the type must
-  be <code>string</code>.</p>
-
-  <pre><code class="json">{
-    "type": "string"
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StringType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Intersection"></a>
-  <h3>Intersection</h3>
-
-  <p>Represents an intersection type. An intersection type must have an <code>allOf</code> keyword.</p>
-
-  <pre><code class="json">{
-    "allOf": [{ ... }, { ... }]
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-IntersectionType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Union"></a>
-  <h3>Union</h3>
-
-  <p>Represents a union type. A union type must have an <code>oneOf</code> keyword.</p>
-
-  <pre><code class="json">{
-    "oneOf": [{ ... }, { ... }]
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-UnionType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Reference"></a>
-  <h3>Reference</h3>
-
-  <p>Represents a reference type. A reference type points to a specific type at the definitions map. A reference type
-  must have a <code>$ref</code> keyword.</p>
-
-  <pre><code class="json">{
-    "$ref": "MyType"
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">TypeHub</a>.</p>
-
-  <hr>
-
-  <a id="Generic"></a>
-  <h3>Generic</h3>
-
-  <p>Represents a generic type. A generic type represents a type which can be replaced if you reference a specific type.
-  A generic type must have a <code>$generic</code> keyword.</p>
-
-  <pre><code class="json">{
-    "$generic": "T"
-}</code></pre>
-
-  <p>All allowed properties are described at <a href="https://app.typehub.cloud/d/typehub/typeschema#type-GenericType">TypeHub</a>.</p>
-
-  <p>I.e. if we reference a specific type and this type contains a generic type then we can define which type should
-  be inserted at the generic type.</p>
-
-  <pre><code class="json">{
-    "$ref": "MyType",
-    "$template": {
-        "T": "AnotherType"
-    }
-}</code></pre>
-
-  <hr>
-
-  <a id="Structure"></a>
-  <h3>Structure</h3>
-
-  <p>The following image shows how the types can be nested.</p>
-
-  <a href="<?php echo $base; ?>/img/typeschema_structure.png"><img src="<?php echo $base; ?>/img/typeschema_structure.png" class="img-fluid" alt="TypeSchema structure"></a>
 
   <hr>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Generator;
+namespace App\Controller\Tools;
 
 use App\Model\Diff;
 use PSX\Api\Attribute\Get;
@@ -16,32 +16,28 @@ use PSX\Schema\SchemaManagerInterface;
 
 class Changelog extends ControllerAbstract
 {
-    private ReverseRouter $reverseRouter;
-    private SchemaManagerInterface $schemaManager;
-
-    public function __construct(ReverseRouter $reverseRouter, SchemaManagerInterface $schemaManager)
+    public function __construct(private ReverseRouter $reverseRouter, private SchemaManagerInterface $schemaManager)
     {
-        $this->reverseRouter = $reverseRouter;
-        $this->schemaManager = $schemaManager;
     }
 
     #[Get]
-    #[Path('/generator/changelog')]
+    #[Path('/tools/changelog')]
     public function show(): mixed
     {
         $data = [
+            'title' => 'Changelog | TypeSchema',
             'method' => explode('::', __METHOD__),
             'left' => $this->getLeft(),
             'right' => $this->getRight(),
             'messages' => []
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/generator/changelog.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/changelog.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     #[Post]
-    #[Path('/generator/changelog')]
+    #[Path('/tools/changelog')]
     public function generate(Diff $diff): mixed
     {
         $left = $diff->getLeft() ?? throw new \RuntimeException('Provided no left');
@@ -59,13 +55,14 @@ class Changelog extends ControllerAbstract
         }
 
         $data = [
+            'title' => 'Changelog | TypeSchema',
             'method' => explode('::', __METHOD__),
             'left' => $left,
             'right' => $right,
             'messages' => $messages
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/generator/changelog.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/changelog.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
@@ -75,7 +72,7 @@ class Changelog extends ControllerAbstract
 {
   "definitions": {
     "Student": {
-      "type": "object",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -89,7 +86,7 @@ class Changelog extends ControllerAbstract
       }
     }
   },
-  "$ref": "Student"
+  "root": "Student"
 }
 JSON;
     }
@@ -101,7 +98,7 @@ JSON;
   "definitions": {
     "Student": {
       "description": "Represents a student",
-      "type": "object",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -118,7 +115,7 @@ JSON;
       }
     }
   },
-  "$ref": "Student"
+  "root": "Student"
 }
 JSON;
     }

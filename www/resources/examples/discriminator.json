@@ -1,7 +1,7 @@
 {
   "definitions": {
     "Human": {
-      "type": "object",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -10,29 +10,31 @@
           "type": "string"
         },
         "location": {
-          "oneOf": [{
-            "$ref": "Web"
-          }, {
-            "$ref": "World"
-          }],
-          "discriminator": {
-            "propertyName": "type"
-          }
+          "type": "reference",
+          "target": "Location"
         }
       }
     },
     "Location": {
-      "type": "object",
+      "type": "struct",
+      "base": true,
       "properties": {
         "type": {
           "type": "string"
         }
       },
-      "required": ["type"]
+      "discriminator": "type",
+      "mapping": {
+        "Web": "web",
+        "World": "world"
+      }
     },
     "Web": {
-      "$extends": "Location",
-      "type": "object",
+      "parent": {
+        "type": "reference",
+        "target": "Location"
+      },
+      "type": "struct",
       "properties": {
         "url": {
           "type": "string"
@@ -40,8 +42,11 @@
       }
     },
     "World": {
-      "$extends": "Location",
-      "type": "object",
+      "parent": {
+        "type": "reference",
+        "target": "Location"
+      },
+      "type": "struct",
       "properties": {
         "lat": {
           "type": "string"
@@ -52,5 +57,5 @@
       }
     }
   },
-  "$ref": "Human"
+  "root": "Human"
 }

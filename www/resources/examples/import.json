@@ -1,5 +1,5 @@
 {
-  "$import": {
+  "import": {
     "my_ns": "file:///generic.json"
   },
   "definitions": {
@@ -11,12 +11,13 @@
         },
         "students": {
           "type": "array",
-          "items": {
-            "$ref": "my_ns:StudentMap"
+          "schema": {
+            "type": "reference",
+            "target": "my_ns:StudentMap"
           }
         }
       }
     }
   },
-  "$ref": "Faculty"
+  "root": "Faculty"
 }

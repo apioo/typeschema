@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Migration;
+namespace App\Controller\Tools;
 
 use App\Model\Generate;
 use PSX\Api\Attribute\Get;
@@ -14,38 +14,41 @@ use PSX\Framework\Loader\ReverseRouter;
 
 class Json extends ControllerAbstract
 {
-    private ReverseRouter $reverseRouter;
-
-    public function __construct(ReverseRouter $reverseRouter)
+    public function __construct(private ReverseRouter $reverseRouter)
     {
-        $this->reverseRouter = $reverseRouter;
     }
 
     #[Get]
-    #[Path('/migration/json')]
+    #[Path('/tools/json')]
     public function show(): mixed
     {
         $data = [
+            'title' => 'JSON migration | TypeSchema',
             'method' => explode('::', __METHOD__),
             'schema' => $this->getSchema()
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/migration/json.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/json.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     #[Post]
-    #[Path('/migration/json')]
+    #[Path('/tools/json')]
     public function migrate(Generate $generate): mixed
     {
         $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
 
         try {
             $definitions = [];
-            $root = $this->transform(json_decode($schema), $definitions);
+            $root = new \stdClass();
+            $schema = $this->transform(json_decode($schema), $definitions);
 
             if (count($definitions) > 0) {
                 $root->definitions = (object) $definitions;
+            }
+
+            if (isset($schema->target)) {
+                $root->root = $schema->target;
             }
 
             $output = $root;
@@ -54,12 +57,13 @@ class Json extends ControllerAbstract
         }
 
         $data = [
+            'title' => 'JSON migration | TypeSchema',
             'method' => explode('::', __METHOD__),
             'schema' => $this->getSchema(),
             'output' => json_encode($output, JSON_PRETTY_PRINT)
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/migration/json.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/json.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
@@ -74,12 +78,13 @@ class Json extends ControllerAbstract
             $name = 'Schema' . substr(sha1(json_encode($properties)), 0, 8);
 
             $definitions[$name] = (object) [
-                'type' => 'object',
+                'type' => 'struct',
                 'properties' => $properties,
             ];
 
             return (object) [
-                '$ref' => $name,
+                'type' => 'reference',
+                'target' => $name,
             ];
         } elseif (is_array($schema)) {
             if (count($schema) === 0) {
@@ -90,7 +95,7 @@ class Json extends ControllerAbstract
 
             return (object) [
                 'type' => 'array',
-                'items' => $items,
+                'schema' => $items,
             ];
         } elseif (is_string($schema)) {
             return (object) [
@@ -123,6 +128,10 @@ class Json extends ControllerAbstract
   "productName": "foobar",
   "price": 12.99,
   "tags": ["foo", "bar"],
+  "persons": [{
+    "firstName": "foo",
+    "lastName": "bar"
+  }],
   "dimensions": {
     "length": 0,
     "width": 0,
