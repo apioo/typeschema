@@ -8,10 +8,7 @@
 </nav>
 
 <div class="container">
-
   <h1 class="display-4">Specification</h1>
-
-  <hr>
 
   <h2>Table of Contents</h2>
   <ul>

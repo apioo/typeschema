@@ -49,7 +49,7 @@ class Generator extends ControllerAbstract
             'types' => array_chunk($types, 9, true),
         ];
 
-        $templateFile = __DIR__ . '/../../resources/template/generator_overview.php';
+        $templateFile = __DIR__ . '/../../resources/template/generator.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
@@ -72,7 +72,7 @@ class Generator extends ControllerAbstract
             'recaptcha_key' => $this->config->get('recaptcha_key'),
         ];
 
-        $templateFile = __DIR__ . '/../../resources/template/generator.php';
+        $templateFile = __DIR__ . '/../../resources/template/generator/form.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
@@ -112,7 +112,7 @@ class Generator extends ControllerAbstract
             'recaptcha_key' => $this->config->get('recaptcha_key'),
         ];
 
-        $templateFile = __DIR__ . '/../../resources/template/generator.php';
+        $templateFile = __DIR__ . '/../../resources/template/generator/form.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 

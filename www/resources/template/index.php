@@ -8,7 +8,7 @@
     <p>
       <a class="btn btn-primary" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>" role="button">Specification</a>
       <a class="btn btn-secondary" href="https://sandbox.typeschema.org/" role="button">Editor</a>
-      <a class="btn btn-secondary" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Schema::class, 'show']); ?>" role="button">Generator</a>
+      <a class="btn btn-secondary" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>" role="button">Generator</a>
     </p>
   </div>
 </div>
@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-12">
       <hr>
-      <h2>Programming Languages</h2>
+      <h2>Examples</h2>
       <p class="lead">At the following list you can take a look at example output for each supported programming language.</p>
     </div>
     <?php foreach ($types as $chunk): ?>

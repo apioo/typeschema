@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Migration;
+namespace App\Controller\Tools;
 
 use App\Model\Generate;
 use PSX\Api\Attribute\Get;
@@ -19,20 +19,21 @@ class OpenAPI extends ControllerAbstract
     }
 
     #[Get]
-    #[Path('/migration/openapi')]
+    #[Path('/tools/openapi')]
     public function show(): mixed
     {
         $data = [
+            'title' => 'OpenAPI migration | TypeSchema',
             'method' => explode('::', __METHOD__),
             'schema' => $this->getSchema()
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/migration/openapi.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/openapi.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     #[Post]
-    #[Path('/migration/openapi')]
+    #[Path('/tools/openapi')]
     public function migrate(Generate $generate): mixed
     {
         $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
@@ -44,12 +45,13 @@ class OpenAPI extends ControllerAbstract
         }
 
         $data = [
+            'title' => 'OpenAPI migration | TypeSchema',
             'method' => explode('::', __METHOD__),
             'schema' => $this->getSchema(),
             'output' => json_encode($output, JSON_PRETTY_PRINT),
         ];
 
-        $templateFile = __DIR__ . '/../../../resources/template/migration/openapi.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/openapi.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 

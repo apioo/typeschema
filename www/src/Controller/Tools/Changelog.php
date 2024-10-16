@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Tools;
 
 use App\Model\Diff;
 use PSX\Api\Attribute\Get;
@@ -21,7 +21,7 @@ class Changelog extends ControllerAbstract
     }
 
     #[Get]
-    #[Path('/changelog')]
+    #[Path('/tools/changelog')]
     public function show(): mixed
     {
         $data = [
@@ -32,12 +32,12 @@ class Changelog extends ControllerAbstract
             'messages' => []
         ];
 
-        $templateFile = __DIR__ . '/../../resources/template/changelog.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/changelog.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
     #[Post]
-    #[Path('/changelog')]
+    #[Path('/tools/changelog')]
     public function generate(Diff $diff): mixed
     {
         $left = $diff->getLeft() ?? throw new \RuntimeException('Provided no left');
@@ -55,13 +55,14 @@ class Changelog extends ControllerAbstract
         }
 
         $data = [
+            'title' => 'Changelog | TypeSchema',
             'method' => explode('::', __METHOD__),
             'left' => $left,
             'right' => $right,
             'messages' => $messages
         ];
 
-        $templateFile = __DIR__ . '/../../resources/template/changelog.php';
+        $templateFile = __DIR__ . '/../../../resources/template/tools/changelog.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
@@ -71,7 +72,7 @@ class Changelog extends ControllerAbstract
 {
   "definitions": {
     "Student": {
-      "type": "object",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -85,7 +86,7 @@ class Changelog extends ControllerAbstract
       }
     }
   },
-  "$ref": "Student"
+  "root": "Student"
 }
 JSON;
     }
@@ -97,7 +98,7 @@ JSON;
   "definitions": {
     "Student": {
       "description": "Represents a student",
-      "type": "object",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -114,7 +115,7 @@ JSON;
       }
     }
   },
-  "$ref": "Student"
+  "root": "Student"
 }
 JSON;
     }

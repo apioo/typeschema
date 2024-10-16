@@ -41,17 +41,10 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">Ecosystem</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Faq::class, 'show']); ?>">FAQ</a>
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Tools::class, 'show']); ?>">Tools</a>
     </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="generatorDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Tools</a>
-      <div class="dropdown-menu" aria-labelledby="generatorDropdown">
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\JsonSchema::class, 'show']); ?>">JSON Schema</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\OpenAPI::class, 'show']); ?>">OpenAPI</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\Json::class, 'show']); ?>">JSON</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Changelog::class, 'show']); ?>">Changelog</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Hash::class, 'show']); ?>">Hash</a>
-      </div>
+    <li class="nav-item">
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\History::class, 'show']); ?>">History</a>
     </li>
   </ul>
   <a href="https://github.com/apioo/typeschema"><img src="<?php echo $base; ?>/img/github-32.png" width="32" height="32" alt="GitHub logo"></a>

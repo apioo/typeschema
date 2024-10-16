@@ -3,17 +3,17 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / Migration / JSON Schema</li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / <a href="<?php echo $router->getAbsolutePath([\App\Controller\Tools::class, 'show']); ?>">Tools</a> / JSON</li>
   </ol>
 </nav>
 
 <div class="container">
-  <h1 class="display-4">JSON Schema</h1>
-  <div class="alert alert-info" role="alert">
-    Through this form you can migrate an existing JSON Schema to a TypeSchema. If you see a name like i.e. <code>Inlinec650cd78</code>
-    this means that there is an anonymous type in your schema, the migration makes this only visible and you should set
-    a meaningful name for this type.
-  </div>
+  <h1 class="display-4">JSON</h1>
+  <p class="lead">
+    Through this form you can generate a schema from existing JSON data. It contains also a logic to detect objects of
+    the same type. You should see this as a starting point since you need to add proper names to each type.
+  </p>
+  <hr>
   <div class="row">
     <div class="col-6">
       <form method="post">
