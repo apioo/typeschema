@@ -5,6 +5,9 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
 
 return [
 
+    'recaptcha_key'           => env('APP_RECAPTCHA_KEY')->string(),
+    'recaptcha_secret'        => env('APP_RECAPTCHA_SECRET')->string(),
+
     // The url to the psx public folder (i.e. http://api.acme.com or http://127.0.0.1/psx/public)
     'psx_url'                 => env('APP_URL')->string(),
 
