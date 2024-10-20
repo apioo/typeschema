@@ -1,7 +1,7 @@
 {
   "definitions": {
     "Human": {
-      "type": "object",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -15,8 +15,11 @@
       }
     },
     "Student": {
-      "$extends": "Human",
-      "type": "object",
+      "parent": {
+        "type": "reference",
+        "target": "Human"
+      },
+      "type": "struct",
       "properties": {
         "studentId": {
           "type": "string"
@@ -24,5 +27,5 @@
       }
     }
   },
-  "$ref": "Student"
+  "root": "Student"
 }

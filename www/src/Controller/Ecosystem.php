@@ -10,11 +10,8 @@ use PSX\Framework\Loader\ReverseRouter;
 
 class Ecosystem extends ControllerAbstract
 {
-    private ReverseRouter $reverseRouter;
-
-    public function __construct(ReverseRouter $reverseRouter)
+    public function __construct(private ReverseRouter $reverseRouter)
     {
-        $this->reverseRouter = $reverseRouter;
     }
 
     #[Get]
@@ -22,6 +19,7 @@ class Ecosystem extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
+            'title' => 'Ecosystem | TypeSchema',
             'method' => explode('::', __METHOD__),
         ];
 

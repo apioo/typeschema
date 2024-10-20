@@ -1,7 +1,7 @@
 {
   "definitions": {
     "Student": {
-      "type": "object",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -13,13 +13,13 @@
           "type": "integer"
         },
         "properties": {
-          "type": "object",
-          "additionalProperties": {
+          "type": "map",
+          "schema": {
             "type": "string"
           }
         }
       }
     }
   },
-  "$ref": "Student"
+  "root": "Student"
 }

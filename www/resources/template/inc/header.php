@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="TypeSchema is a JSON format to describe data models in a language neutral format. A TypeSchema can be easily transformed into specific code for almost any programming language.">
-  <meta name="keywords" content="JSON Schema, TypeSchema, Data, Model, Specification, Code Generation">
-  <title>TypeSchema</title>
+  <meta name="description" content="TypeSchema is a JSON specification to describe data models in a programming language neutral format.">
+  <meta name="keywords" content="JSON Schema, TypeSchema, Data, Model, Specification, Code Generation, Code Generator">
+  <title><?php if(isset($title)): ?><?php echo $title; ?><?php else: ?>TypeSchema<?php endif; ?></title>
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
   <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="script" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
-  <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
+  <link rel="canonical" href="<?php echo $router->getUrl($method, isset($parameters) ? (array) $parameters : []); ?>">
   <script async src="<?php echo $base; ?>/js/app.min.js"></script>
+<?php if (isset($js) && is_array($js)): ?>
+  <?php foreach ($js as $link): ?><script src="<?php echo $link; ?>"></script>
+<?php endforeach; ?>
+<?php endif; ?>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB1NL30RKL"></script>
   <script>
       window.dataLayer = window.dataLayer || [];
@@ -31,26 +35,16 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>">Specification</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Schema::class, 'show']); ?>">Generator</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Developer::class, 'show']); ?>">Developer</a>
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">Ecosystem</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Faq::class, 'show']); ?>">FAQ</a>
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Tools::class, 'show']); ?>">Tools</a>
     </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="generatorDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Tools</a>
-      <div class="dropdown-menu" aria-labelledby="generatorDropdown">
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\JsonSchema::class, 'show']); ?>">JSON Schema</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\OpenAPI::class, 'show']); ?>">OpenAPI</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Migration\Json::class, 'show']); ?>">JSON</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Changelog::class, 'show']); ?>">Changelog</a>
-        <a class="dropdown-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator\Hash::class, 'show']); ?>">Hash</a>
-      </div>
+    <li class="nav-item">
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\History::class, 'show']); ?>">History</a>
     </li>
   </ul>
   <a href="https://github.com/apioo/typeschema"><img src="<?php echo $base; ?>/img/github-32.png" width="32" height="32" alt="GitHub logo"></a>

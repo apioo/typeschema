@@ -3,10 +3,13 @@
     "Generate": {
       "type": "object",
       "properties": {
-        "type": {
+        "namespace": {
           "type": "string"
         },
         "schema": {
+          "type": "string"
+        },
+        "g-recaptcha-response": {
           "type": "string"
         }
       }

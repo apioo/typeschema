@@ -1,7 +1,8 @@
 {
   "definitions": {
     "Student": {
-      "type": "object",
+      "description": "A simple student struct",
+      "type": "struct",
       "properties": {
         "firstName": {
           "type": "string"
@@ -15,5 +16,5 @@
       }
     }
   },
-  "$ref": "Student"
+  "root": "Student"
 }

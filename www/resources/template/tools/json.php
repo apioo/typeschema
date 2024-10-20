@@ -3,16 +3,17 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / Migration / JSON Schema</li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="<?php echo $url; ?>">TypeSchema</a> / <a href="<?php echo $router->getAbsolutePath([\App\Controller\Tools::class, 'show']); ?>">Tools</a> / JSON</li>
   </ol>
 </nav>
 
 <div class="container">
   <h1 class="display-4">JSON</h1>
-  <div class="alert alert-info" role="alert">
+  <p class="lead">
     Through this form you can generate a schema from existing JSON data. It contains also a logic to detect objects of
     the same type. You should see this as a starting point since you need to add proper names to each type.
-  </div>
+  </p>
+  <hr>
   <div class="row">
     <div class="col-6">
       <form method="post">
