@@ -32,7 +32,7 @@ class Example extends ControllerAbstract
         }
 
         $item = $this->cache->getItem('example-cache-' . $type);
-        if (true) {
+        if (!$item->isHit()) {
             $examples = $this->getExamples();
             foreach ($examples as $key => $example) {
                 $examples[$key]['schema'] = file_get_contents($example['file']);
