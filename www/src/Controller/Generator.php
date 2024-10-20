@@ -89,7 +89,9 @@ class Generator extends ControllerAbstract
             if ($result instanceof Chunks && $generator instanceof FileAwareInterface) {
                 $chunks = [];
                 foreach ($result->getChunks() as $fileName => $code) {
-                    $chunks[$generator->getFileName($fileName)] = $generator->getFileContent($code);
+                    if (is_string($code)) {
+                        $chunks[$generator->getFileName($fileName)] = $generator->getFileContent($code);
+                    }
                 }
                 $output = $chunks;
             } else {
@@ -104,7 +106,7 @@ class Generator extends ControllerAbstract
             'method' => explode('::', __METHOD__),
             'parameters' => ['type' => $type],
             'namespace' => $namespace,
-            'schema' => $schema ?? $this->getSchema(),
+            'schema' => $schema,
             'type' => $type,
             'typeName' => TypeName::getDisplayName($type),
             'output' => $output,
@@ -133,9 +135,7 @@ class Generator extends ControllerAbstract
 
             if ($result instanceof Chunks && $generator instanceof FileAwareInterface) {
                 $output = new Chunks();
-                foreach ($result->getChunks() as $identifier => $code) {
-                    $output->append($generator->getFileName($identifier), $generator->getFileContent($code));
-                }
+                $this->appendOutput($result, $output, $generator);
 
                 $output->writeToZip($zipFile);
 
@@ -148,8 +148,17 @@ class Generator extends ControllerAbstract
         }
     }
 
+    private function appendOutput(Chunks $result, Chunks $output, FileAwareInterface $generator): void
+    {
+        foreach ($result->getChunks() as $identifier => $code) {
+            if (is_string($code)) {
+                $output->append($generator->getFileName($identifier), $generator->getFileContent($code));
+            }
+        }
+    }
+
     /**
-     * @return array{string, string, SchemaInterface}
+     * @return array{string|null, string, Config, SchemaInterface}
      */
     private function parse(string $type, Generate $generate): array
     {
@@ -166,7 +175,7 @@ class Generator extends ControllerAbstract
         }
 
         $config = new Config();
-        if (!empty($namespace)) {
+        if ($namespace !== null && $namespace !== '') {
             $config->put(Config::NAMESPACE, $namespace);
         }
 

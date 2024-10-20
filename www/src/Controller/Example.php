@@ -75,7 +75,9 @@ class Example extends ControllerAbstract
         if ($result instanceof Chunks && $generator instanceof FileAwareInterface) {
             $chunks = [];
             foreach ($result->getChunks() as $fileName => $code) {
-                $chunks[$generator->getFileName($fileName)] = $generator->getFileContent($code);
+                if (is_string($code)) {
+                    $chunks[$generator->getFileName($fileName)] = $generator->getFileContent($code);
+                }
             }
             return $chunks;
         } else {
