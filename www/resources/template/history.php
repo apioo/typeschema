@@ -9,20 +9,23 @@
 
 <div class="container">
   <h1 class="display-4">History</h1>
-  <p class="lead">TypeSchema has evolved out of the need to build a solid code generator for a Swagger/OpenAPI specification.
-    During this development process we have <a href="https://chriskapp.medium.com/the-benefits-of-code-generation-and-the-problems-of-the-openapi-spec-ec8d75669e04">experienced</a> <a href="https://chriskapp.medium.com/discussion-about-json-payloads-and-code-generation-8d60bc8fd94e">problems</a>
-    and tried to find a way to solve them. At the beginning we had only defined some "stricter" rules for a JSON Schema to make it easier
-    for code generators but over time this has evolved into a complete separate specification. TypeSchema provides a solid way
-    to model JSON payload and a great code generator to automatically generate <abbr class="Data-Transfer-Objects">DTOs</abbr>
-    to represent this JSON data.</p>
+  <p class="lead">TypeSchema has evolved while developing a new Swagger/OpenAPI code generator.
+    During this development process we have noticed many <a href="https://chriskapp.medium.com/discussion-about-json-payloads-and-code-generation-8d60bc8fd94e">problems</a>
+    which a <a href="https://chriskapp.medium.com/the-benefits-of-code-generation-and-the-problems-of-the-openapi-spec-ec8d75669e04">code generator</a> needs to solve in
+    order to generate clean code. We have tried to solve those problems and over time TypeSchema has evolved into a separate specification which describes JSON payloads
+    and is optimized for code generation.</p>
 
-  <figure class="text-center">
-    <blockquote class="blockquote">
-      <p>If you ask yourself, why do I need a specification to model my JSON payload,<br>then there is only a simple answer: type-safety.</p>
-    </blockquote>
-  </figure>
+  <h2>Type-safe programming languages</h2>
+  <p>If we look at the history of programming languages we see a trend towards type-safety. Besides strongly typed programming languages
+  like Java, C# and Go which are automatically type-safe also weakly typed languages have added support for more type-safety, like i.e.
+  PHP, Python and even Ruby which have all improved and added support for type-hints, for JavaScript Microsoft has even developed
+  <a href="https://www.typescriptlang.org/">TypeScript</a> which adds type-safety to JavaScript.</p>
 
-  <p>If we look at the history of programming </p>
+  <p>A big reason for this trend is that type-safe applications make it easier to find or prevent bugs.
+  Since at you code you always have explicit properties which you can access and in case the schema changes your will directly
+  get an error, that the property no longer exist.</p>
+
+  <p>TypeSchema can help you to build those type-safe applications by automatically generating clean DTOs to represent JSON payload.</p>
 
   <h2>Thought model</h2>
   <p>TypeSchema has a specific thought model which fits perfectly with classical OOP languages like Java, C#, PHP or TypeScript.
@@ -33,7 +36,7 @@
   <ul>
     <li>TypeSchema is designed to model data structures</li>
     <li>TypeSchema abstracts OOP concepts like inheritance, polymorphism and generics</li>
-    <li>TypeSchema is code-first, this means it is easy possible to generate a TypeSchema through reflection without additional annotations</li>
+    <li>TypeSchema encourages code-first, this means it is easy possible to generate a TypeSchema through reflection without additional annotations</li>
     <li>TypeSchema has no keywords to validate data</li>
   </ul>
 
