@@ -9,7 +9,6 @@
 
 <div class="container">
   <h1 class="display-4">Tools</h1>
-  <p class="lead">We provide several tools which can help to migrate from an external specification or generate specific output based on an existing to TypeSchema specification.</p>
   <div class="row">
     <div class="col-6">
       <div class="list-group">
