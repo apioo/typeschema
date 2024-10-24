@@ -1,0 +1,11 @@
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$data = json_decode(file_get_contents(__DIR__ . '/input.json'));
+
+$objectMapper = new \PSX\Schema\ObjectMapper();
+
+$student = $objectMapper->readJson($data, \PSX\Schema\SchemaSource::fromClass(Student::class));
+
+file_put_contents(__DIR__ . '/output.json', \json_encode($student));

@@ -1,0 +1,43 @@
+package org.typeschema.dto;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+/**
+ * A simple student struct
+ */
+public class Student {
+    private String firstName;
+    private String lastName;
+    private Integer age;
+
+    @JsonSetter("firstName")
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @JsonGetter("firstName")
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    @JsonSetter("lastName")
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @JsonGetter("lastName")
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    @JsonSetter("age")
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @JsonGetter("age")
+    public Integer getAge() {
+        return this.age;
+    }
+}

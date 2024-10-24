@@ -35,7 +35,7 @@ class Index extends ControllerAbstract
 
         $data = [
             'method' => explode('::', __METHOD__),
-            'types' => array_chunk($types, 9, true),
+            'types' => array_chunk($types, ceil(count($types) / 2), true),
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/index.php';

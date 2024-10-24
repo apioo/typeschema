@@ -1,0 +1,17 @@
+using System.Text.Json;
+
+namespace TypeSchema.DTO;
+
+class Program
+{
+    static void Main()
+    {
+        string input = File.ReadAllText("./input.json");
+
+        Student student = JsonSerializer.Deserialize<Student>(input);
+
+        string output = JsonSerializer.Serialize<Student>(student);
+
+        File.WriteAllText("./output.json", output);
+    }
+}

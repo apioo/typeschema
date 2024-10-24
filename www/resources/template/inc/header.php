@@ -38,6 +38,9 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Integration::class, 'show']); ?>">Integration</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">Ecosystem</a>
     </li>
     <li class="nav-item">
