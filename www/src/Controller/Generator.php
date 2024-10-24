@@ -45,7 +45,7 @@ class Generator extends ControllerAbstract
         $data = [
             'title' => 'DTO Generator | TypeSchema',
             'method' => explode('::', __METHOD__),
-            'types' => array_chunk($types, ceil(count($types) / 2), true),
+            'types' => array_chunk($types, (int) ceil(count($types) / 2), true),
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/generator.php';
