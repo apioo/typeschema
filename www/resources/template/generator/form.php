@@ -27,6 +27,7 @@
         <input type="hidden" name="namespace" value="<?php echo htmlspecialchars($namespace ?? ''); ?>">
         <input type="hidden" name="schema" value="<?php echo htmlspecialchars($schema); ?>">
         <button class="g-recaptcha btn btn-primary" data-sitekey="<?php echo $recaptcha_key; ?>" data-callback="onDownload" data-action="submit">Download</button>
+        <a href="https://github.com/apioo/typeschema/discussions/new?category=<?php echo $type; ?>" class="btn btn-secondary">Report Issue</a>
       </form>
       <hr>
       <?php if ($output instanceof stdClass): ?>
