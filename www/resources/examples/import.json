@@ -4,7 +4,7 @@
   },
   "definitions": {
     "Faculty": {
-      "type": "object",
+      "type": "struct",
       "properties": {
         "description": {
           "type": "string"

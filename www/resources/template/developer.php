@@ -40,7 +40,7 @@
   },
   "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Definitions">definitions</a>": {
     "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StructType">Human</a>": {
-      "type": "object",
+      "type": "struct",
       "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Properties">properties</a>": {
         "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StringType">firstName</a>": {
           "type": "string"
@@ -54,8 +54,8 @@
       }
     },
     "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StructType">Student</a>": {
-      "$extends": "Human",
-      "type": "object",
+      "parent": "Human",
+      "type": "struct",
       "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Properties">properties</a>": {
         "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#NumberType">matricleNumber</a>": {
           "type": "integer"
@@ -69,7 +69,7 @@
       }
     },
     "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#StructType">Map</a>": {
-      "type": "object",
+      "type": "struct",
       "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#Properties">properties</a>": {
         "<a href="<?php echo $router->getAbsolutePath([App\Controller\Specification::class, 'show']); ?>#NumberType">totalResults</a>": {
           "type": "integer"
