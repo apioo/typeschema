@@ -1,0 +1,250 @@
+{
+  "definitions": {
+    "DefinitionType": {
+      "description": "Base definition type",
+      "type": "struct",
+      "base": true,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        }
+      },
+      "discriminator": "type",
+      "mapping": {
+        "StructDefinitionType": "struct",
+        "MapDefinitionType": "map",
+        "ArrayDefinitionType": "array"
+      }
+    },
+    "StructDefinitionType": {
+      "description": "A struct represents a class/structure with a fix set of defined properties.",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "DefinitionType"
+      },
+      "properties": {
+        "parent": {
+          "description": "Defines a parent type for this structure. Some programming languages like Go do not support the concept of an extends, in this case the code generator simply copies all properties into this structure.",
+          "type": "reference",
+          "target": "ReferencePropertyType"
+        },
+        "base": {
+          "description": "Indicates whether this is a base structure, default is false. If true the structure is used a base type, this means it is not possible to create an instance from this structure.",
+          "type": "boolean"
+        },
+        "properties": {
+          "description": "Contains a map of available properties for this struct.",
+          "type": "map",
+          "schema": {
+            "type": "reference",
+            "target": "PropertyType"
+          }
+        },
+        "discriminator": {
+          "description": "Optional the property name of a discriminator property. This should be only used in case this is also a base structure.",
+          "type": "string"
+        },
+        "mapping": {
+          "description": "In case a discriminator is configured it is required to configure a mapping. The mapping is a map where the key is the type name and the value the actual discriminator type value.",
+          "type": "map",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MapDefinitionType": {
+      "description": "A map represents a map/dictionary with variable key/value entries of the same type.",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "DefinitionType"
+      },
+      "properties": {
+        "schema": {
+          "type": "reference",
+          "target": "PropertyType"
+        }
+      }
+    },
+    "ArrayDefinitionType": {
+      "description": "An array represents an array/list with variable entries of the same type.",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "DefinitionType"
+      },
+      "properties": {
+        "schema": {
+          "type": "reference",
+          "target": "PropertyType"
+        }
+      }
+    },
+    "PropertyType": {
+      "description": "Base property type",
+      "type": "struct",
+      "base": true,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        }
+      },
+      "discriminator": "type",
+      "mapping": {
+        "MapPropertyType": "map",
+        "ArrayPropertyType": "array",
+        "StringPropertyType": "string",
+        "IntegerPropertyType": "integer",
+        "NumberPropertyType": "number",
+        "BooleanPropertyType": "boolean",
+        "AnyPropertyType": "any",
+        "GenericPropertyType": "generic",
+        "ReferencePropertyType": "reference"
+      }
+    },
+    "StringPropertyType": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      },
+      "properties": {
+        "format": {
+          "description": "Optional describes the format of the string. Supported are the following types: date, date-time and time. A code generator may use a fitting data type to represent such a format, if not supported it should fall back to a string.",
+          "type": "string"
+        }
+      }
+    },
+    "IntegerPropertyType": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      }
+    },
+    "NumberPropertyType": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      }
+    },
+    "BooleanPropertyType": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      }
+    },
+    "MapPropertyType": {
+      "description": "A map represents a map/dictionary with variable key/value entries of the same type. The code generator uses the native map/dictionary type of the programming language.",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      },
+      "properties": {
+        "schema": {
+          "type": "reference",
+          "target": "PropertyType"
+        }
+      }
+    },
+    "ArrayPropertyType": {
+      "description": "An array represents an array/list with variable entries of the same type. The code generator uses the native array/list type of the programming language.",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      },
+      "properties": {
+        "schema": {
+          "type": "reference",
+          "target": "PropertyType"
+        }
+      }
+    },
+    "AnyPropertyType": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      }
+    },
+    "GenericPropertyType": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      },
+      "properties": {
+        "name": {
+          "description": "The name of the generic, it is recommended to use common generic names like T or TValue. These generics can then be replaced on usage with a concrete type through the template property at a reference.",
+          "type": "string"
+        }
+      }
+    },
+    "ReferencePropertyType": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "PropertyType"
+      },
+      "properties": {
+        "target": {
+          "description": "The target type, this must be a key which is available under the definitions keyword.",
+          "type": "string"
+        },
+        "template": {
+          "description": "A map where the key is the name of the generic and the value must point to a key under the definitions keyword. This can be used in case the target points to a type which contains generics, then it is possible to replace those generics with a concrete type.",
+          "type": "map",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TypeSchema": {
+      "description": "TypeSchema specification",
+      "type": "struct",
+      "properties": {
+        "import": {
+          "description": "Through the import keyword it is possible to import other TypeSchema documents. It contains a map where the key is the namespace and the value points to a remote document. The value is a URL and a code generator should support at least the following schemes: file, http, https.",
+          "type": "map",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "definitions": {
+          "type": "map",
+          "schema": {
+            "type": "reference",
+            "target": "DefinitionType"
+          }
+        },
+        "root": {
+          "description": "Specifies the root type of your specification.",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "root": "TypeSchema"
+}
