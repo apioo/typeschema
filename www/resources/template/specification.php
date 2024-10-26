@@ -29,6 +29,7 @@
         <li><a href="#Property-Type-Boolean">Boolean</a></li>
         <li><a href="#Property-Type-Map">Map</a></li>
         <li><a href="#Property-Type-Array">Array</a></li>
+        <li><a href="#Property-Type-Any">Any</a></li>
         <li><a href="#Property-Type-Generic">Generic</a></li>
         <li><a href="#Property-Type-Reference">Reference</a></li>
       </ul>
@@ -300,6 +301,14 @@
     </tr>
     </tbody>
   </table>
+
+  <hr>
+
+  <a id="Property-Type-Any"></a>
+  <h3>any</h3>
+  <pre class="json hljs">{
+    "type": "any"
+}</pre>
 
   <hr>
 
