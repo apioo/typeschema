@@ -60,32 +60,41 @@
         }
       }
     },
-    "MapDefinitionType": {
-      "description": "A map represents a map/dictionary with variable key/value entries of the same type.",
+    "CollectionDefinitionType": {
+      "description": "Base collection type",
       "type": "struct",
       "parent": {
         "type": "reference",
         "target": "DefinitionType"
       },
+      "base": true,
       "properties": {
         "schema": {
+          "description": "",
           "type": "reference",
           "target": "PropertyType"
         }
+      },
+      "discriminator": "type",
+      "mapping": {
+        "MapDefinitionType": "map",
+        "ArrayDefinitionType": "array"
+      }
+    },
+    "MapDefinitionType": {
+      "description": "Represents a map which contains a dynamic set of key value entries of the same type",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "CollectionDefinitionType"
       }
     },
     "ArrayDefinitionType": {
-      "description": "An array represents an array/list with variable entries of the same type.",
+      "description": "Represents an array which contains a dynamic list of values of the same type",
       "type": "struct",
       "parent": {
         "type": "reference",
-        "target": "DefinitionType"
-      },
-      "properties": {
-        "schema": {
-          "type": "reference",
-          "target": "PropertyType"
-        }
+        "target": "CollectionDefinitionType"
       }
     },
     "PropertyType": {
@@ -108,22 +117,39 @@
       },
       "discriminator": "type",
       "mapping": {
-        "MapPropertyType": "map",
-        "ArrayPropertyType": "array",
         "StringPropertyType": "string",
         "IntegerPropertyType": "integer",
         "NumberPropertyType": "number",
         "BooleanPropertyType": "boolean",
+        "MapPropertyType": "map",
+        "ArrayPropertyType": "array",
         "AnyPropertyType": "any",
         "GenericPropertyType": "generic",
         "ReferencePropertyType": "reference"
       }
     },
-    "StringPropertyType": {
+    "ScalarPropertyType": {
+      "description": "Base scalar property type",
       "type": "struct",
       "parent": {
         "type": "reference",
         "target": "PropertyType"
+      },
+      "base": true,
+      "discriminator": "type",
+      "mapping": {
+        "StringPropertyType": "string",
+        "IntegerPropertyType": "integer",
+        "NumberPropertyType": "number",
+        "BooleanPropertyType": "boolean"
+      }
+    },
+    "StringPropertyType": {
+      "description": "Represents a string value",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "ScalarPropertyType"
       },
       "properties": {
         "format": {
@@ -133,55 +159,62 @@
       }
     },
     "IntegerPropertyType": {
+      "description": "Represents an integer value",
       "type": "struct",
       "parent": {
         "type": "reference",
-        "target": "PropertyType"
+        "target": "ScalarPropertyType"
       }
     },
     "NumberPropertyType": {
+      "description": "Represents a float value",
       "type": "struct",
       "parent": {
         "type": "reference",
-        "target": "PropertyType"
+        "target": "ScalarPropertyType"
       }
     },
     "BooleanPropertyType": {
+      "description": "Represents a boolean value",
       "type": "struct",
       "parent": {
         "type": "reference",
-        "target": "PropertyType"
+        "target": "ScalarPropertyType"
       }
     },
-    "MapPropertyType": {
-      "description": "A map represents a map/dictionary with variable key/value entries of the same type. The code generator uses the native map/dictionary type of the programming language.",
+    "CollectionPropertyType": {
+      "description": "Base collection property type",
       "type": "struct",
       "parent": {
         "type": "reference",
         "target": "PropertyType"
       },
+      "base": true,
       "properties": {
         "schema": {
+          "description": "",
           "type": "reference",
           "target": "PropertyType"
         }
+      },
+    "MapPropertyType": {
+      "description": "Represents a map which contains a dynamic set of key value entries of the same type",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "CollectionPropertyType"
       }
     },
     "ArrayPropertyType": {
-      "description": "An array represents an array/list with variable entries of the same type. The code generator uses the native array/list type of the programming language.",
+      "description": "Represents an array which contains a dynamic list of values of the same type",
       "type": "struct",
       "parent": {
         "type": "reference",
-        "target": "PropertyType"
-      },
-      "properties": {
-        "schema": {
-          "type": "reference",
-          "target": "PropertyType"
-        }
+        "target": "CollectionPropertyType"
       }
     },
     "AnyPropertyType": {
+      "description": "Represents an any value which allows any kind of value",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -189,6 +222,7 @@
       }
     },
     "GenericPropertyType": {
+      "description": "Represents a generic value which can be replaced with a dynamic type",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -202,6 +236,7 @@
       }
     },
     "ReferencePropertyType": {
+      "description": "Represents a reference to a definition type",
       "type": "struct",
       "parent": {
         "type": "reference",
