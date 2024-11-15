@@ -1,0 +1,20 @@
+name: TypeHub
+on:
+  push:
+    branches:
+      - 'master'
+    tags:
+      - 'v*'
+jobs:
+  push_to_typehub:
+    name: Push specification to TypeHub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: TypeHub push
+        uses: apioo/typehub-push-action@v0.1.0
+        with:
+          client_id: ${{ secrets.TYPEHUB_CLIENT_ID }}
+          client_secret: ${{ secrets.TYPEHUB_CLIENT_SECRET }}
+          directory: 'specification'
