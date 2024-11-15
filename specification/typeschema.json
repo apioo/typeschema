@@ -6,12 +6,15 @@
       "base": true,
       "properties": {
         "description": {
+          "description": "",
           "type": "string"
         },
         "type": {
+          "description": "",
           "type": "string"
         },
         "deprecated": {
+          "description": "",
           "type": "boolean"
         }
       },
@@ -69,6 +72,10 @@
       },
       "base": true,
       "properties": {
+        "type": {
+          "description": "",
+          "type": "string"
+        },
         "schema": {
           "description": "",
           "type": "reference",
@@ -103,15 +110,19 @@
       "base": true,
       "properties": {
         "description": {
+          "description": "",
           "type": "string"
         },
         "type": {
+          "description": "",
           "type": "string"
         },
         "deprecated": {
+          "description": "",
           "type": "boolean"
         },
         "nullable": {
+          "description": "",
           "type": "boolean"
         }
       },
@@ -136,6 +147,12 @@
         "target": "PropertyType"
       },
       "base": true,
+      "properties": {
+        "type": {
+          "description": "",
+          "type": "string"
+        }
+      },
       "discriminator": "type",
       "mapping": {
         "StringPropertyType": "string",
@@ -191,11 +208,20 @@
       },
       "base": true,
       "properties": {
+        "type": {
+          "description": "",
+          "type": "string"
+        },
         "schema": {
           "description": "",
           "type": "reference",
           "target": "PropertyType"
         }
+      },
+      "discriminator": "type",
+      "mapping": {
+        "MapPropertyType": "map",
+        "ArrayPropertyType": "array"
       }
     },
     "MapPropertyType": {
@@ -269,6 +295,7 @@
           }
         },
         "definitions": {
+          "description": "",
           "type": "map",
           "schema": {
             "type": "reference",
