@@ -26,7 +26,7 @@
       }
     },
     "StructDefinitionType": {
-      "description": "A struct represents a class/structure with a fix set of defined properties.",
+      "description": "A struct represents a class/structure with a fix set of defined properties",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -34,16 +34,16 @@
       },
       "properties": {
         "parent": {
-          "description": "Defines a parent type for this structure. Some programming languages like Go do not support the concept of an extends, in this case the code generator simply copies all properties into this structure.",
+          "description": "Defines a parent type, all properties from the parent type are inherited. Some programming languages like Go do not support the concept of an extends, in this case the code generator copies all properties into this structure",
           "type": "reference",
           "target": "ReferencePropertyType"
         },
         "base": {
-          "description": "Indicates whether this is a base structure, default is false. If true the structure is used a base type, this means it is not possible to create an instance from this structure.",
+          "description": "Indicates whether this is a base structure, default is false. If true the structure is used a base type, this means it is not possible to create an instance from this structure",
           "type": "boolean"
         },
         "properties": {
-          "description": "Contains a map of available properties for this struct.",
+          "description": "Contains a map of available properties for this struct",
           "type": "map",
           "schema": {
             "type": "reference",
@@ -51,11 +51,11 @@
           }
         },
         "discriminator": {
-          "description": "Optional the property name of a discriminator property. This should be only used in case this is also a base structure.",
+          "description": "Optional the property name of a discriminator property. This should be only used in case this is also a base structure",
           "type": "string"
         },
         "mapping": {
-          "description": "In case a discriminator is configured it is required to configure a mapping. The mapping is a map where the key is the type name and the value the actual discriminator type value.",
+          "description": "In case a discriminator is configured it is required to configure a mapping. The mapping is a map where the key is the type name and the value the actual discriminator type value",
           "type": "map",
           "schema": {
             "type": "string"
@@ -170,7 +170,7 @@
       },
       "properties": {
         "format": {
-          "description": "Optional describes the format of the string. Supported are the following types: date, date-time and time. A code generator may use a fitting data type to represent such a format, if not supported it should fall back to a string.",
+          "description": "Optional describes the format of the string. Supported are the following types: date, date-time and time. A code generator may use a fitting data type to represent such a format, if not supported it should fall back to a string",
           "type": "string"
         }
       }
@@ -257,7 +257,7 @@
       },
       "properties": {
         "name": {
-          "description": "The name of the generic, it is recommended to use common generic names like T or TValue. These generics can then be replaced on usage with a concrete type through the template property at a reference.",
+          "description": "The name of the generic, it is recommended to use common generic names like T or TValue. These generics can then be replaced on usage with a concrete type through the template property at a reference",
           "type": "string"
         }
       }
@@ -271,11 +271,11 @@
       },
       "properties": {
         "target": {
-          "description": "The target type, this must be a key which is available under the definitions keyword.",
+          "description": "The target type, this must be a key which is available under the definitions keyword",
           "type": "string"
         },
         "template": {
-          "description": "A map where the key is the name of the generic and the value must point to a key under the definitions keyword. This can be used in case the target points to a type which contains generics, then it is possible to replace those generics with a concrete type.",
+          "description": "A map where the key is the name of the generic and the value must point to a key under the definitions keyword. This can be used in case the target points to a type which contains generics, then it is possible to replace those generics with a concrete type",
           "type": "map",
           "schema": {
             "type": "string"
@@ -288,7 +288,7 @@
       "type": "struct",
       "properties": {
         "import": {
-          "description": "Through the import keyword it is possible to import other TypeSchema documents. It contains a map where the key is the namespace and the value points to a remote document. The value is a URL and a code generator should support at least the following schemes: file, http, https.",
+          "description": "Through the import keyword it is possible to import other TypeSchema documents. It contains a map where the key is the namespace and the value points to a remote document. The value is a URL and a code generator should support at least the following schemes: file, http, https",
           "type": "map",
           "schema": {
             "type": "string"
@@ -303,7 +303,7 @@
           }
         },
         "root": {
-          "description": "Specifies the root type of your specification.",
+          "description": "Specifies the root type of your specification",
           "type": "string"
         }
       }
