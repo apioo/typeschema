@@ -303,7 +303,7 @@
           }
         },
         "root": {
-          "description": "Specifies the root type of your specification",
+          "description": "Specifies the root type of your specification, this must be a key which is available at the definitions map",
           "type": "string"
         }
       }
