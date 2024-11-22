@@ -33,6 +33,11 @@
       <td><a href="https://www.nuget.org/packages/TypeSchema.Model/">Nuget</a></td>
     </tr>
     <tr>
+      <td>Go</td>
+      <td><a href="https://github.com/apioo/typeschema-model-go">GitHub</a></td>
+      <td></td>
+    </tr>
+    <tr>
       <td>Java</td>
       <td><a href="https://github.com/apioo/typeschema-model-java">GitHub</a></td>
       <td><a href="https://central.sonatype.com/artifact/org.typeschema/model">Maven</a></td>
