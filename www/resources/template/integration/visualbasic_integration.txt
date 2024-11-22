@@ -1,0 +1,19 @@
+Imports System.Text.Json
+Imports Generator.Generator
+Imports Microsoft.VisualBasic.FileIO
+
+Module Program
+    Sub Main(args as String())
+        Dim input As String
+        Dim output As String
+        Dim student As Student
+
+        input = FileSystem.ReadAllText("input.json")
+
+        student = JsonSerializer.Deserialize(Of Student)(input)
+
+        output = JsonSerializer.Serialize(student)
+
+        FileSystem.WriteAllText("output.json", output, True)
+    End Sub
+End Module

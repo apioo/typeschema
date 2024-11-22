@@ -1,0 +1,8 @@
+The Rust TypeSchema integration uses the well known <a href="https://serde.rs/">Serde</a> library.
+To use the generated DTO classes you need to add this library to your project:
+
+<pre><code class="text">[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+</code></pre>

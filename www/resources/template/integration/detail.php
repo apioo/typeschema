@@ -9,6 +9,7 @@
 
 <div class="container">
   <h1 class="display-4"><?php echo $typeName; ?> Integration</h1>
+  <div class="mt-3 mb-3"><?php echo $description; ?></div>
   <div class="row">
     <div class="col-6">
       <div class="psx-object">

@@ -1,0 +1,15 @@
+use serde::{Serialize, Deserialize};
+
+// A simple student struct
+#[derive(Serialize, Deserialize)]
+pub struct Student {
+    #[serde(rename = "firstName")]
+    first_name: Option<String>,
+
+    #[serde(rename = "lastName")]
+    last_name: Option<String>,
+
+    #[serde(rename = "age")]
+    age: Option<u64>,
+
+}

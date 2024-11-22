@@ -1,0 +1,8 @@
+input = Path('input.json').read_text()
+
+student = Student.model_validate_json(input)
+
+output = student.model_dump_json()
+
+Path('output.json').write_text(output)
+

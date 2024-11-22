@@ -1,0 +1,14 @@
+Imports System.Text.Json.Serialization
+
+' A simple student struct
+Public Class Student
+    <JsonPropertyName("firstName")>
+    Public Property FirstName As String
+
+    <JsonPropertyName("lastName")>
+    Public Property LastName As String
+
+    <JsonPropertyName("age")>
+    Public Property Age As Integer
+
+End Class

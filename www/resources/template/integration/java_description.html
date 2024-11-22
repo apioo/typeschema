@@ -1,0 +1,21 @@
+The Java TypeSchema integration uses the well known <a href="https://central.sonatype.com/namespace/com.fasterxml.jackson.core">Jackson ObjectMapper</a> library.
+To use the generated DTO classes you need to add this library to your project:
+
+<pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+        &lt;version&gt;2.13.4&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;2.13.4&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.datatype&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-datatype-jsr310&lt;/artifactId&gt;
+        &lt;version&gt;2.13.4&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>

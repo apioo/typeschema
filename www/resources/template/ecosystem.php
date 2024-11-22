@@ -9,10 +9,11 @@
 
 <div class="container">
   <h1 class="display-4">Ecosystem</h1>
-  <p class="lead">The following page lists integrations, libraries and other projects related to TypeSchema.</p>
+  <p class="lead">The following page lists libraries, integrations and other projects related to TypeSchema.</p>
 
   <h2>Model</h2>
-  <p>We provide auto-generated models of the TypeSchema specification which can be used to parse or generate a TypeSchema specification.</p>
+  <p>We provide auto-generated models of the TypeSchema meta specification which describes itself.
+    These models can be used to parse or generate a TypeSchema specification.</p>
   <table class="table table-striped">
     <colgroup>
       <col class="w-25">
@@ -60,8 +61,16 @@
     </tbody>
   </table>
 
+  <!--
+  <h2>Reflection</h2>
+  <p>The reflection libraries help to automatically generate a TypeSchema specification based on a class.
+    These libraries use the reflection mechanism of each language to inspect the class and create the fitting
+    schema.</p>
+  -->
+
   <h2>Integration</h2>
-  <p></p>
+  <p>If you want to integrate the code generator you can take a look at the following options. For more advanced
+    integration options you can also take a look at the <a href="https://sdkgen.app/">SDKgen</a> project.</p>
   <table class="table table-striped">
     <colgroup>
       <col class="w-25">
@@ -85,27 +94,6 @@
       <td>GitHub Action</td>
       <td><a href="https://github.com/apioo/typeschema-generator-action">GitHub</a></td>
       <td><a href="https://github.com/marketplace/actions/typeschema-code-generator">Marketplace</a></td>
-    </tr>
-    </tbody>
-  </table>
-
-  <h2>Library</h2>
-  <p></p>
-  <table class="table table-striped">
-    <colgroup>
-      <col class="w-25">
-      <col class="w-50">
-    </colgroup>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td><a href="https://github.com/apioo/psx-schema">psx-schema</a></td>
-      <td>A PHP library to parse and validate TypeSchema specifications</td>
     </tr>
     </tbody>
   </table>

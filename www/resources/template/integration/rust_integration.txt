@@ -1,0 +1,18 @@
+extern crate serde;
+extern crate serde_json;
+extern crate chrono;
+
+use std::fs;
+use student::Student;
+
+mod student;
+
+fn main() {
+    let input = fs::read_to_string("input.json").expect("Could not read input");
+
+    let student: Student = serde_json::from_str(&input).unwrap();
+
+    let output = serde_json::to_string(&student).unwrap();
+
+    fs::write("output.json", output).expect("Could not write output");
+}
