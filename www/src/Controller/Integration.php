@@ -53,6 +53,7 @@ class Integration extends ControllerAbstract
 
         $dtoFile = __DIR__ . '/../../resources/template/integration/' . $type . '_dto.txt';
         $integrationFile = __DIR__ . '/../../resources/template/integration/' . $type . '_integration.txt';
+        $descriptionFile = __DIR__ . '/../../resources/template/integration/' . $type . '_description.html';
 
         if (!is_file($dtoFile) || !is_file($integrationFile)) {
             throw new BadRequestException('No integration available for the provided type');
@@ -64,6 +65,7 @@ class Integration extends ControllerAbstract
             'parameters' => ['type' => $type],
             'dto' => file_get_contents($dtoFile),
             'integration' => file_get_contents($integrationFile),
+            'description' => is_file($descriptionFile) ? file_get_contents($descriptionFile) : '',
             'type' => $type,
             'typeName' => TypeName::getDisplayName($type),
         ];
