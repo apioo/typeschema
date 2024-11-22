@@ -11,9 +11,8 @@
   <h1 class="display-4">Ecosystem</h1>
   <p class="lead">The following page lists integrations, libraries and other projects related to TypeSchema.</p>
 
-  <!--
   <h2>Model</h2>
-  <p>We provide auto-generated models of the TypeSchema specification which can be used to parse or generate a JSON TypeSchema specification.</p>
+  <p>We provide auto-generated models of the TypeSchema specification which can be used to parse or generate a TypeSchema specification.</p>
   <table class="table table-striped">
     <colgroup>
       <col class="w-25">
@@ -31,31 +30,30 @@
     <tr>
       <td>C#</td>
       <td><a href="https://github.com/apioo/typeschema-model-csharp">GitHub</a></td>
-      <td><a href="">Nuget</a></td>
+      <td><a href="https://www.nuget.org/packages/TypeSchema.Model/">Nuget</a></td>
     </tr>
     <tr>
       <td>Java</td>
       <td><a href="https://github.com/apioo/typeschema-model-java">GitHub</a></td>
-      <td><a href="">Maven</a></td>
+      <td><a href="https://central.sonatype.com/artifact/org.typeschema/model">Maven</a></td>
+    </tr>
+    <tr>
+      <td>JavaScript</td>
+      <td><a href="https://github.com/apioo/typeschema-model-javascript">GitHub</a></td>
+      <td><a href="https://www.npmjs.com/package/typeschema-model">NPM</a></td>
     </tr>
     <tr>
       <td>PHP</td>
       <td><a href="https://github.com/apioo/typeschema-model-php">GitHub</a></td>
-      <td><a href="">Packagist</a></td>
+      <td><a href="https://packagist.org/packages/typeschema/model">Packagist</a></td>
     </tr>
     <tr>
       <td>Python</td>
       <td><a href="https://github.com/apioo/typeschema-model-python">GitHub</a></td>
-      <td><a href="">PyPI</a></td>
-    </tr>
-    <tr>
-      <td>TypeScript</td>
-      <td><a href="https://github.com/apioo/typeschema-model-typescript">GitHub</a></td>
-      <td><a href="">NPM</a></td>
+      <td><a href="https://pypi.org/project/typeschema-model/">PyPI</a></td>
     </tr>
     </tbody>
   </table>
-  -->
 
   <h2>Integration</h2>
   <p></p>
