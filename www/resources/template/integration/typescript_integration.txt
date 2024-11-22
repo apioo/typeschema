@@ -1,0 +1,5 @@
+const student: Student = JSON.parse('{...}');
+
+const output = JSON.stringify(student);
+
+console.log(output);
