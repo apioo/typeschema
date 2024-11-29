@@ -13,6 +13,12 @@
         "age": {
           "type": "integer"
         },
+        "active": {
+          "type": "boolean"
+        },
+        "score": {
+          "type": "number"
+        },
         "faculty": {
           "type": "reference",
           "target": "Faculty"
