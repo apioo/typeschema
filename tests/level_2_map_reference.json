@@ -1,0 +1,41 @@
+{
+  "definitions": {
+    "Student": {
+      "type": "struct",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "properties": {
+          "type": "reference",
+          "target": "Student_Map_Reference"
+        }
+      }
+    },
+    "Student_Map_Reference": {
+      "type": "map",
+      "schema": {
+        "type": "reference",
+        "target": "Student_Property"
+      }
+    },
+    "Student_Property": {
+      "type": "struct",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "root": "Student"
+}

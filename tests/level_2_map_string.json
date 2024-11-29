@@ -1,0 +1,29 @@
+{
+  "definitions": {
+    "Student": {
+      "type": "struct",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "properties": {
+          "type": "reference",
+          "target": "Student_Map_String"
+        }
+      }
+    },
+    "Student_Map_String": {
+      "type": "map",
+      "schema": {
+        "type": "string"
+      }
+    }
+  },
+  "root": "Student"
+}

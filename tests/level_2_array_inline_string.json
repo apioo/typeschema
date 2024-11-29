@@ -1,0 +1,25 @@
+{
+  "definitions": {
+    "Student": {
+      "type": "struct",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "properties": {
+          "type": "array",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "root": "Student"
+}

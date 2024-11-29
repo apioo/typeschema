@@ -1,0 +1,61 @@
+{
+  "definitions": {
+    "Human": {
+      "type": "struct",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "location": {
+          "type": "reference",
+          "target": "Location"
+        }
+      }
+    },
+    "Location": {
+      "type": "struct",
+      "base": true,
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "discriminator": "type",
+      "mapping": {
+        "Web": "web",
+        "World": "world"
+      }
+    },
+    "Web": {
+      "parent": {
+        "type": "reference",
+        "target": "Location"
+      },
+      "type": "struct",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "World": {
+      "parent": {
+        "type": "reference",
+        "target": "Location"
+      },
+      "type": "struct",
+      "properties": {
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "root": "Human"
+}

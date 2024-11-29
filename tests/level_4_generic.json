@@ -1,0 +1,38 @@
+{
+  "definitions": {
+    "Student": {
+      "type": "struct",
+      "properties": {
+        "matricleNumber": {
+          "type": "integer"
+        }
+      }
+    },
+    "StudentMap": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "Map",
+        "template": {
+          "T": "Student"
+        }
+      }
+    },
+    "Map": {
+      "type": "struct",
+      "properties": {
+        "totalResults": {
+          "type": "integer"
+        },
+        "entries": {
+          "type": "array",
+          "schema": {
+            "type": "generic",
+            "name": "T"
+          }
+        }
+      }
+    }
+  },
+  "root": "StudentMap"
+}
