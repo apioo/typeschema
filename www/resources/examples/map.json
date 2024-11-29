@@ -19,7 +19,7 @@
       }
     },
     "Student_Properties": {
-      "type": "struct",
+      "type": "map",
       "schema": {
         "type": "string"
       }
