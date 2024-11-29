@@ -21,6 +21,13 @@ you can see also a rendered version of the specification and download the auto g
 * Use reflection to easily turn any class into a TypeSchema specification
 * Easily implement your own code generator
 
+## Generator
+
+We provide a hosted version of the code generator at our [website](https://typeschema.org/generator).
+To run the generator locally we provide the [code generator](https://github.com/apioo/typeschema-generator) as [Docker-Image](https://hub.docker.com/r/apiootech/typeschema-generator).
+If you want to invoke the code generator programmatically please take a look at the
+[SDKgen](https://sdkgen.app/) project which offers various integration options like an CLI, GitHub action or REST API.
+
 ## Models
 
 TypeSchema provides auto-generated models which describe the specification itself. These models
