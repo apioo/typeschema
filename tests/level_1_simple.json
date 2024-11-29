@@ -1,7 +1,6 @@
 {
   "definitions": {
     "Student": {
-      "description": "A student struct with an assigned faculty",
       "type": "struct",
       "properties": {
         "firstName": {
