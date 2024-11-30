@@ -24,9 +24,25 @@ you can see also a rendered version of the specification and download the auto g
 ## Generator
 
 We provide a hosted version of the code generator at our [website](https://typeschema.org/generator).
-To run the generator locally we provide the [code generator](https://github.com/apioo/typeschema-generator) as [Docker-Image](https://hub.docker.com/r/apiootech/typeschema-generator).
-If you want to invoke the code generator programmatically please take a look at the
-[SDKgen](https://sdkgen.app/) project which offers various integration options like an CLI, GitHub action or REST API.
+To transform a TypeSchema specification into code you can use our [generator](https://github.com/apioo/typeschema-generator)
+[docker image](https://hub.docker.com/r/apiootech/typeschema-generator). Simply run `docker-compose up` which reads the `typeschema.json`
+specification from the `output/` folder and writes the generated code back into this folder.
+
+```
+services:
+  generator:
+    image: apiootech/typeschema-generator:0.6
+    environment:
+      # possible formats: csharp, go, java, php, python, rust, typescript
+      FORMAT: "java"
+      NAMESPACE: "org.acme"
+      SOURCE: "typeschema.json"
+    volumes:
+      - ./output:/usr/src/typeschema/output
+```
+
+For more advanced integration options please take a look at the [SDKgen](https://sdkgen.app/) project
+which offers various integration options like a CLI, GitHub action or REST API.
 
 ## Models
 
