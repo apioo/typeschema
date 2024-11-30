@@ -61,15 +61,34 @@
     </tbody>
   </table>
 
-  <!--
   <h2>Reflection</h2>
   <p>The reflection libraries help to automatically generate a TypeSchema specification based on a class.
     These libraries use the reflection mechanism of each language to inspect the class and create the fitting
-    schema.</p>
-  -->
+    specification.</p>
+  <table class="table table-striped">
+    <colgroup>
+      <col class="w-25">
+      <col class="w-25">
+      <col class="w-25">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>Language</th>
+      <th>GitHub</th>
+      <th>Package</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Java</td>
+      <td><a href="https://github.com/apioo/typeschema-reflection-java">GitHub</a></td>
+      <td><a href="https://central.sonatype.com/artifact/org.typeschema/reflection">Maven</a></td>
+    </tr>
+    </tbody>
+  </table>
 
   <h2>Integration</h2>
-  <p>If you want to integrate the code generator you can take a look at the following options. For more advanced
+  <p>To integrate the code generator you can take a look at the following options. For more advanced
     integration options you can also take a look at the <a href="https://sdkgen.app/">SDKgen</a> project.</p>
   <table class="table table-striped">
     <colgroup>
