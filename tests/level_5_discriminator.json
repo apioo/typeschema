@@ -18,15 +18,15 @@
     "Location": {
       "type": "struct",
       "base": true,
-      "properties": {
-        "type": {
-          "type": "string"
-        }
-      },
       "discriminator": "type",
       "mapping": {
         "Web": "web",
         "World": "world"
+      },
+      "properties": {
+        "type": {
+          "type": "string"
+        }
       }
     },
     "Web": {

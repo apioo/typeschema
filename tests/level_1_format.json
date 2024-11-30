@@ -9,19 +9,18 @@
         "lastName": {
           "type": "string"
         },
-        "age": {
-          "type": "integer"
+        "date": {
+          "type": "string",
+          "format": "date"
         },
-        "properties": {
-          "type": "reference",
-          "target": "StudentArrayString"
+        "dateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "time": {
+          "type": "string",
+          "format": "time"
         }
-      }
-    },
-    "StudentArrayString": {
-      "type": "array",
-      "schema": {
-        "type": "string"
       }
     }
   },

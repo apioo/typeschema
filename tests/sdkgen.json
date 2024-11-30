@@ -1,0 +1,57 @@
+{
+  "type": "model-java",
+  "require": {
+    "./level_1_format.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_1_format",
+      "namespace": "org.typeschema.reflection.dto.level_1_format"
+    },
+    "./level_1_simple.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_1_simple",
+      "namespace": "org.typeschema.reflection.dto.level_1_simple"
+    },
+    "./level_2_array_inline_reference.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_array_inline_reference",
+      "namespace": "org.typeschema.reflection.dto.level_2_array_inline_reference"
+    },
+    "./level_2_array_inline_string.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_array_inline_string",
+      "namespace": "org.typeschema.reflection.dto.level_2_array_inline_string"
+    },
+    "./level_2_array_reference.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_array_reference",
+      "namespace": "org.typeschema.reflection.dto.level_2_array_reference"
+    },
+    "./level_2_array_string.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_array_string",
+      "namespace": "org.typeschema.reflection.dto.level_2_array_string"
+    },
+    "./level_2_map_inline_reference.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_map_inline_reference",
+      "namespace": "org.typeschema.reflection.dto.level_2_map_inline_reference"
+    },
+    "./level_2_map_inline_string.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_map_inline_string",
+      "namespace": "org.typeschema.reflection.dto.level_2_map_inline_string"
+    },
+    "./level_2_map_reference.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_map_reference",
+      "namespace": "org.typeschema.reflection.dto.level_2_map_reference"
+    },
+    "./level_2_map_string.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_2_map_string",
+      "namespace": "org.typeschema.reflection.dto.level_2_map_string"
+    },
+    "./level_3_inheritance.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_3_inheritance",
+      "namespace": "org.typeschema.reflection.dto.level_3_inheritance"
+    },
+    "./level_4_generic.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_4_generic",
+      "namespace": "org.typeschema.reflection.dto.level_4_generic"
+    },
+    "./level_5_discriminator.json": {
+      "target": "../java/org/typeschema/reflection/dto/level_5_discriminator",
+      "namespace": "org.typeschema.reflection.dto.level_5_discriminator"
+    }
+  }
+}

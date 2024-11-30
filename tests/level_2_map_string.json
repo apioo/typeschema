@@ -14,11 +14,11 @@
         },
         "properties": {
           "type": "reference",
-          "target": "Student_Map_String"
+          "target": "StudentMapString"
         }
       }
     },
-    "Student_Map_String": {
+    "StudentMapString": {
       "type": "map",
       "schema": {
         "type": "string"

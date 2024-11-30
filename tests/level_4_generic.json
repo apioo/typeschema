@@ -16,7 +16,8 @@
         "template": {
           "T": "Student"
         }
-      }
+      },
+      "properties": {}
     },
     "Map": {
       "type": "struct",

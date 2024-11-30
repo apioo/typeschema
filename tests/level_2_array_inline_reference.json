@@ -16,12 +16,12 @@
           "type": "array",
           "schema": {
             "type": "reference",
-            "target": "Student_Property"
+            "target": "StudentProperty"
           }
         }
       }
     },
-    "Student_Property": {
+    "StudentProperty": {
       "type": "struct",
       "properties": {
         "name": {

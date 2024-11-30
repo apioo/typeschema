@@ -14,18 +14,18 @@
         },
         "properties": {
           "type": "reference",
-          "target": "Student_Map_Reference"
+          "target": "StudentMapReference"
         }
       }
     },
-    "Student_Map_Reference": {
+    "StudentMapReference": {
       "type": "map",
       "schema": {
         "type": "reference",
-        "target": "Student_Property"
+        "target": "StudentProperty"
       }
     },
-    "Student_Property": {
+    "StudentProperty": {
       "type": "struct",
       "properties": {
         "name": {
