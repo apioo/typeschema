@@ -84,6 +84,11 @@
       <td><a href="https://github.com/apioo/typeschema-reflection-java">GitHub</a></td>
       <td><a href="https://central.sonatype.com/artifact/org.typeschema/reflection">Maven</a></td>
     </tr>
+    <tr>
+      <td>PHP</td>
+      <td><a href="https://github.com/apioo/typeschema-reflection-php">GitHub</a></td>
+      <td><a href="https://packagist.org/packages/typeschema/reflection">Packagist</a></td>
+    </tr>
     </tbody>
   </table>
 
