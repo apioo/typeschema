@@ -112,3 +112,16 @@ textarea {
   overflow-x:auto;
 }
 
+.apioo-brand {
+  background-color:#000;
+  text-align: center;
+  color:#eee;
+  padding:24px;
+  font-weight:bold;
+}
+
+.apioo-brand a {
+  color:#00d1b2;
+  text-decoration:none;
+}
+
