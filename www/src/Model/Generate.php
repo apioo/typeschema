@@ -12,31 +12,31 @@ class Generate implements \JsonSerializable, \PSX\Record\RecordableInterface
     protected ?string $schema = null;
     #[Key('g-recaptcha-response')]
     protected ?string $gRecaptchaResponse = null;
-    public function setNamespace(?string $namespace) : void
+    public function setNamespace(?string $namespace): void
     {
         $this->namespace = $namespace;
     }
-    public function getNamespace() : ?string
+    public function getNamespace(): ?string
     {
         return $this->namespace;
     }
-    public function setSchema(?string $schema) : void
+    public function setSchema(?string $schema): void
     {
         $this->schema = $schema;
     }
-    public function getSchema() : ?string
+    public function getSchema(): ?string
     {
         return $this->schema;
     }
-    public function setGRecaptchaResponse(?string $gRecaptchaResponse) : void
+    public function setGRecaptchaResponse(?string $gRecaptchaResponse): void
     {
         $this->gRecaptchaResponse = $gRecaptchaResponse;
     }
-    public function getGRecaptchaResponse() : ?string
+    public function getGRecaptchaResponse(): ?string
     {
         return $this->gRecaptchaResponse;
     }
-    public function toRecord() : \PSX\Record\RecordInterface
+    public function toRecord(): \PSX\Record\RecordInterface
     {
         /** @var \PSX\Record\Record<mixed> $record */
         $record = new \PSX\Record\Record();
@@ -45,7 +45,7 @@ class Generate implements \JsonSerializable, \PSX\Record\RecordableInterface
         $record->put('g-recaptcha-response', $this->gRecaptchaResponse);
         return $record;
     }
-    public function jsonSerialize() : object
+    public function jsonSerialize(): object
     {
         return (object) $this->toRecord()->getAll();
     }
