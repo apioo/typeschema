@@ -2026,16 +2026,16 @@
         },
         {
             "name": "psx/http",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/psx-http.git",
-                "reference": "e6be2b4227dde9612d76c6e60e0f3653e39afa73"
+                "reference": "704d092b9cc3f31bf962f051fceff2815bad15ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-http/zipball/e6be2b4227dde9612d76c6e60e0f3653e39afa73",
-                "reference": "e6be2b4227dde9612d76c6e60e0f3653e39afa73",
+                "url": "https://api.github.com/repos/apioo/psx-http/zipball/704d092b9cc3f31bf962f051fceff2815bad15ca",
+                "reference": "704d092b9cc3f31bf962f051fceff2815bad15ca",
                 "shasum": ""
             },
             "require": {
@@ -2073,7 +2073,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/psx-http/issues",
-                "source": "https://github.com/apioo/psx-http/tree/v4.1.1"
+                "source": "https://github.com/apioo/psx-http/tree/v4.1.2"
             },
             "funding": [
                 {
@@ -2089,7 +2089,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-02-21T20:42:40+00:00"
+            "time": "2025-02-22T22:50:44+00:00"
         },
         {
             "name": "psx/json",
