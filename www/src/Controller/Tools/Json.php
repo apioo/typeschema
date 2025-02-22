@@ -75,7 +75,7 @@ class Json extends ControllerAbstract
                 $properties[$key] = $this->transform($value, $definitions);
             }
 
-            $name = 'Schema' . substr(sha1(json_encode($properties)), 0, 8);
+            $name = 'Schema' . substr(sha1((string) json_encode($properties)), 0, 8);
 
             $definitions[$name] = (object) [
                 'type' => 'struct',
