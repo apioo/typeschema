@@ -172,7 +172,7 @@ class Example extends ControllerAbstract
             'file' => __DIR__ . '/../../resources/examples/import.json',
             'config' => [
                 'csharp' => ['namespace' => 'TypeSchema.DTO'],
-                'go' => ['namespace' => 'TypeSchema'],
+                'go' => ['namespace' => 'TypeSchema', 'mapping' => ['my_ns' => 'github.com/acme/external']],
                 'java' => ['namespace' => 'org.typeschema.dto'],
                 'php' => ['namespace' => 'TypeSchema\\DTO'],
                 'ruby' => ['namespace' => 'TypeSchema'],
