@@ -44,6 +44,12 @@ services:
 For more advanced integration options please take a look at the [SDKgen](https://sdkgen.app/) project
 which offers various integration options like a CLI, GitHub action or REST API.
 
+## Usage
+
+Take a look at our [integration](https://typeschema.org/integration) page to see examples
+how you can use the generated models in your code. The generator uses mostly standard or
+well-known libraries therefor most developers should be familiar with this process.
+
 ## Models
 
 TypeSchema provides auto-generated models which describe the specification itself. These models
@@ -57,3 +63,13 @@ can be used if you want to work with a TypeSchema specification.
 | JavaScript | [GitHub](https://github.com/apioo/typeschema-model-javascript) | [NPM](https://www.npmjs.com/package/typeschema-model)               |
 | PHP        | [GitHub](https://github.com/apioo/typeschema-model-php)        | [Packagist](https://packagist.org/packages/typeschema/model)        |
 | Python     | [GitHub](https://github.com/apioo/typeschema-model-python)     | [PyPI](https://pypi.org/project/typeschema-model/)                  |
+
+## Reflection
+
+The reflection libraries help to automatically generate a TypeSchema specification based on a class.
+These libraries use the reflection mechanism of each language to inspect the class and create the fitting specification.
+
+| Language | GitHub                                                         | Package                                                             |
+|----------|----------------------------------------------------------------|---------------------------------------------------------------------|
+| Java     | [GitHub](https://github.com/apioo/typeschema-reflection-java)       | [Maven](https://central.sonatype.com/artifact/org.typeschema/reflection) |
+| PHP      | [GitHub](https://github.com/apioo/typeschema-reflection-php)        | [Packagist](https://packagist.org/packages/typeschema/reflection)        |
