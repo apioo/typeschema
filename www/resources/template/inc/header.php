@@ -15,12 +15,17 @@
   <?php foreach ($js as $link): ?><script src="<?php echo $link; ?>"></script>
 <?php endforeach; ?>
 <?php endif; ?>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB1NL30RKL"></script>
   <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BB1NL30RKL', { 'anonymize_ip': true });
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        var u="//matomo.apioo.de/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '3']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
 </head>
 <body>
