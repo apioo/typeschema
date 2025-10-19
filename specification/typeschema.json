@@ -172,6 +172,10 @@
         "format": {
           "description": "Optional describes the format of the string. Supported are the following types: date, date-time and time. A code generator may use a fitting data type to represent such a format, if not supported it should fallback to a string",
           "type": "string"
+        },
+        "default": {
+          "description": "Optional a default value for this property",
+          "type": "string"
         }
       }
     },
