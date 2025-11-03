@@ -33,6 +33,10 @@
         "target": "DefinitionType"
       },
       "properties": {
+        "type": {
+          "type": "string",
+          "default": "struct"
+        },
         "parent": {
           "description": "Defines a parent type, all properties from the parent type are inherited",
           "type": "reference",
@@ -94,6 +98,12 @@
       "parent": {
         "type": "reference",
         "target": "CollectionDefinitionType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "map"
+        }
       }
     },
     "ArrayDefinitionType": {
@@ -102,6 +112,12 @@
       "parent": {
         "type": "reference",
         "target": "CollectionDefinitionType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "array"
+        }
       }
     },
     "PropertyType": {
@@ -169,6 +185,10 @@
         "target": "ScalarPropertyType"
       },
       "properties": {
+        "type": {
+          "type": "string",
+          "default": "string"
+        },
         "format": {
           "description": "Optional describes the format of the string. Supported are the following types: date, date-time and time. A code generator may use a fitting data type to represent such a format, if not supported it should fallback to a string",
           "type": "string"
@@ -185,6 +205,12 @@
       "parent": {
         "type": "reference",
         "target": "ScalarPropertyType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "integer"
+        }
       }
     },
     "NumberPropertyType": {
@@ -193,6 +219,12 @@
       "parent": {
         "type": "reference",
         "target": "ScalarPropertyType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "number"
+        }
       }
     },
     "BooleanPropertyType": {
@@ -201,6 +233,12 @@
       "parent": {
         "type": "reference",
         "target": "ScalarPropertyType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "boolean"
+        }
       }
     },
     "CollectionPropertyType": {
@@ -234,6 +272,12 @@
       "parent": {
         "type": "reference",
         "target": "CollectionPropertyType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "map"
+        }
       }
     },
     "ArrayPropertyType": {
@@ -242,6 +286,12 @@
       "parent": {
         "type": "reference",
         "target": "CollectionPropertyType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "array"
+        }
       }
     },
     "AnyPropertyType": {
@@ -250,6 +300,12 @@
       "parent": {
         "type": "reference",
         "target": "PropertyType"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "any"
+        }
       }
     },
     "GenericPropertyType": {
@@ -260,6 +316,10 @@
         "target": "PropertyType"
       },
       "properties": {
+        "type": {
+          "type": "string",
+          "default": "generic"
+        },
         "name": {
           "description": "The name of the generic, it is recommended to use common generic names like T or TValue. These generics can then be replaced on usage with a concrete type through the template property at a reference",
           "type": "string"
@@ -274,6 +334,10 @@
         "target": "PropertyType"
       },
       "properties": {
+        "type": {
+          "type": "string",
+          "default": "reference"
+        },
         "target": {
           "description": "The target type, this must be a key which is available at the definitions map",
           "type": "string"
