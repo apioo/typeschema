@@ -1,0 +1,70 @@
+{
+  "definitions": {
+    "Property": {
+      "type": "struct",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "Type": {
+      "type": "struct",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "parent": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "array",
+          "schema": {
+            "type": "reference",
+            "target": "Property"
+          }
+        },
+        "reference": {
+          "type": "string"
+        }
+      }
+    },
+    "Document": {
+      "type": "struct",
+      "properties": {
+        "types": {
+          "type": "array",
+          "schema": {
+            "type": "reference",
+            "target": "Type"
+          }
+        },
+        "root": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "root": "Document"
+}
