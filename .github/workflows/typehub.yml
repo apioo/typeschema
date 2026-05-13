@@ -13,7 +13,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
       - name: TypeHub push
-        uses: apioo/typehub-push-action@v0.1.0
+        uses: apioo/typehub-push-action@v0.2.0
         with:
           client_id: ${{ secrets.TYPEHUB_CLIENT_ID }}
           client_secret: ${{ secrets.TYPEHUB_CLIENT_SECRET }}
