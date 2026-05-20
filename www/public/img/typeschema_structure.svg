@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" width="100%" height="100%" style="background-color: #1e1e24; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <filter id="dropShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <text x="500" y="45" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="700" letter-spacing="0.5">TypeSchema: Language-Neutral Model Definitions</text>
+  <text x="500" y="70" text-anchor="middle" fill="#9ca3af" font-size="14">Define your data structures once, generate code for any backend or frontend language</text>
+
+  <g transform="translate(40, 100)" filter="url(#dropShadow)">
+    <rect width="380" height="500" rx="8" fill="#111827" stroke="#374151" stroke-width="1.5" />
+    <rect width="160" height="30" rx="4" fill="#3b82f6" x="15" y="-15" />
+    <text x="95" y="5" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600" letter-spacing="0.5">TYPESCHEMA JSON</text>
+    
+    <g font-family="Consolas, Monaco, 'Andale Mono', monospace" font-size="11" xml:space="preserve">
+      <text x="20" y="40" fill="#e5e7eb">{</text>
+      <text x="40" y="60" fill="#f3f4f6">"definitions": {</text>
+      <text x="60" y="80" fill="#34d399">"Human": <tspan fill="#e5e7eb">{</tspan></text>
+      <text x="80" y="100" fill="#f3f4f6">"type": <tspan fill="#fbbf24">"struct"</tspan>,</text>
+      <text x="80" y="120" fill="#f3f4f6">"properties": {</text>
+      <text x="100" y="140" fill="#60a5fa">"firstName": <tspan fill="#e5e7eb">{</tspan> "type": "string" <tspan fill="#e5e7eb">}</tspan>,</text>
+      <text x="100" y="160" fill="#60a5fa">"age": <tspan fill="#e5e7eb">{</tspan> "type": "integer" <tspan fill="#e5e7eb">}</tspan></text>
+      <text x="80" y="180" fill="#e5e7eb">}</text>
+      <text x="60" y="200" fill="#e5e7eb">},</text>
+      
+      <text x="60" y="220" fill="#34d399">"Student": <tspan fill="#e5e7eb">{</tspan></text>
+      <text x="80" y="240" fill="#f3f4f6">"parent": {</text>
+      <text x="100" y="260" fill="#f3f4f6">"type": "reference",</text>
+      <text x="100" y="280" fill="#f3f4f6">"target": <tspan fill="#34d399">"Human"</tspan></text>
+      <text x="80" y="300" fill="#f3f4f6">},</text>
+      <text x="80" y="320" fill="#f3f4f6">"type": <tspan fill="#fbbf24">"struct"</tspan>,</text>
+      <text x="80" y="340" fill="#f3f4f6">"properties": {</text>
+      <text x="100" y="360" fill="#60a5fa">"studentId": <tspan fill="#e5e7eb">{</tspan> "type": "string" <tspan fill="#e5e7eb">}</tspan></text>
+      <text x="80" y="380" fill="#e5e7eb">}</text>
+      <text x="60" y="400" fill="#e5e7eb">},</text>
+
+      <text x="60" y="420" fill="#34d399">"University": <tspan fill="#e5e7eb">{ ... }</tspan></text>
+      
+      <text x="40" y="440" fill="#f3f4f6">},</text>
+      <text x="40" y="460" fill="#f3f4f6">"root": <tspan fill="#34d399">"University"</tspan></text>
+      <text x="20" y="480" fill="#e5e7eb">}</text>
+    </g>
+  </g>
+
+  <g transform="translate(440, 100)">
+    <path d="M 10,160 L 70,160 L 70,140 L 110,175 L 70,210 L 70,190 L 10,190 Z" fill="url(#arrowGrad)" filter="url(#dropShadow)" />
+    <text x="60" y="235" text-anchor="middle" fill="#9ca3af" font-size="11" font-weight="600" letter-spacing="1">COMPILES TO</text>
+
+    <rect x="-10" y="260" width="140" height="170" rx="8" fill="#1f2937" stroke="#4b5563" stroke-width="1" />
+    <text x="60" y="280" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700" letter-spacing="0.5">SUPPORTED</text>
+    
+    <g font-size="11" font-weight="600" text-anchor="middle">
+      <rect x="5" y="295" width="50" height="20" rx="3" fill="#374151" />
+      <text x="30" y="309" fill="#38bdf8">C#</text>
+      
+      <rect x="65" y="295" width="50" height="20" rx="3" fill="#374151" />
+      <text x="90" y="309" fill="#00add8">Go</text>
+
+      <rect x="5" y="325" width="50" height="20" rx="3" fill="#374151" />
+      <text x="30" y="339" fill="#ea580c">Java</text>
+      
+      <rect x="65" y="325" width="50" height="20" rx="3" fill="#374151" />
+      <text x="90" y="339" fill="#a855f7">PHP</text>
+
+      <rect x="5" y="355" width="55" height="20" rx="3" fill="#374151" />
+      <text x="32.5" y="369" fill="#eab308">Python</text>
+      
+      <rect x="65" y="355" width="50" height="20" rx="3" fill="#374151" />
+      <text x="90" y="369" fill="#f97316">Rust</text>
+
+      <rect x="15" y="390" width="90" height="24" rx="4" fill="#3178c6" />
+      <text x="60" y="406" fill="#ffffff">TypeScript</text>
+    </g>
+  </g>
+
+  <g transform="translate(580, 100)" filter="url(#dropShadow)">
+    <rect width="380" height="500" rx="8" fill="#111827" stroke="#10b981" stroke-width="1.5" />
+    <rect width="180" height="30" rx="4" fill="#10b981" x="15" y="-15" />
+    <text x="105" y="5" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600" letter-spacing="0.5">GENERATED CODE</text>
+    
+    <g font-family="Consolas, Monaco, 'Andale Mono', monospace" font-size="12" xml:space="preserve">
+      <text x="20" y="40" fill="#f43f5e">export <tspan fill="#3b82f6">interface</tspan> <tspan fill="#34d399">Human</tspan> {</text>
+      <text x="40" y="60" fill="#f3f4f6">firstName<tspan fill="#f43f5e">?</tspan>: <tspan fill="#60a5fa">string</tspan></text>
+      <text x="40" y="80" fill="#f3f4f6">lastName<tspan fill="#f43f5e">?</tspan>: <tspan fill="#60a5fa">string</tspan></text>
+      <text x="40" y="100" fill="#f3f4f6">age<tspan fill="#f43f5e">?</tspan>: <tspan fill="#60a5fa">number</tspan></text>
+      <text x="20" y="120" fill="#e5e7eb">}</text>
+      
+      <text x="20" y="160" fill="#f43f5e">export <tspan fill="#3b82f6">interface</tspan> <tspan fill="#34d399">Student</tspan> <tspan fill="#3b82f6">extends</tspan> <tspan fill="#34d399">Human</tspan> {</text>
+      <text x="40" y="180" fill="#f3f4f6">studentId<tspan fill="#f43f5e">?</tspan>: <tspan fill="#60a5fa">string</tspan></text>
+      <text x="20" y="200" fill="#e5e7eb">}</text>
+
+      <text x="20" y="240" fill="#f43f5e">export <tspan fill="#3b82f6">interface</tspan> <tspan fill="#34d399">University</tspan> {</text>
+      <text x="40" y="260" fill="#f3f4f6">name<tspan fill="#f43f5e">?</tspan>: <tspan fill="#60a5fa">string</tspan></text>
+      <text x="40" y="280" fill="#f3f4f6">students<tspan fill="#f43f5e">?</tspan>: <tspan fill="#e5e7eb">Array&lt;</tspan><tspan fill="#34d399">Student</tspan><tspan fill="#e5e7eb">&gt;</tspan></text>
+      <text x="20" y="300" fill="#e5e7eb">}</text>
+    </g>
+    
+    <rect x="20" y="400" width="340" height="70" rx="6" fill="#1f2937" stroke="#374151" />
+    <text x="35" y="425" fill="#9ca3af" font-size="11" font-weight="bold">Note:</text>
+    <text x="35" y="442" fill="#9ca3af" font-size="11">TypeSchema attributes like "parent" map seamlessly</text>
+    <text x="35" y="457" fill="#9ca3af" font-size="11">to native object-oriented concepts like "extends".</text>
+  </g>
+</svg>

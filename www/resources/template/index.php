@@ -17,7 +17,6 @@
   <div class="row">
     <div class="col-12">
       <h2>Features</h2>
-      <p class="lead"></p>
       <ul class="lead">
         <li>An elegant specification optimized for code-generation</li>
         <li>A portable format to share data models across different programming languages</li>
@@ -26,6 +25,8 @@
         <li>Use reflection to easily turn any class into a TypeSchema specification</li>
         <li>Easily implement your own code generator</li>
       </ul>
+      <hr>
+      <img src="<?php echo $base; ?>/img/typeschema_structure.svg" class="img-fluid" alt="TypeSchema structure">
     </div>
   </div>
   <div class="row">
