@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c4e81cf436737d3b69b2192a2581e60",
+    "content-hash": "941190cedcd6ee80a108940ab8569630",
     "packages": [
         {
             "name": "doctrine/dbal",
@@ -1928,16 +1928,16 @@
         },
         {
             "name": "psx/framework",
-            "version": "v7.9.7",
+            "version": "v8.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/psx-framework.git",
-                "reference": "bedf37b4455ea77d876a1ca250eec66c671906bb"
+                "reference": "be1ce8cb2694b7fa85e96a1207c52d97b929e211"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-framework/zipball/bedf37b4455ea77d876a1ca250eec66c671906bb",
-                "reference": "bedf37b4455ea77d876a1ca250eec66c671906bb",
+                "url": "https://api.github.com/repos/apioo/psx-framework/zipball/be1ce8cb2694b7fa85e96a1207c52d97b929e211",
+                "reference": "be1ce8cb2694b7fa85e96a1207c52d97b929e211",
                 "shasum": ""
             },
             "require": {
@@ -1973,8 +1973,8 @@
             },
             "require-dev": {
                 "guzzlehttp/guzzle": "^7.0",
-                "phpunit/phpunit": "^10.0",
-                "vimeo/psalm": "^6.0"
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^12.0"
             },
             "type": "library",
             "autoload": {
@@ -2003,7 +2003,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/psx-framework/issues",
-                "source": "https://github.com/apioo/psx-framework/tree/v7.9.7"
+                "source": "https://github.com/apioo/psx-framework/tree/v8.1.5"
             },
             "funding": [
                 {
@@ -2019,7 +2019,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-05-24T21:29:34+00:00"
+            "time": "2026-05-01T06:55:52+00:00"
         },
         {
             "name": "psx/http",
@@ -6408,7 +6408,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1"
+        "php": ">=8.4"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

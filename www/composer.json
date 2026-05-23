@@ -1,7 +1,7 @@
 {
   "require": {
-    "php": ">=8.1",
-    "psx/framework": "^7.0"
+    "php": ">=8.4",
+    "psx/framework": "^8.0"
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1"
