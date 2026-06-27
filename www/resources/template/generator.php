@@ -9,22 +9,10 @@
 
 <div class="container">
   <h1 class="display-4">DTO Generator</h1>
-  <p class="lead">This list gives you access to the reference code generator implementation.
-  To prevent misuse the code generator is protected by recaptcha, if you want to invoke the code generator
-  programmatically please take a look at the <a href="https://sdkgen.app/">SDKgen project</a>
-  which offers various integration options like an CLI, GitHub action or REST API.
-  </p>
-  <div class="row">
-    <?php foreach ($types as $chunk): ?>
-      <div class="col-6">
-        <div class="list-group">
-          <?php foreach ($chunk as $type => $typeTitle): ?>
-            <a href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'showType'], ['type' => $type]); ?>" class="list-group-item list-group-item-action"><?php echo $typeTitle; ?></a>
-          <?php endforeach; ?>
-        </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
+  <p class="lead">Take a look at our <a href="https://sandbox.sdkgen.app/">Sandbox</a> app of the
+  <a href="https://sdkgen.app/">SDKgen project</a> which provides a simple editor to design a specification and generate
+  code. It provides also several other <a href="https://sdkgen.app/integration">integration options</a>.</p>
+  <a href="https://sandbox.sdkgen.app/" class="btn btn-primary">Sandbox</a>
 </div>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>
