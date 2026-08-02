@@ -1,20 +1,20 @@
 {
   "definitions": {
     "DefinitionType": {
-      "description": "The base abstract type for all schema definitions. It provides metadata common to all types such as descriptions and deprecation status.",
+      "description": "The abstract base type for all schema definitions. It provides common metadata such as descriptions and deprecation status.",
       "type": "struct",
       "base": true,
       "properties": {
         "description": {
-          "description": "A brief explanation of the purpose and usage of this type.",
+          "description": "A brief explanation of the purpose and usage of this definition.",
           "type": "string"
         },
         "type": {
-          "description": "The discriminator value used to identify the specific definition subclass.",
+          "description": "The discriminator value used to identify the specific definition type.",
           "type": "string"
         },
         "deprecated": {
-          "description": "Indicates if this type is legacy and should no longer be used in new implementations.",
+          "description": "Indicates whether this type is deprecated and should not be used in new implementations.",
           "type": "boolean"
         }
       },
@@ -26,7 +26,7 @@
       }
     },
     "StructDefinitionType": {
-      "description": "Represents a fixed-structure object (class/record). It supports inheritance and explicit property definitions.",
+      "description": "Represents an object with a fixed set of properties (such as a class or record). Supports inheritance and explicit property typing.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -38,16 +38,16 @@
           "default": "struct"
         },
         "parent": {
-          "description": "A reference to another struct from which this struct inherits properties.",
+          "description": "A reference to another struct definition from which this struct inherits properties.",
           "type": "reference",
           "target": "ReferencePropertyType"
         },
         "base": {
-          "description": "If true, this struct acts as an abstract template and cannot be instantiated directly.",
+          "description": "When set to true, marks this struct as an abstract base type that cannot be instantiated directly.",
           "type": "boolean"
         },
         "properties": {
-          "description": "A map of property names to their respective types defining the structure of the object.",
+          "description": "A map of property names to their respective schema definitions.",
           "type": "map",
           "schema": {
             "type": "reference",
@@ -55,11 +55,11 @@
           }
         },
         "discriminator": {
-          "description": "The property name used to distinguish between different implementations of a base struct.",
+          "description": "The property name used to determine the concrete subclass during deserialization.",
           "type": "string"
         },
         "mapping": {
-          "description": "Maps discriminator values to their concrete definition names for polymorphic handling.",
+          "description": "Maps discriminator field values to their corresponding definition names to support polymorphism.",
           "type": "map",
           "schema": {
             "type": "string"
@@ -68,7 +68,7 @@
       }
     },
     "CollectionDefinitionType": {
-      "description": "Abstract base for definitions that hold multiple values of a single type, such as arrays or maps.",
+      "description": "The abstract base type for collection definitions that contain multiple elements of a uniform type.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -77,11 +77,11 @@
       "base": true,
       "properties": {
         "type": {
-          "description": "The type of collection (e.g., 'map' or 'array').",
+          "description": "The collection type identifier (e.g., 'map' or 'array').",
           "type": "string"
         },
         "schema": {
-          "description": "The type of the elements or values contained within the collection.",
+          "description": "The schema definition for the elements or values contained in this collection.",
           "type": "reference",
           "target": "PropertyType"
         }
@@ -93,7 +93,7 @@
       }
     },
     "MapDefinitionType": {
-      "description": "An object with a dynamic set of keys where every value conforms to the same schema.",
+      "description": "Represents a key-value map with dynamic key names where all values conform to the same schema.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -107,7 +107,7 @@
       }
     },
     "ArrayDefinitionType": {
-      "description": "An ordered list of values where every item conforms to the same schema.",
+      "description": "Represents an ordered list of elements where every item conforms to the same schema.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -121,24 +121,24 @@
       }
     },
     "PropertyType": {
-      "description": "The base abstract type for all property definitions within a struct or collection.",
+      "description": "The abstract base type for all property definitions within a struct or collection.",
       "type": "struct",
       "base": true,
       "properties": {
         "description": {
-          "description": "Documentation for the specific property.",
+          "description": "Documentation explaining the purpose and usage of this property.",
           "type": "string"
         },
         "type": {
-          "description": "The discriminator value used to identify the specific property subclass.",
+          "description": "The discriminator value used to identify the specific property type.",
           "type": "string"
         },
         "deprecated": {
-          "description": "Flags the property as obsolete.",
+          "description": "Indicates whether this property is deprecated and should no longer be used.",
           "type": "boolean"
         },
         "nullable": {
-          "description": "Indicates whether the value can be null.",
+          "description": "Indicates whether this property accepts a null value.",
           "type": "boolean"
         }
       },
@@ -156,7 +156,7 @@
       }
     },
     "ScalarPropertyType": {
-      "description": "Abstract base for simple value types like strings, numbers, and booleans.",
+      "description": "The abstract base type for simple scalar value properties (strings, integers, numbers, booleans).",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -178,7 +178,7 @@
       }
     },
     "StringPropertyType": {
-      "description": "Represents a sequence of characters, optionally following a specific format.",
+      "description": "Represents a sequence of characters, with optional formatting rules.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -190,17 +190,17 @@
           "default": "string"
         },
         "format": {
-          "description": "Provides specialized context for the string (e.g., 'date-time').",
+          "description": "Specifies a semantic format or hint for the string value (e.g., 'date-time', 'email', 'uri').",
           "type": "string"
         },
         "default": {
-          "description": "The value to be used if the property is not explicitly provided.",
+          "description": "The default string value to use if the property is omitted.",
           "type": "string"
         }
       }
     },
     "IntegerPropertyType": {
-      "description": "Represents a whole number.",
+      "description": "Represents a whole number without fractional components.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -214,7 +214,7 @@
       }
     },
     "NumberPropertyType": {
-      "description": "Represents a floating-point or decimal number.",
+      "description": "Represents a numeric value, including floating-point and decimal numbers.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -228,7 +228,7 @@
       }
     },
     "BooleanPropertyType": {
-      "description": "Represents a true or false value.",
+      "description": "Represents a boolean true or false value.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -242,7 +242,7 @@
       }
     },
     "CollectionPropertyType": {
-      "description": "Abstract base for properties that reference inline maps or arrays.",
+      "description": "The abstract base type for properties that define inline collections (maps or arrays).",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -255,7 +255,7 @@
           "type": "string"
         },
         "schema": {
-          "description": "The schema definition for the items contained in this property's collection.",
+          "description": "The schema definition for the items contained within this collection property.",
           "type": "reference",
           "target": "PropertyType"
         }
@@ -267,7 +267,7 @@
       }
     },
     "MapPropertyType": {
-      "description": "A property containing a map of dynamic keys to a consistent value type.",
+      "description": "Represents a property containing a key-value map where all values share the same schema.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -281,7 +281,7 @@
       }
     },
     "ArrayPropertyType": {
-      "description": "A property containing a list of items of a consistent type.",
+      "description": "Represents a property containing a list of items that share the same schema.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -295,7 +295,7 @@
       }
     },
     "AnyPropertyType": {
-      "description": "A wildcard property that accepts any valid JSON value (object, array, string, etc.).",
+      "description": "Represents a wildcard property that accepts any valid JSON value (object, array, string, number, boolean, or null).",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -309,7 +309,7 @@
       }
     },
     "GenericPropertyType": {
-      "description": "A placeholder for a type that will be specified at runtime or through template arguments.",
+      "description": "Represents a generic placeholder type that is resolved at runtime or via template arguments.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -321,13 +321,13 @@
           "default": "generic"
         },
         "name": {
-          "description": "The identifier for the generic (e.g., 'T'). This is matched against template keys in a Reference.",
+          "description": "The generic parameter name (e.g., 'T'), which is bound via the template map in a reference.",
           "type": "string"
         }
       }
     },
     "ReferencePropertyType": {
-      "description": "A reference to a defined type in the global 'definitions' map.",
+      "description": "Represents a reference to a type defined in the global definitions dictionary.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -339,11 +339,11 @@
           "default": "reference"
         },
         "target": {
-          "description": "The name of the definition this property points to.",
+          "description": "The key of the target definition in the definitions map.",
           "type": "string"
         },
         "template": {
-          "description": "Maps generic names in the target type to concrete definition names.",
+          "description": "Binds generic parameter names in the target definition to concrete definition names.",
           "type": "map",
           "schema": {
             "type": "string"
@@ -352,18 +352,18 @@
       }
     },
     "TypeSchema": {
-      "description": "The root object of a TypeSchema document containing imports, definitions, and the entry point.",
+      "description": "The root document object containing namespace imports, type definitions, and the root entry point.",
       "type": "struct",
       "properties": {
         "import": {
-          "description": "External TypeSchema documents to include, keyed by an alias namespace.",
+          "description": "Maps namespace aliases to external TypeSchema document locations.",
           "type": "map",
           "schema": {
             "type": "string"
           }
         },
         "definitions": {
-          "description": "A dictionary of all types available within this schema document.",
+          "description": "A dictionary mapping definition names to their respective schema definitions.",
           "type": "map",
           "schema": {
             "type": "reference",
@@ -371,7 +371,7 @@
           }
         },
         "root": {
-          "description": "The main entry-point definition for the schema.",
+          "description": "The name of the primary entry-point definition for this schema.",
           "type": "string"
         }
       }
