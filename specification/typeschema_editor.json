@@ -1,87 +1,5 @@
 {
   "definitions": {
-    "Operation": {
-      "description": "Represents an API operation inside the designer editor and agent model.",
-      "type": "struct",
-      "properties": {
-        "name": {
-          "description": "Unique identifier for the operation using dot-notation (e.g., 'product.getAll' or 'user.create').",
-          "type": "string"
-        },
-        "description": {
-          "description": "Plain text summary explaining the purpose and behavior of this operation.",
-          "type": "string"
-        },
-        "httpMethod": {
-          "description": "The HTTP method for this endpoint. Must be an uppercase verb: 'GET', 'POST', 'PUT', 'DELETE', 'PATCH', or 'HEAD'.",
-          "type": "string"
-        },
-        "httpPath": {
-          "description": "The relative URL path of the endpoint. Path variables must be prefixed with a colon (e.g., '/product/:id').",
-          "type": "string"
-        },
-        "httpCode": {
-          "description": "Default HTTP response status code for a successful request (e.g., '200', '201'). Defaults to '200' if omitted.",
-          "type": "string"
-        },
-        "arguments": {
-          "description": "Ordered list of non-body input parameters (path, query, header) provided to this operation.",
-          "type": "array",
-          "schema": {
-            "type": "reference",
-            "target": "Operation_Argument"
-          }
-        },
-        "payload": {
-          "description": "The type name used as the request body payload. Defines the request body for POST/PUT/PATCH requests. Omit or leave empty for operations that do not require a request body (e.g., GET requests).",
-          "type": "string"
-        },
-        "throws": {
-          "description": "List of non-success error responses that this operation can return.",
-          "type": "array",
-          "schema": {
-            "type": "reference",
-            "target": "Operation_Throw"
-          }
-        },
-        "return": {
-          "description": "The return type name or primitive type returned upon successful operation completion.",
-          "type": "string"
-        }
-      }
-    },
-    "Operation_Argument": {
-      "description": "Represents a non-body input parameter (path, query, or header) passed to an operation.",
-      "type": "struct",
-      "properties": {
-        "name": {
-          "description": "Name of the argument. If 'in' is 'path', this must match the variable fragment in the httpPath (e.g., 'id' for '/product/:id').",
-          "type": "string"
-        },
-        "in": {
-          "description": "Location of the argument in the HTTP request. Must be strictly one of: 'path', 'query', or 'header'. Do not use 'body' here, as request body payloads are defined using the operation 'payload' field.",
-          "type": "string"
-        },
-        "type": {
-          "description": "Data type or type reference of the argument (e.g., 'string', 'integer', 'boolean', or a custom type name).",
-          "type": "string"
-        }
-      }
-    },
-    "Operation_Throw": {
-      "description": "Represents an error response condition for an operation.",
-      "type": "struct",
-      "properties": {
-        "code": {
-          "description": "HTTP status code representing the error state (e.g., 400, 401, 404, 500).",
-          "type": "integer"
-        },
-        "type": {
-          "description": "Type name or model reference describing the error response body.",
-          "type": "string"
-        }
-      }
-    },
     "Type": {
       "description": "Represents a top-level struct data definition declared in the document.",
       "type": "struct",
@@ -150,14 +68,6 @@
       "description": "Root document structure representing the complete API specification state.",
       "type": "struct",
       "properties": {
-        "operations": {
-          "description": "Array of API operations defined in this specification.",
-          "type": "array",
-          "schema": {
-            "type": "reference",
-            "target": "Operation"
-          }
-        },
         "types": {
           "description": "Array of all top-level type definitions declared in this specification.",
           "type": "array",
