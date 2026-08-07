@@ -1,59 +1,165 @@
 {
   "definitions": {
-    "Property": {
+    "Operation": {
+      "description": "Represents an API operation inside the designer editor and agent model.",
       "type": "struct",
       "properties": {
         "name": {
+          "description": "Unique identifier for the operation using dot-notation (e.g., 'product.getAll' or 'user.create').",
           "type": "string"
         },
         "description": {
+          "description": "Plain text summary explaining the purpose and behavior of this operation.",
           "type": "string"
         },
-        "deprecated": {
-          "type": "boolean"
+        "httpMethod": {
+          "description": "The HTTP method for this endpoint. Must be an uppercase verb: 'GET', 'POST', 'PUT', 'DELETE', 'PATCH', or 'HEAD'.",
+          "type": "string"
         },
-        "nullable": {
-          "type": "boolean"
+        "httpPath": {
+          "description": "The relative URL path of the endpoint. Path variables must be prefixed with a colon (e.g., '/product/:id').",
+          "type": "string"
+        },
+        "httpCode": {
+          "description": "Default HTTP response status code for a successful request (e.g., '200', '201'). Defaults to '200' if omitted.",
+          "type": "string"
+        },
+        "arguments": {
+          "description": "Ordered list of non-body input parameters (path, query, header) provided to this operation.",
+          "type": "array",
+          "schema": {
+            "type": "reference",
+            "target": "Operation_Argument"
+          }
+        },
+        "payload": {
+          "description": "The type name used as the request body payload. Defines the request body for POST/PUT/PATCH requests. Omit or leave empty for operations that do not require a request body (e.g., GET requests).",
+          "type": "string"
+        },
+        "throws": {
+          "description": "List of non-success error responses that this operation can return.",
+          "type": "array",
+          "schema": {
+            "type": "reference",
+            "target": "Operation_Throw"
+          }
+        },
+        "return": {
+          "description": "The return type name or primitive type returned upon successful operation completion.",
+          "type": "string"
+        }
+      }
+    },
+    "Operation_Argument": {
+      "description": "Represents a non-body input parameter (path, query, or header) passed to an operation.",
+      "type": "struct",
+      "properties": {
+        "name": {
+          "description": "Name of the argument. If 'in' is 'path', this must match the variable fragment in the httpPath (e.g., 'id' for '/product/:id').",
+          "type": "string"
+        },
+        "in": {
+          "description": "Location of the argument in the HTTP request. Must be strictly one of: 'path', 'query', or 'header'. Do not use 'body' here, as request body payloads are defined using the operation 'payload' field.",
+          "type": "string"
         },
         "type": {
+          "description": "Data type or type reference of the argument (e.g., 'string', 'integer', 'boolean', or a custom type name).",
+          "type": "string"
+        }
+      }
+    },
+    "Operation_Throw": {
+      "description": "Represents an error response condition for an operation.",
+      "type": "struct",
+      "properties": {
+        "code": {
+          "description": "HTTP status code representing the error state (e.g., 400, 401, 404, 500).",
+          "type": "integer"
+        },
+        "type": {
+          "description": "Type name or model reference describing the error response body.",
           "type": "string"
         }
       }
     },
     "Type": {
+      "description": "Represents a top-level struct data definition declared in the document.",
       "type": "struct",
       "properties": {
         "name": {
+          "description": "Unique name of the type definition (e.g., 'User', 'Product', 'ErrorResponse').",
           "type": "string"
         },
         "type": {
+          "description": "Kind of top-level type structure. Must be strictly set to 'struct'.",
           "type": "string"
         },
         "description": {
+          "description": "Plain text documentation explaining the usage and purpose of this struct.",
           "type": "string"
         },
         "deprecated": {
+          "description": "Indicates whether this type is deprecated. Set to true to flag as deprecated; defaults to false.",
           "type": "boolean"
         },
         "parent": {
+          "description": "Target type name if this struct inherits properties from a parent struct type. Omit if there is no inheritance.",
           "type": "string"
         },
         "properties": {
+          "description": "List of property fields defined on this struct.",
           "type": "array",
           "schema": {
             "type": "reference",
-            "target": "Property"
+            "target": "Type_Property"
           }
+        }
+      }
+    },
+    "Type_Property": {
+      "description": "Represents an individual property field inside a top-level struct definition.",
+      "type": "struct",
+      "properties": {
+        "name": {
+          "description": "Field name for this property (e.g., 'firstName', 'created_at').",
+          "type": "string"
+        },
+        "description": {
+          "description": "Plain text description of the property field.",
+          "type": "string"
+        },
+        "deprecated": {
+          "description": "Indicates whether this field is deprecated. Defaults to false if omitted.",
+          "type": "boolean"
+        },
+        "nullable": {
+          "description": "Indicates whether this property value can be null. Defaults to false if omitted.",
+          "type": "boolean"
+        },
+        "type": {
+          "description": "Data type of this property. Must be strictly one of: 'string', 'integer', 'number', 'boolean', 'object', 'map', 'array', or 'any'. When set to 'object', 'map', or 'array', the 'reference' property must also be set.",
+          "type": "string"
         },
         "reference": {
+          "description": "Target type name referenced by this property. Required when 'type' is set to 'object' (referenced struct), 'map' (value type), or 'array' (element type). Omit for primitive types.",
           "type": "string"
         }
       }
     },
     "Document": {
+      "description": "Root document structure representing the complete API specification state.",
       "type": "struct",
       "properties": {
+        "operations": {
+          "description": "Array of API operations defined in this specification.",
+          "type": "array",
+          "schema": {
+            "type": "reference",
+            "target": "Operation"
+          }
+        },
         "types": {
+          "description": "Array of all top-level type definitions declared in this specification.",
           "type": "array",
           "schema": {
             "type": "reference",
@@ -61,6 +167,7 @@
           }
         },
         "root": {
+          "description": "Zero-based index referencing the primary entry point type within the 'types' array.",
           "type": "integer"
         }
       }
