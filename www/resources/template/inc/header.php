@@ -34,9 +34,6 @@
   <a class="navbar-brand" href="<?php echo $url; ?>">TypeSchema</a>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Index::class, 'show']); ?>">Home</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>">Specification</a>
     </li>
     <li class="nav-item">
