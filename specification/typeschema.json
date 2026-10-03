@@ -210,6 +210,10 @@
         "type": {
           "type": "string",
           "default": "integer"
+        },
+        "default": {
+          "description": "The default integer value to use if the property is omitted.",
+          "type": "integer"
         }
       }
     },
@@ -224,6 +228,10 @@
         "type": {
           "type": "string",
           "default": "number"
+        },
+        "default": {
+          "description": "The default number value to use if the property is omitted.",
+          "type": "number"
         }
       }
     },
@@ -238,6 +246,10 @@
         "type": {
           "type": "string",
           "default": "boolean"
+        },
+        "default": {
+          "description": "The default boolean value to use if the property is omitted.",
+          "type": "boolean"
         }
       }
     },
